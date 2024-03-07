@@ -7,9 +7,10 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class SearchViewController: BaseViewController {
-    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectionView())
+    let searchTableView = UITableView()
     
     let viewModel = SearchViewModel()
 
@@ -20,24 +21,24 @@ class SearchViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputUpdateSearchResults.bind { success in
-            self.searchCollectionView.reloadData()
+        viewModel.outputSupplement.bind { _ in
+            self.searchTableView.reloadData()
         }
     }
     
     override func configureHierarchy() {
-        view.addSubview(searchCollectionView)
+        view.addSubview(searchTableView)
     }
     
     override func configureView() {
-        searchCollectionView.backgroundColor = .systemGray
-        searchCollectionView.delegate = self
-        searchCollectionView.dataSource = self
-        searchCollectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        searchTableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
+        searchTableView.rowHeight = UITableView.automaticDimension
     }
     
     override func configureConstraints() {
-        searchCollectionView.snp.makeConstraints { make in
+        searchTableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -55,28 +56,17 @@ class SearchViewController: BaseViewController {
     }
 }
 
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    private func configureUICollectionView() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 16
-        let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
-        layout.itemSize = CGSize(width: cellWidth / 2, height: cellWidth / 2)
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        return layout
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.outputSupplement.value.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.outputUpdateSearchResults.value.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as! SearchResultCollectionViewCell
-        let item = indexPath.item
-        let data = viewModel.outputUpdateSearchResults.value[item]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
+        let row = indexPath.row
+        let data = viewModel.outputSupplement.value[row]
+        cell.resultNameLabel.text = Helpers.shared.removeSubstring(originalString: data.prdlstNm)
         cell.resultBrandLabel.text = data.bsshNm
-        cell.resultNameLabel.text = data.prdlstNm
         return cell
     }
 }
@@ -87,6 +77,6 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.outputUpdateSearchResults.value.removeAll()
+        viewModel.outputSupplement.value.removeAll()
     }
 }

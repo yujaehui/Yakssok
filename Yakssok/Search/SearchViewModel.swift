@@ -12,18 +12,19 @@ class SearchViewModel {
     let inputUpdateSearchResults: Observable<String?> = Observable(nil)
     
     // output
-    var outputUpdateSearchResults: Observable<[Row]> = Observable([])
+    var outputSupplement: Observable<[Row]> = Observable([])
     
     init() {
         inputUpdateSearchResults.bind { value in
             guard let value = value else { return }
-            self.callRequest(value)
+            let product = Helpers.shared.replaceSpacesWithUnderscore(value)
+            self.callRequest(product)
         }
     }
     
     private func callRequest(_ product: String) {
         APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: "1", endIdx: "1000", PRDLST_NM: product)) { success in
-            self.outputUpdateSearchResults.value = success
+            self.outputSupplement.value = success
         }
     }
 }

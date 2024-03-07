@@ -27,6 +27,13 @@ struct I0030: Codable {
         case row
         case result = "RESULT"
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.totalCount = try container.decode(String.self, forKey: .totalCount)
+        self.row = try container.decodeIfPresent([Row].self, forKey: .row) ?? []
+        self.result = try container.decode(Result.self, forKey: .result)
+    }
 }
 
 // MARK: - Row
