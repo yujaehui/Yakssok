@@ -32,6 +32,9 @@
 		09833C092B99B28D0081E37E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C082B99B28D0081E37E /* APIKey.swift */; };
 		09833C0B2B99B2F40081E37E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C0A2B99B2F40081E37E /* APIService.swift */; };
 		09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C0C2B99B3BC0081E37E /* Supplement.swift */; };
+		09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C0E2B99BD020081E37E /* SupplementAPI.swift */; };
+		09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C102B99C2740081E37E /* SearchViewModel.swift */; };
+		09833C132B99C3080081E37E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C122B99C3080081E37E /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		09833C082B99B28D0081E37E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		09833C0A2B99B2F40081E37E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		09833C0C2B99B3BC0081E37E /* Supplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplement.swift; sourceTree = "<group>"; };
+		09833C0E2B99BD020081E37E /* SupplementAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementAPI.swift; sourceTree = "<group>"; };
+		09833C102B99C2740081E37E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		09833C122B99C3080081E37E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 				09833BBC2B9983AE0081E37E /* Assets.xcassets */,
 				09833BBE2B9983AE0081E37E /* LaunchScreen.storyboard */,
 				09833BC12B9983AE0081E37E /* Info.plist */,
+				09833C122B99C3080081E37E /* Observable.swift */,
 			);
 			path = Yakssok;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 		09833BFE2B99A49F0081E37E /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				09833C102B99C2740081E37E /* SearchViewModel.swift */,
 				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
 				09833C012B99A5780081E37E /* SearchResultCollectionViewCell.swift */,
 			);
@@ -143,6 +151,7 @@
 			children = (
 				09833C082B99B28D0081E37E /* APIKey.swift */,
 				09833C0A2B99B2F40081E37E /* APIService.swift */,
+				09833C0E2B99BD020081E37E /* SupplementAPI.swift */,
 				09833C0C2B99B3BC0081E37E /* Supplement.swift */,
 			);
 			path = Network;
@@ -239,13 +248,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09833C132B99C3080081E37E /* Observable.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
+				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
+				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09833C022B99A5780081E37E /* SearchResultCollectionViewCell.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,

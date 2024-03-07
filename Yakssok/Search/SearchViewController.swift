@@ -11,6 +11,8 @@ import SnapKit
 class SearchViewController: BaseViewController {
     lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectionView())
     
+    let viewModel = SearchViewModel()
+    
     private func configureUICollectionView() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 16
@@ -24,8 +26,13 @@ class SearchViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIService.shared.fetchSupplementAPI { success in
-            dump(success) // 통신 확인
+        setNav()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputUpdateSearchResults.bind { success in
+            self.searchCollectionView.reloadData()
         }
     }
     
@@ -45,15 +52,37 @@ class SearchViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    func setNav() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.title = "Search"
+        navigationItem.backButtonTitle = ""
+    }
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.outputUpdateSearchResults.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as! SearchResultCollectionViewCell
+        let item = indexPath.item
+        let data = viewModel.outputUpdateSearchResults.value[item]
+        cell.resultBrandLabel.text = data.bsshNm
+        cell.resultNameLabel.text = data.prdlstNm
         return cell
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.inputUpdateSearchResults.value = (searchController.searchBar.text)
     }
 }

@@ -12,9 +12,8 @@ class APIService {
     static let shared = APIService()
     private init() {}
     
-    func fetchSupplementAPI(completionHandler: @escaping ([Row]) -> Void) {
-        let url = "http://openapi.foodsafetykorea.go.kr/api/\(APIKey.keyId)/I0030/json/1/1000"
-        AF.request(url).responseDecodable(of: Supplement.self) { response in
+    func fetchSupplementAPI(api: SupplementAPI, completionHandler: @escaping ([Row]) -> Void) {
+        AF.request(api.endpoint).responseDecodable(of: Supplement.self) { response in
             switch response.result {
             case .success(let success):
                 completionHandler(success.i0030.row)

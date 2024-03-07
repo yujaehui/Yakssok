@@ -20,6 +20,7 @@ class SearchResultCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
+        layer.cornerRadius = 12
         resultProductImageView.image = UIImage(systemName: "pill.circle.fill")
         resultBrandLabel.text = "brand"
         resultNameLabel.text = "name"
