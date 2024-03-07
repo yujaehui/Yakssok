@@ -12,17 +12,6 @@ class SearchViewController: BaseViewController {
     lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectionView())
     
     let viewModel = SearchViewModel()
-    
-    private func configureUICollectionView() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 16
-        let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
-        layout.itemSize = CGSize(width: cellWidth / 2, height: cellWidth / 2)
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        return layout
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +56,17 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    private func configureUICollectionView() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 16
+        let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
+        layout.itemSize = CGSize(width: cellWidth / 2, height: cellWidth / 2)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        return layout
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.outputUpdateSearchResults.value.count
     }
@@ -84,5 +84,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         viewModel.inputUpdateSearchResults.value = (searchController.searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.outputUpdateSearchResults.value.removeAll()
     }
 }
