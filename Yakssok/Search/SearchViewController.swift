@@ -24,7 +24,6 @@ class SearchViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func configureHierarchy() {
@@ -35,7 +34,7 @@ class SearchViewController: BaseViewController {
         searchCollectionView.backgroundColor = .systemGray
         searchCollectionView.delegate = self
         searchCollectionView.dataSource = self
-        searchCollectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        searchCollectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
     }
     
     override func configureConstraints() {
@@ -51,7 +50,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SearchResultCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as! SearchResultCollectionViewCell
         return cell
     }
 }
