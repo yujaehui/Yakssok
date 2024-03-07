@@ -29,6 +29,9 @@
 		09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BFF2B99A4A80081E37E /* SearchViewController.swift */; };
 		09833C022B99A5780081E37E /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C012B99A5780081E37E /* SearchResultCollectionViewCell.swift */; };
 		09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C052B99AAA80081E37E /* UIView+Extension.swift */; };
+		09833C092B99B28D0081E37E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C082B99B28D0081E37E /* APIKey.swift */; };
+		09833C0B2B99B2F40081E37E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C0A2B99B2F40081E37E /* APIService.swift */; };
+		09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C0C2B99B3BC0081E37E /* Supplement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		09833BFF2B99A4A80081E37E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		09833C012B99A5780081E37E /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		09833C052B99AAA80081E37E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		09833C082B99B28D0081E37E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		09833C0A2B99B2F40081E37E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		09833C0C2B99B3BC0081E37E /* Supplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				09833C072B99B2830081E37E /* Network */,
 				09833C042B99AA990081E37E /* Extension */,
 				09833BFE2B99A49F0081E37E /* Search */,
 				09833BF22B99A2940081E37E /* Base */,
@@ -129,6 +136,16 @@
 				09833C052B99AAA80081E37E /* UIView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		09833C072B99B2830081E37E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				09833C082B99B28D0081E37E /* APIKey.swift */,
+				09833C0A2B99B2F40081E37E /* APIService.swift */,
+				09833C0C2B99B3BC0081E37E /* Supplement.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,10 +245,13 @@
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
+				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09833C022B99A5780081E37E /* SearchResultCollectionViewCell.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
+				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
+				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

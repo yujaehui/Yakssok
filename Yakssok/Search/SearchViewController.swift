@@ -24,6 +24,9 @@ class SearchViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        APIService.shared.fetchSupplementAPI { success in
+            dump(success) // 통신 확인
+        }
     }
     
     override func configureHierarchy() {
