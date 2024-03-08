@@ -36,6 +36,9 @@
 		09833C132B99C3080081E37E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C122B99C3080081E37E /* Observable.swift */; };
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
+		09C156BE2B9AF1850008F86E /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */; };
+		09C156C02B9AF4450008F86E /* SearchDetailMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */; };
+		09C156C32B9AFC280008F86E /* AlaramSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		09833C122B99C3080081E37E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		09911F652B9A0D190093009D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailMainTableViewCell.swift; sourceTree = "<group>"; };
+		09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlaramSettingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				09C156C12B9AFBFF0008F86E /* Add */,
 				09833C072B99B2830081E37E /* Network */,
 				09833C042B99AA990081E37E /* Extension */,
 				09833BFE2B99A49F0081E37E /* Search */,
@@ -137,6 +144,8 @@
 				09833C102B99C2740081E37E /* SearchViewModel.swift */,
 				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
 				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
+				09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */,
+				09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -158,6 +167,14 @@
 				09833C0C2B99B3BC0081E37E /* Supplement.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		09C156C12B9AFBFF0008F86E /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,7 +283,10 @@
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
+				09C156C02B9AF4450008F86E /* SearchDetailMainTableViewCell.swift in Sources */,
+				09C156C32B9AFC280008F86E /* AlaramSettingTableViewCell.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
+				09C156BE2B9AF1850008F86E /* SearchDetailViewController.swift in Sources */,
 				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

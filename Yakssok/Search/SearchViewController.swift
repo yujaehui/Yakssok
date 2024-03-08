@@ -69,6 +69,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureCell(data, searchText: searchText)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#function)
+        let vc  = SearchDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
