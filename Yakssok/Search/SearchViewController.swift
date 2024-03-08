@@ -65,8 +65,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
         let row = indexPath.row
         let data = viewModel.outputSupplement.value[row]
-        cell.resultNameLabel.text = Helpers.shared.removeSubstring(originalString: data.prdlstNm)
-        cell.resultBrandLabel.text = data.bsshNm
+        let searchText = viewModel.inputUpdateSearchResults.value ?? ""
+        cell.configureCell(data, searchText: searchText)
         return cell
     }
 }

@@ -15,15 +15,13 @@ class Helpers {
         return text.replacingOccurrences(of: " ", with: "_")
     }
     
-    func removeSubstring(originalString: String) -> String {
-        let modifiedString = originalString.replacingOccurrences(of: "(전량수출용)", with: "")
-        return modifiedString
-    }
     
-    func textColorChange(_ text: String, changeText: String) -> NSMutableAttributedString {
-        let attributedText = NSMutableAttributedString(string: text)
+    func changeSearchResultText(_ text: String, changeText: String) -> NSMutableAttributedString {
+        let modifiedText = text.replacingOccurrences(of: "(전량수출용)", with: "")
+        let attributedText = NSMutableAttributedString(string: modifiedText)
         let range = (text as NSString).range(of: changeText, options: .caseInsensitive)
         attributedText.addAttribute(.foregroundColor, value: UIColor.systemRed, range: range)
         return attributedText
+        
     }
 }

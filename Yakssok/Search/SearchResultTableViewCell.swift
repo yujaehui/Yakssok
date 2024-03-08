@@ -30,4 +30,9 @@ class SearchResultTableViewCell: BaseTableViewCell {
             make.bottom.lessThanOrEqualTo(contentView).inset(8) //⭐️
         }
     }
+    
+    func configureCell(_ data: Row, searchText: String) {
+        resultNameLabel.attributedText = Helpers.shared.changeSearchResultText(data.prdlstNm, changeText: searchText)
+        resultBrandLabel.text = data.bsshNm
+    }
 }
