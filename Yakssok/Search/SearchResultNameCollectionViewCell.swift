@@ -1,37 +1,36 @@
 //
-//  DateCollectionViewCell.swift
+//  SearchResultNameCollectionViewCell.swift
 //  Yakssok
 //
-//  Created by Jaehui Yu on 3/8/24.
+//  Created by Jaehui Yu on 3/9/24.
 //
 
 import UIKit
-import SnapKit
 
-class DateCollectionViewCell: BaseCollectionViewCell {
-    let dateView = UIView()
+class SearchResultNameCollectionViewCell: BaseCollectionViewCell {
+    let nameView = UIView()
     let resultLabel = UILabel()
     
     override func configureHierarchy() {
-        contentView.addSubview(dateView)
-        dateView.addSubview(resultLabel)
+        contentView.addSubview(nameView)
+        nameView.addSubview(resultLabel)
     }
     
     override func configureView() {
-        dateView.backgroundColor = .lightGray
-        dateView.layer.cornerRadius = 12
+        nameView.backgroundColor = .lightGray
+        nameView.layer.cornerRadius = 12
         resultLabel.text = "result"
         resultLabel.textAlignment = .center
     }
     
     override func configureConstraints() {
-        dateView.snp.makeConstraints { make in
+        nameView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(contentView).inset(8)
             make.horizontalEdges.equalTo(contentView).inset(16)
         }
         
         resultLabel.snp.makeConstraints { make in
-            make.center.equalTo(dateView)
+            make.center.equalTo(nameView)
         }
     }
 }

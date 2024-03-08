@@ -1,13 +1,13 @@
 //
-//  CycleSection.swift
+//  NameSection.swift
 //  Yakssok
 //
-//  Created by Jaehui Yu on 3/8/24.
+//  Created by Jaehui Yu on 3/9/24.
 //
 
 import UIKit
 
-struct CycleSection: Section {
+struct NameSection: Section {
     func layoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
