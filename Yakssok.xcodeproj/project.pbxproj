@@ -36,9 +36,18 @@
 		09833C132B99C3080081E37E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C122B99C3080081E37E /* Observable.swift */; };
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
-		09C156BE2B9AF1850008F86E /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */; };
-		09C156C02B9AF4450008F86E /* SearchDetailMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */; };
-		09C156C32B9AFC280008F86E /* AlaramSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */; };
+		09C156C02B9AF4450008F86E /* DescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156BF2B9AF4450008F86E /* DescriptionCollectionViewCell.swift */; };
+		09C156C62B9B03A40008F86E /* TagListView in Frameworks */ = {isa = PBXBuildFile; productRef = 09C156C52B9B03A40008F86E /* TagListView */; };
+		09C156CC2B9B388A0008F86E /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CB2B9B388A0008F86E /* Section.swift */; };
+		09C156CE2B9B3B680008F86E /* TimeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CD2B9B3B680008F86E /* TimeSection.swift */; };
+		09C156D02B9B3E380008F86E /* SearchResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */; };
+		09C156D22B9B3F0C0008F86E /* DescriptionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D12B9B3F0C0008F86E /* DescriptionSection.swift */; };
+		09C156D42B9B3FAA0008F86E /* StartDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D32B9B3FAA0008F86E /* StartDaySection.swift */; };
+		09C156D62B9B3FC80008F86E /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */; };
+		09C156D82B9B3FE60008F86E /* CycleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D72B9B3FE60008F86E /* CycleSection.swift */; };
+		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
+		09C156E22B9B4F0F0008F86E /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */; };
+		09C156E42B9B51270008F86E /* TimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,9 +74,17 @@
 		09833C122B99C3080081E37E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		09911F652B9A0D190093009D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
-		09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailMainTableViewCell.swift; sourceTree = "<group>"; };
-		09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlaramSettingTableViewCell.swift; sourceTree = "<group>"; };
+		09C156BF2B9AF4450008F86E /* DescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		09C156CB2B9B388A0008F86E /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		09C156CD2B9B3B680008F86E /* TimeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSection.swift; sourceTree = "<group>"; };
+		09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewController.swift; sourceTree = "<group>"; };
+		09C156D12B9B3F0C0008F86E /* DescriptionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionSection.swift; sourceTree = "<group>"; };
+		09C156D32B9B3FAA0008F86E /* StartDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySection.swift; sourceTree = "<group>"; };
+		09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		09C156D72B9B3FE60008F86E /* CycleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSection.swift; sourceTree = "<group>"; };
+		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
+		09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
+		09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +100,7 @@
 				09833BEA2B99A0A90081E37E /* FSCalendar in Frameworks */,
 				09833BD62B99A0390081E37E /* DGCharts in Frameworks */,
 				09833BD92B99A0420081E37E /* SnapKit in Frameworks */,
+				09C156C62B9B03A40008F86E /* TagListView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +152,7 @@
 				09833BF32B99A29B0081E37E /* BaseViewController.swift */,
 				09833BF72B99A31D0081E37E /* BaseTableViewCell.swift */,
 				09833BF52B99A2E70081E37E /* BaseCollectionViewCell.swift */,
+				09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -144,8 +163,9 @@
 				09833C102B99C2740081E37E /* SearchViewModel.swift */,
 				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
 				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
-				09C156BD2B9AF1850008F86E /* SearchDetailViewController.swift */,
-				09C156BF2B9AF4450008F86E /* SearchDetailMainTableViewCell.swift */,
+				09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */,
+				09C156BF2B9AF4450008F86E /* DescriptionCollectionViewCell.swift */,
+				09C156D12B9B3F0C0008F86E /* DescriptionSection.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -172,9 +192,39 @@
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
-				09C156C22B9AFC280008F86E /* AlaramSettingTableViewCell.swift */,
+				09C156E62B9B51780008F86E /* Cell */,
+				09C156E72B9B51810008F86E /* Header */,
+				09C156E52B9B51670008F86E /* Section */,
 			);
 			path = Add;
+			sourceTree = "<group>";
+		};
+		09C156E52B9B51670008F86E /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				09C156CB2B9B388A0008F86E /* Section.swift */,
+				09C156D32B9B3FAA0008F86E /* StartDaySection.swift */,
+				09C156D72B9B3FE60008F86E /* CycleSection.swift */,
+				09C156CD2B9B3B680008F86E /* TimeSection.swift */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
+		09C156E62B9B51780008F86E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */,
+				09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		09C156E72B9B51810008F86E /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +252,7 @@
 				09833BE42B99A09D0081E37E /* Realm */,
 				09833BE62B99A09D0081E37E /* RealmSwift */,
 				09833BE92B99A0A90081E37E /* FSCalendar */,
+				09C156C52B9B03A40008F86E /* TagListView */,
 			);
 			productName = Yakssok;
 			productReference = 09833BB02B9983AC0081E37E /* Yakssok.app */;
@@ -239,6 +290,7 @@
 				09833BE02B99A05D0081E37E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				09833BE32B99A09D0081E37E /* XCRemoteSwiftPackageReference "realm-swift" */,
 				09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */,
 			);
 			productRefGroup = 09833BB12B9983AC0081E37E /* Products */;
 			projectDirPath = "";
@@ -268,9 +320,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C156CE2B9B3B680008F86E /* TimeSection.swift in Sources */,
 				09833C132B99C3080081E37E /* Observable.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
+				09C156D02B9B3E380008F86E /* SearchResultDetailViewController.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
@@ -281,12 +335,18 @@
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
+				09C156CC2B9B388A0008F86E /* Section.swift in Sources */,
+				09C156D82B9B3FE60008F86E /* CycleSection.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
+				09C156E42B9B51270008F86E /* TimeCollectionViewCell.swift in Sources */,
+				09C156E22B9B4F0F0008F86E /* TitleCollectionReusableView.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
-				09C156C02B9AF4450008F86E /* SearchDetailMainTableViewCell.swift in Sources */,
-				09C156C32B9AFC280008F86E /* AlaramSettingTableViewCell.swift in Sources */,
+				09C156D62B9B3FC80008F86E /* DateCollectionViewCell.swift in Sources */,
+				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
+				09C156D22B9B3F0C0008F86E /* DescriptionSection.swift in Sources */,
+				09C156C02B9AF4450008F86E /* DescriptionCollectionViewCell.swift in Sources */,
+				09C156D42B9B3FAA0008F86E /* StartDaySection.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
-				09C156BE2B9AF1850008F86E /* SearchDetailViewController.swift in Sources */,
 				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +634,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ElaWorkshop/TagListView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -616,6 +684,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		09C156C52B9B03A40008F86E /* TagListView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */;
+			productName = TagListView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
