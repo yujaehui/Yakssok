@@ -37,21 +37,14 @@
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
 		09C156C62B9B03A40008F86E /* TagListView in Frameworks */ = {isa = PBXBuildFile; productRef = 09C156C52B9B03A40008F86E /* TagListView */; };
-		09C156CC2B9B388A0008F86E /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CB2B9B388A0008F86E /* Section.swift */; };
-		09C156CE2B9B3B680008F86E /* TimeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CD2B9B3B680008F86E /* TimeSection.swift */; };
-		09C156D02B9B3E380008F86E /* SearchResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */; };
-		09C156D42B9B3FAA0008F86E /* StartDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D32B9B3FAA0008F86E /* StartDaySection.swift */; };
-		09C156D62B9B3FC80008F86E /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */; };
-		09C156D82B9B3FE60008F86E /* CycleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156D72B9B3FE60008F86E /* CycleSection.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
-		09C156E22B9B4F0F0008F86E /* TitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */; };
-		09C156E42B9B51270008F86E /* TimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */; };
-		09C156E92B9B74C00008F86E /* ButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156E82B9B74C00008F86E /* ButtonSection.swift */; };
-		09C156EB2B9B75380008F86E /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156EA2B9B75380008F86E /* ButtonCollectionViewCell.swift */; };
-		09C156ED2B9B795A0008F86E /* AmountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156EC2B9B795A0008F86E /* AmountSection.swift */; };
-		09C156EF2B9B79870008F86E /* AmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156EE2B9B79870008F86E /* AmountCollectionViewCell.swift */; };
-		09C156F12B9B83330008F86E /* SearchResultNameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F02B9B83330008F86E /* SearchResultNameCollectionViewCell.swift */; };
-		09C156F32B9B83FF0008F86E /* NameSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F22B9B83FF0008F86E /* NameSection.swift */; };
+		09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* SearchDetailViewController.swift */; };
+		09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */; };
+		09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */; };
+		09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */; };
+		09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */; };
+		09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */; };
+		09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157022B9C584A0008F86E /* DateFormatterManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,21 +71,14 @@
 		09833C122B99C3080081E37E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		09911F652B9A0D190093009D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		09C156CB2B9B388A0008F86E /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		09C156CD2B9B3B680008F86E /* TimeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSection.swift; sourceTree = "<group>"; };
-		09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewController.swift; sourceTree = "<group>"; };
-		09C156D32B9B3FAA0008F86E /* StartDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySection.swift; sourceTree = "<group>"; };
-		09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
-		09C156D72B9B3FE60008F86E /* CycleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSection.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
-		09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionReusableView.swift; sourceTree = "<group>"; };
-		09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCollectionViewCell.swift; sourceTree = "<group>"; };
-		09C156E82B9B74C00008F86E /* ButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSection.swift; sourceTree = "<group>"; };
-		09C156EA2B9B75380008F86E /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
-		09C156EC2B9B795A0008F86E /* AmountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountSection.swift; sourceTree = "<group>"; };
-		09C156EE2B9B79870008F86E /* AmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountCollectionViewCell.swift; sourceTree = "<group>"; };
-		09C156F02B9B83330008F86E /* SearchResultNameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultNameCollectionViewCell.swift; sourceTree = "<group>"; };
-		09C156F22B9B83FF0008F86E /* NameSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSection.swift; sourceTree = "<group>"; };
+		09C156F42B9B93790008F86E /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
+		09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewController.swift; sourceTree = "<group>"; };
+		09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingTableViewCell.swift; sourceTree = "<group>"; };
+		09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
+		09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewModel.swift; sourceTree = "<group>"; };
+		09C157022B9C584A0008F86E /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +135,7 @@
 				09833BC12B9983AE0081E37E /* Info.plist */,
 				09833C122B99C3080081E37E /* Observable.swift */,
 				09911F652B9A0D190093009D /* Helpers.swift */,
+				09C157022B9C584A0008F86E /* DateFormatterManager.swift */,
 			);
 			path = Yakssok;
 			sourceTree = "<group>";
@@ -171,8 +158,12 @@
 				09833C102B99C2740081E37E /* SearchViewModel.swift */,
 				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
 				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
-				09C156CF2B9B3E380008F86E /* SearchResultDetailViewController.swift */,
-				09C156F02B9B83330008F86E /* SearchResultNameCollectionViewCell.swift */,
+				09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */,
+				09C156F42B9B93790008F86E /* SearchDetailViewController.swift */,
+				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
+				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
+				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
+				09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -199,44 +190,8 @@
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
-				09C156E62B9B51780008F86E /* Cell */,
-				09C156E72B9B51810008F86E /* Header */,
-				09C156E52B9B51670008F86E /* Section */,
 			);
 			path = Add;
-			sourceTree = "<group>";
-		};
-		09C156E52B9B51670008F86E /* Section */ = {
-			isa = PBXGroup;
-			children = (
-				09C156CB2B9B388A0008F86E /* Section.swift */,
-				09C156F22B9B83FF0008F86E /* NameSection.swift */,
-				09C156EC2B9B795A0008F86E /* AmountSection.swift */,
-				09C156D32B9B3FAA0008F86E /* StartDaySection.swift */,
-				09C156D72B9B3FE60008F86E /* CycleSection.swift */,
-				09C156CD2B9B3B680008F86E /* TimeSection.swift */,
-				09C156E82B9B74C00008F86E /* ButtonSection.swift */,
-			);
-			path = Section;
-			sourceTree = "<group>";
-		};
-		09C156E62B9B51780008F86E /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				09C156EE2B9B79870008F86E /* AmountCollectionViewCell.swift */,
-				09C156D52B9B3FC80008F86E /* DateCollectionViewCell.swift */,
-				09C156E32B9B51270008F86E /* TimeCollectionViewCell.swift */,
-				09C156EA2B9B75380008F86E /* ButtonCollectionViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		09C156E72B9B51810008F86E /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				09C156E12B9B4F0F0008F86E /* TitleCollectionReusableView.swift */,
-			);
-			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,37 +287,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09C156CE2B9B3B680008F86E /* TimeSection.swift in Sources */,
 				09833C132B99C3080081E37E /* Observable.swift in Sources */,
-				09C156F32B9B83FF0008F86E /* NameSection.swift in Sources */,
+				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
-				09C156D02B9B3E380008F86E /* SearchResultDetailViewController.swift in Sources */,
+				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
+				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
+				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
-				09C156E92B9B74C00008F86E /* ButtonSection.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
+				09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
+				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
-				09C156CC2B9B388A0008F86E /* Section.swift in Sources */,
-				09C156ED2B9B795A0008F86E /* AmountSection.swift in Sources */,
-				09C156D82B9B3FE60008F86E /* CycleSection.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
-				09C156EF2B9B79870008F86E /* AmountCollectionViewCell.swift in Sources */,
-				09C156E42B9B51270008F86E /* TimeCollectionViewCell.swift in Sources */,
-				09C156E22B9B4F0F0008F86E /* TitleCollectionReusableView.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
-				09C156D62B9B3FC80008F86E /* DateCollectionViewCell.swift in Sources */,
+				09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
-				09C156F12B9B83330008F86E /* SearchResultNameCollectionViewCell.swift in Sources */,
-				09C156D42B9B3FAA0008F86E /* StartDaySection.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
-				09C156EB2B9B75380008F86E /* ButtonCollectionViewCell.swift in Sources */,
 				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -48,9 +48,6 @@ class SearchViewController: BaseViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Search"
         navigationItem.backButtonTitle = ""
     }
@@ -71,7 +68,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+        let vc = SearchDetailViewController()
+        vc.viewModel.inputSupplement.value = viewModel.outputSupplement.value[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

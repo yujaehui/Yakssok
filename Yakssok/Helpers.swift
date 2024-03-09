@@ -15,7 +15,6 @@ class Helpers {
         return text.replacingOccurrences(of: " ", with: "_")
     }
     
-    
     func changeSearchResultText(_ text: String, changeText: String) -> NSMutableAttributedString {
         let modifiedText = text.replacingOccurrences(of: "(전량수출용)", with: "")
         let attributedText = NSMutableAttributedString(string: modifiedText)
