@@ -36,7 +36,6 @@
 		09833C132B99C3080081E37E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833C122B99C3080081E37E /* Observable.swift */; };
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
-		09C156C62B9B03A40008F86E /* TagListView in Frameworks */ = {isa = PBXBuildFile; productRef = 09C156C52B9B03A40008F86E /* TagListView */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* SearchDetailViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */; };
@@ -46,6 +45,10 @@
 		09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */; };
 		09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157022B9C584A0008F86E /* DateFormatterManager.swift */; };
 		09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */; };
+		09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */; };
+		09C1570A2B9C87510008F86E /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 09C157092B9C87510008F86E /* Tabman */; };
+		09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */; };
+		09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +84,9 @@
 		09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewModel.swift; sourceTree = "<group>"; };
 		09C157022B9C584A0008F86E /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySettingViewController.swift; sourceTree = "<group>"; };
+		09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewController.swift; sourceTree = "<group>"; };
+		09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewController.swift; sourceTree = "<group>"; };
+		09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyIntervalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,10 +99,10 @@
 				09833BE72B99A09D0081E37E /* RealmSwift in Frameworks */,
 				09833BDF2B99A0520081E37E /* Toast in Frameworks */,
 				09833BDC2B99A04A0081E37E /* Kingfisher in Frameworks */,
+				09C1570A2B9C87510008F86E /* Tabman in Frameworks */,
 				09833BEA2B99A0A90081E37E /* FSCalendar in Frameworks */,
 				09833BD62B99A0390081E37E /* DGCharts in Frameworks */,
 				09833BD92B99A0420081E37E /* SnapKit in Frameworks */,
-				09C156C62B9B03A40008F86E /* TagListView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +169,9 @@
 				09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */,
 				09C156F42B9B93790008F86E /* SearchDetailViewController.swift */,
 				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
+				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
+				09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */,
+				09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */,
 				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
 				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
 				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
@@ -222,7 +231,7 @@
 				09833BE42B99A09D0081E37E /* Realm */,
 				09833BE62B99A09D0081E37E /* RealmSwift */,
 				09833BE92B99A0A90081E37E /* FSCalendar */,
-				09C156C52B9B03A40008F86E /* TagListView */,
+				09C157092B9C87510008F86E /* Tabman */,
 			);
 			productName = Yakssok;
 			productReference = 09833BB02B9983AC0081E37E /* Yakssok.app */;
@@ -260,7 +269,7 @@
 				09833BE02B99A05D0081E37E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				09833BE32B99A09D0081E37E /* XCRemoteSwiftPackageReference "realm-swift" */,
 				09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */,
+				09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */,
 			);
 			productRefGroup = 09833BB12B9983AC0081E37E /* Products */;
 			projectDirPath = "";
@@ -303,7 +312,9 @@
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
+				09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
+				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
@@ -313,6 +324,7 @@
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
 				09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */,
+				09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
 				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,
@@ -602,12 +614,12 @@
 				minimumVersion = 2.8.4;
 			};
 		};
-		09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */ = {
+		09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ElaWorkshop/TagListView.git";
+			repositoryURL = "https://github.com/uias/Tabman.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.1;
+				minimumVersion = 3.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -653,10 +665,10 @@
 			package = 09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
-		09C156C52B9B03A40008F86E /* TagListView */ = {
+		09C157092B9C87510008F86E /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 09C156C42B9B03A40008F86E /* XCRemoteSwiftPackageReference "TagListView" */;
-			productName = TagListView;
+			package = 09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

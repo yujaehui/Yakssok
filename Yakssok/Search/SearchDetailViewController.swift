@@ -33,11 +33,9 @@ final class SearchDetailViewController: BaseViewController {
         print("SearchDetailViewController viewDidLoad")
         configureHierarchy()
         configureConstraints()
-        
         configureDataSource()
         updateSnapshot()
         bindData()
-
     }
     
     func bindData() {
@@ -120,7 +118,14 @@ extension SearchDetailViewController: UICollectionViewDelegate {
                 sheet.detents = [.medium()]
             }
             present(nav, animated: true)
-        case .cycle: print("cycle")
+        case .cycle: 
+            let vc = CycleSettingViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
+            
         case .time:
             let vc = TimeSettingViewController()
             vc.viewModel.inputTimeList.value = viewModel.inputTimeList.value

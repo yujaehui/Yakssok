@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "pageboy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uias/Pageboy",
+      "state" : {
+        "revision" : "5522aa6ae88633f6c23cf504e9cd684e963822f1",
+        "version" : "4.0.2"
+      }
+    },
+    {
       "identity" : "realm-core",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",
@@ -64,12 +73,12 @@
       }
     },
     {
-      "identity" : "taglistview",
+      "identity" : "tabman",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ElaWorkshop/TagListView.git",
+      "location" : "https://github.com/uias/Tabman.git",
       "state" : {
-        "revision" : "b30b61826736f4d9ec04aef5df891f3914423f16",
-        "version" : "1.4.1"
+        "revision" : "e32c0d821b03566ed966753f941113883f268da0",
+        "version" : "3.0.2"
       }
     },
     {
