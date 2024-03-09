@@ -96,7 +96,7 @@ final class SearchDetailViewController: BaseViewController {
         snapshot.appendSections(SectionType.allCases)
         snapshot.appendItems([viewModel.outputSupplement.value.prdlstNm], toSection: .name)
         snapshot.appendItems(["amount"], toSection: .amount)
-        snapshot.appendItems(viewModel.outputStartDay.value, toSection: .startDay)
+        snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
         snapshot.appendItems(["cycle"], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeList.value, toSection: .time)
         dataSource.apply(snapshot)
@@ -111,8 +111,9 @@ extension SearchDetailViewController: UICollectionViewDelegate {
         case .amount: print("amount")
         case .startDay:
             let vc = StartDaySettingViewController()
+            vc.startDayPicker.select(viewModel.inputStartDay.value)
             vc.selectDate = { [weak self] value in
-                self?.viewModel.inputStartDay.value = [value]
+                self?.viewModel.inputStartDay.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
@@ -122,7 +123,7 @@ extension SearchDetailViewController: UICollectionViewDelegate {
         case .cycle: print("cycle")
         case .time:
             let vc = TimeSettingViewController()
-            vc.viewModel.inputTimeList.value = viewModel.outputTimeList.value
+            vc.viewModel.inputTimeList.value = viewModel.inputTimeList.value
             vc.selectTimeList = { [weak self] value in
                 self?.viewModel.inputTimeList.value = value
             }

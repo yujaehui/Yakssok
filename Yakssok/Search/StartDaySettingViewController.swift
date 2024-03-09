@@ -12,7 +12,7 @@ import FSCalendar
 class StartDaySettingViewController: BaseViewController {
     let startDayPicker = FSCalendar()
     
-    var selectDate: ((String) -> Void)?
+    var selectDate: ((Date) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class StartDaySettingViewController: BaseViewController {
     }
     
     @objc func registrationButtonClicked() {
-        let date = DateFormatterManager.shared.formatDateToString(date: startDayPicker.selectedDate ?? Date())
+        guard let date = startDayPicker.selectedDate else { return }
         selectDate?(date)
         dismiss(animated: true)
     }
