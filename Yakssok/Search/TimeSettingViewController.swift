@@ -35,6 +35,7 @@ class TimeSettingViewController: BaseViewController {
         viewModel.outputSelectTime.bind { [weak self] value in
             guard let value = value else { return }
             self?.viewModel.inputTimeList.value.append(value)
+            self?.viewModel.inputTimeList.value.sort()
             self?.timeTableView.reloadData()
         }
     }
