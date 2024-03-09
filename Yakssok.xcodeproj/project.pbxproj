@@ -45,6 +45,7 @@
 		09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */; };
 		09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */; };
 		09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157022B9C584A0008F86E /* DateFormatterManager.swift */; };
+		09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewModel.swift; sourceTree = "<group>"; };
 		09C157022B9C584A0008F86E /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
 				09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */,
 				09C156F42B9B93790008F86E /* SearchDetailViewController.swift */,
+				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
 				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
 				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
 				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
@@ -304,6 +307,7 @@
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
+				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,

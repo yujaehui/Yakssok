@@ -88,7 +88,7 @@ class TimeSettingViewController: BaseViewController {
     @objc func addTimeButtonClicked() {
         let vc = TimePickerViewController()
         vc.selectTime = { [weak self] value in
-            self?.viewModel.inputSelectTime.value = DateFormatterManager.shared.formatTimeToString(date: value)
+            self?.viewModel.inputSelectTime.value = DateFormatterManager.shared.formatTimeToString(time: value)
         }
         navigationController?.pushViewController(vc, animated: true)
     }
