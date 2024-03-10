@@ -11,17 +11,56 @@ import SnapKit
 import UIKit
 import SnapKit
 
+enum DayOfTheWeek: String, CaseIterable {
+    case sunday = "일"
+    case monday = "월"
+    case tuesday = "화"
+    case wednesday = "수"
+    case thursday = "목"
+    case friday = "금"
+    case saturday = "토"
+}
+
 class DayOfTheWeekViewController: BaseViewController {
-    private let stackView = UIStackView()
-    private var dayButtons = [UIButton]()
+    let viewModel = DayOfTheWeekViewModel()
+    
+    let stackView = UIStackView()
+    let sundayButton = UIButton()
+    let mondayButton = UIButton()
+    let tuesdayButton = UIButton()
+    let wednesdayButton = UIButton()
+    let thursdayButton = UIButton()
+    let fridayButton = UIButton()
+    let saturdayButton = UIButton()
+    var dayButtons: [UIButton] {
+        return [sundayButton, mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton]
+    }
     let registrationButton = UIButton()
+        
+    var selectDayOfTheWeek: (([String]) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputDayList.bind { [weak self] value in
+            for button in self!.dayButtons {
+                if value.contains(where: {$0 == button.title(for: .normal)}) {
+                    button.setTitleColor(.systemRed, for: .normal)
+                } else {
+                    button.setTitleColor(.systemBlue, for: .normal)
+                }
+            }
+        }
     }
     
     override func configureHierarchy() {
         view.addSubview(stackView)
+        for button in dayButtons {
+            stackView.addArrangedSubview(button)
+        }
         view.addSubview(registrationButton)
     }
     
@@ -31,12 +70,10 @@ class DayOfTheWeekViewController: BaseViewController {
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         
-        let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
-        
-        for day in daysOfWeek {
-            let button = makeButton(withTitle: day)
-            stackView.addArrangedSubview(button)
-            dayButtons.append(button)
+        for (index, button) in dayButtons.enumerated() {
+            button.setTitle(DayOfTheWeek.allCases[index].rawValue, for: .normal)
+            button.setTitleColor(.systemBlue, for: .normal)
+            button.addTarget(self, action: #selector(dayButtonTapped(_:)), for: .touchUpInside)
         }
         
         registrationButton.setTitle("등록", for: .normal)
@@ -44,21 +81,12 @@ class DayOfTheWeekViewController: BaseViewController {
         registrationButton.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
     }
     
-    private func makeButton(withTitle title: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(dayButtonTapped(_:)), for: .touchUpInside)
-        return button
-    }
-    
     @objc private func dayButtonTapped(_ sender: UIButton) {
-        if let title = sender.title(for: .normal) {
-            print("Tapped on day: \(title)")
-        }
+        viewModel.inputDay.value = sender.title(for: .normal)
     }
     
     @objc private func registrationButtonClicked() {
+        selectDayOfTheWeek?(viewModel.outputDayList.value)
         dismiss(animated: true)
     }
     

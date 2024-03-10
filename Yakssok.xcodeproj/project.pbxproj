@@ -49,6 +49,8 @@
 		09C1570A2B9C87510008F86E /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 09C157092B9C87510008F86E /* Tabman */; };
 		09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */; };
 		09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */; };
+		09C157102B9D8B020008F86E /* DayOfTheWeekViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */; };
+		09C739BF2B9DA65500B200DE /* CycleSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +89,8 @@
 		09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewController.swift; sourceTree = "<group>"; };
 		09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewController.swift; sourceTree = "<group>"; };
 		09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyIntervalViewController.swift; sourceTree = "<group>"; };
+		09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewModel.swift; sourceTree = "<group>"; };
+		09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,8 @@
 				09C156F42B9B93790008F86E /* SearchDetailViewController.swift */,
 				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
 				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
+				09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */,
+				09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */,
 				09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */,
 				09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */,
 				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
@@ -300,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09833C132B99C3080081E37E /* Observable.swift in Sources */,
+				09C739BF2B9DA65500B200DE /* CycleSettingViewModel.swift in Sources */,
 				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
@@ -313,6 +320,7 @@
 				09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */,
+				09C157102B9D8B020008F86E /* DayOfTheWeekViewModel.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,

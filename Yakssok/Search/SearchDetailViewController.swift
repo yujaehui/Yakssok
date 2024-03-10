@@ -47,6 +47,10 @@ final class SearchDetailViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
+        viewModel.outputCycle.bind { [weak self] value in
+            self?.updateSnapshot()
+        }
+        
         viewModel.outputTimeList.bind { [weak self] value in
             self?.updateSnapshot()
         }
@@ -95,7 +99,7 @@ final class SearchDetailViewController: BaseViewController {
         snapshot.appendItems([viewModel.outputSupplement.value.prdlstNm], toSection: .name)
         snapshot.appendItems(["amount"], toSection: .amount)
         snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
-        snapshot.appendItems(["cycle"], toSection: .cycle)
+        snapshot.appendItems([viewModel.outputCycle.value], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeList.value, toSection: .time)
         dataSource.apply(snapshot)
         
@@ -120,6 +124,9 @@ extension SearchDetailViewController: UICollectionViewDelegate {
             present(nav, animated: true)
         case .cycle: 
             let vc = CycleSettingViewController()
+            vc.selectCycle = { value in
+                self.viewModel.inputCycle.value = value
+            }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [.medium()]

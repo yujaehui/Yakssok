@@ -14,7 +14,7 @@ enum PickerType: CaseIterable {
     
     var intervals: [String] {
         switch self {
-        case .interval: return ["일 간격", "주 간격", "월 간격"]
+        case .interval: return ["일 간격", "주 간격", "개월 간격"]
         default: return []
         }
     }
@@ -28,26 +28,43 @@ enum PickerType: CaseIterable {
 }
 
 class DailyIntervalViewController: BaseViewController {
-    
     let dailyIntervalPickerView = UIPickerView()
+    let registrationButton = UIButton()
+    
+    var selectDailyInterval: (([Int]) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func configureHierarchy() {
         view.addSubview(dailyIntervalPickerView)
+        view.addSubview(registrationButton)
     }
     
     override func configureView() {
         dailyIntervalPickerView.delegate = self
         dailyIntervalPickerView.dataSource = self
+        
+        registrationButton.setTitle("등록", for: .normal)
+        registrationButton.backgroundColor = .lightGray
+        registrationButton.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc private func registrationButtonClicked() {
+        selectDailyInterval?([dailyIntervalPickerView.selectedRow(inComponent: 0), dailyIntervalPickerView.selectedRow(inComponent: 1)])
+        dismiss(animated: true)
     }
     
     override func configureConstraints() {
         dailyIntervalPickerView.snp.makeConstraints { make in
-            make.center.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.top.equalTo(dailyIntervalPickerView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(32)
         }
     }
 }
@@ -59,19 +76,15 @@ extension DailyIntervalViewController: UIPickerViewDelegate, UIPickerViewDataSou
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch PickerType.allCases[component] {
-        case .interval:
-            return PickerType.interval.intervals.count
-        case .number:
-            return PickerType.number.numbers[pickerView.selectedRow(inComponent: 0)].count
+        case .interval: return PickerType.interval.intervals.count
+        case .number: return PickerType.number.numbers[pickerView.selectedRow(inComponent: 0)].count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch PickerType.allCases[component] {
-        case .interval:
-            return PickerType.interval.intervals[row]
-        case .number:
-            return PickerType.number.numbers[pickerView.selectedRow(inComponent: 0)][row]
+        case .interval: return PickerType.interval.intervals[row]
+        case .number: return PickerType.number.numbers[pickerView.selectedRow(inComponent: 0)][row]
         }
     }
     

@@ -11,14 +11,40 @@ import Pageboy
 
 class CycleSettingViewController: TabmanViewController {
     
-    private var controllers = [DayOfTheWeekViewController(), DailyIntervalViewController()]
+    let viewModel = CycleSettingViewModel()
+    
+    let dayOfTheWeekVC = DayOfTheWeekViewController()
+    let dailyIntervalVC = DailyIntervalViewController()
+    lazy var viewControllers = [dayOfTheWeekVC, dailyIntervalVC]
+    var selectCycle: ((String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setNav()
-        //setToolBar()
         setButtonBar()
+        
+        dayOfTheWeekVC.selectDayOfTheWeek = { value in
+            self.viewModel.inputDayOfTheWeekVC.value = value
+        }
+        
+        dailyIntervalVC.selectDailyInterval = { value in
+            self.viewModel.inputDailyIntervalVC.value = value
+        }
+        
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputDayOfTheWeekVC.bind { value in
+            guard let value = value else { return }
+            self.selectCycle?(value)
+        }
+        
+        viewModel.outputDailyIntervalVC.bind { value in
+            guard let value = value else { return }
+            self.selectCycle?(value)
+        }
     }
     
     func setNav() {
@@ -26,18 +52,6 @@ class CycleSettingViewController: TabmanViewController {
     }
     
     @objc func rightBarButtonItemClikced() {
-        dismiss(animated: true)
-    }
-    
-    func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc func registrationButtonClicked() {
         dismiss(animated: true)
     }
     
@@ -55,16 +69,15 @@ extension CycleSettingViewController: PageboyViewControllerDataSource, TMBarData
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
         item.title = "Page \(index)"
-        
         return item
     }
     
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return controllers.count
+        return viewControllers.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        return controllers[index]
+        return viewControllers[index]
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
