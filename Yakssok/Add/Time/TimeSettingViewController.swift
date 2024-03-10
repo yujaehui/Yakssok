@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class TimeSettingViewController: BaseViewController {
+    var selectTimeList: (([String]) -> Void)?
+    
     let viewModel = TimeSettingViewModel()
     
     let titleLabel = UILabel()
@@ -16,8 +18,6 @@ class TimeSettingViewController: BaseViewController {
     let editButton = UIButton()
     let noticeLabel = UILabel()
     let timeTableView = UITableView()
-    
-    var selectTimeList: (([String]) -> Void)?
     
     deinit {
         print("TimeSettingViewController deinit")
@@ -32,11 +32,22 @@ class TimeSettingViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputSelectTime.bind { [weak self] value in
-            guard let value = value else { return }
-            self?.viewModel.inputTimeList.value.append(value)
-            self?.viewModel.inputTimeList.value.sort()
+        viewModel.outputSelectTimeList.bind { [weak self] value in
             self?.timeTableView.reloadData()
+        }
+        
+        viewModel.addTimeButtonClicked.bind { [weak self] value in
+            guard value != nil else { return }
+            let vc = TimePickerViewController()
+            vc.selectTime = { [weak self] value in
+                self?.viewModel.inputSelectTime.value = DateFormatterManager.shared.formatTimeToString(time: value)
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        viewModel.outputTimeList.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.selectTimeList?(value)
         }
     }
     
@@ -57,7 +68,7 @@ class TimeSettingViewController: BaseViewController {
     }
     
     @objc func registrationButtonClicked() {
-        selectTimeList?(viewModel.outputTimeList.value) // ⭐️
+        viewModel.inputTimeList.value = viewModel.outputSelectTimeList.value
         dismiss(animated: true)
     }
     
@@ -87,11 +98,7 @@ class TimeSettingViewController: BaseViewController {
     }
     
     @objc func addTimeButtonClicked() {
-        let vc = TimePickerViewController()
-        vc.selectTime = { [weak self] value in
-            self?.viewModel.inputSelectTime.value = DateFormatterManager.shared.formatTimeToString(time: value)
-        }
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.addTimeButtonClicked.value = ()
     }
     
     override func configureConstraints() {
@@ -128,12 +135,12 @@ class TimeSettingViewController: BaseViewController {
 
 extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.inputTimeList.value.count
+        return viewModel.outputSelectTimeList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimeSettingTableViewCell.identifier, for: indexPath) as! TimeSettingTableViewCell
-        cell.timeLabel.text = viewModel.inputTimeList.value[indexPath.row]
+        cell.timeLabel.text = viewModel.outputSelectTimeList.value[indexPath.row]
         return cell
     }
     

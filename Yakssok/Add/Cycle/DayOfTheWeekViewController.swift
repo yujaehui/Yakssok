@@ -2,11 +2,8 @@
 //  DayOfTheWeekViewController.swift
 //  Yakssok
 //
-//  Created by Jaehui Yu on 3/9/24.
+//  Created by Jaehui Yu on 3/10/24.
 //
-
-import UIKit
-import SnapKit
 
 import UIKit
 import SnapKit
@@ -22,22 +19,12 @@ enum DayOfTheWeek: String, CaseIterable {
 }
 
 class DayOfTheWeekViewController: BaseViewController {
+    var selectDayOfTheWeek: (([String]) -> Void)?
+    
     let viewModel = DayOfTheWeekViewModel()
     
-    let stackView = UIStackView()
-    let sundayButton = UIButton()
-    let mondayButton = UIButton()
-    let tuesdayButton = UIButton()
-    let wednesdayButton = UIButton()
-    let thursdayButton = UIButton()
-    let fridayButton = UIButton()
-    let saturdayButton = UIButton()
-    var dayButtons: [UIButton] {
-        return [sundayButton, mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton]
-    }
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     let registrationButton = UIButton()
-        
-    var selectDayOfTheWeek: (([String]) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,61 +32,81 @@ class DayOfTheWeekViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputDayList.bind { [weak self] value in
-            for button in self!.dayButtons {
-                if value.contains(where: {$0 == button.title(for: .normal)}) {
-                    button.setTitleColor(.systemRed, for: .normal)
-                } else {
-                    button.setTitleColor(.systemBlue, for: .normal)
-                }
-            }
+        viewModel.outputSelectDayOfTheWeekList.bind { value in
+            self.collectionView.reloadData()
+        }
+        
+        viewModel.outputDayOfTheWeekList.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.collectionView.reloadData()
+            self?.selectDayOfTheWeek?(value)
         }
     }
     
     override func configureHierarchy() {
-        view.addSubview(stackView)
-        for button in dayButtons {
-            stackView.addArrangedSubview(button)
-        }
+        view.addSubview(collectionView)
         view.addSubview(registrationButton)
     }
     
     override func configureView() {
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        
-        for (index, button) in dayButtons.enumerated() {
-            button.setTitle(DayOfTheWeek.allCases[index].rawValue, for: .normal)
-            button.setTitleColor(.systemBlue, for: .normal)
-            button.addTarget(self, action: #selector(dayButtonTapped(_:)), for: .touchUpInside)
-        }
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(DayOfTheWeekCollectionViewCell.self, forCellWithReuseIdentifier: DayOfTheWeekCollectionViewCell.identifier)
         
         registrationButton.setTitle("등록", for: .normal)
         registrationButton.backgroundColor = .lightGray
         registrationButton.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
     }
     
-    @objc private func dayButtonTapped(_ sender: UIButton) {
-        viewModel.inputDay.value = sender.title(for: .normal)
-    }
-    
-    @objc private func registrationButtonClicked() {
-        selectDayOfTheWeek?(viewModel.outputDayList.value)
+    @objc func registrationButtonClicked() {
+        viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
         dismiss(animated: true)
     }
     
     override func configureConstraints() {
-        stackView.snp.makeConstraints { make in
-            make.center.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(32)
+        collectionView.snp.makeConstraints { make in
+            make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(100)
         }
         
         registrationButton.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(32)
+            make.height.equalTo(40)
         }
     }
+}
+
+extension DayOfTheWeekViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    private func configureCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 16
+        let cellWidth = UIScreen.main.bounds.width - (spacing * 8)
+        layout.itemSize = CGSize(width: cellWidth / 7, height: cellWidth / 7)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        return layout
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return DayOfTheWeek.allCases.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayOfTheWeekCollectionViewCell.identifier, for: indexPath) as! DayOfTheWeekCollectionViewCell
+        cell.dayLabel.text = DayOfTheWeek.allCases[indexPath.item].rawValue
+        
+        if viewModel.outputSelectDayOfTheWeekList.value.contains(where: {$0 == DayOfTheWeek.allCases[indexPath.item].rawValue}) {
+            cell.dayLabel.backgroundColor = .red
+        } else {
+            cell.dayLabel.backgroundColor = .blue
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.inputSelectDayOfTheWeek.value = DayOfTheWeek.allCases[indexPath.item].rawValue
+    }
+    
 }
 

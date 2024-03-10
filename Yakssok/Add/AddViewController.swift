@@ -113,7 +113,7 @@ extension AddViewController: UICollectionViewDelegate {
         case .amount: print("amount")
         case .startDay:
             let vc = StartDaySettingViewController()
-            vc.startDayPicker.select(viewModel.inputStartDay.value)
+            vc.viewModel.outputDate.value = viewModel.inputStartDay.value
             vc.selectDate = { [weak self] value in
                 self?.viewModel.inputStartDay.value = value
             }
@@ -124,8 +124,13 @@ extension AddViewController: UICollectionViewDelegate {
             present(nav, animated: true)
         case .cycle: 
             let vc = CycleSettingViewController()
-            vc.selectCycle = { value in
-                self.viewModel.inputCycle.value = value
+            if Helpers.shared.containsNumber(in: viewModel.outputCycle.value) {
+                vc.enterDayVC.viewModel.outputDayIntervalList.value = viewModel.inputCycle.value
+            } else {
+                vc.selectDayVC.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+            }
+            vc.selectCycle = { [weak self] value in
+                self?.viewModel.inputCycle.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
@@ -135,7 +140,7 @@ extension AddViewController: UICollectionViewDelegate {
             
         case .time:
             let vc = TimeSettingViewController()
-            vc.viewModel.inputTimeList.value = viewModel.inputTimeList.value
+            vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
             vc.selectTimeList = { [weak self] value in
                 self?.viewModel.inputTimeList.value = value
             }

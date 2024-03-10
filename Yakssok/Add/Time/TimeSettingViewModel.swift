@@ -11,19 +11,23 @@ class TimeSettingViewModel {
     
     //input
     let inputSelectTime: Observable<String?> = Observable(nil)
-    let inputTimeList: Observable<[String]> = Observable([])
+    let inputTimeList: Observable<[String]?> = Observable(nil)
     
     //output
-    let outputSelectTime: Observable<String?> = Observable(nil)
-    let outputTimeList: Observable<[String]> = Observable([])
+    let outputSelectTimeList: Observable<[String]> = Observable([])
+    let outputTimeList: Observable<[String]?> = Observable(nil)
+    
+    let addTimeButtonClicked: Observable<Void?> = Observable(nil)
     
     init() {
         inputSelectTime.bind { [weak self] value in
             guard let value = value else { return }
-            self?.outputSelectTime.value = value
+            self?.outputSelectTimeList.value.append(value)
+            self?.outputSelectTimeList.value.sort()
         }
         
         inputTimeList.bind { [weak self] value in
+            guard let value = value else { return }
             self?.outputTimeList.value = value
         }
     }

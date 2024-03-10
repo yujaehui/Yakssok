@@ -12,13 +12,14 @@ class AddViewModel {
     // input
     let inputSupplement: Observable<Row?> = Observable(nil)
     let inputStartDay: Observable<Date> = Observable(Date())
-    let inputCycle: Observable<String> = Observable("매일")
+    let inputCycle: Observable<[String]> = Observable(["1"])
     let inputTimeList: Observable<[String]> = Observable(["오전 09:00"])
     
     // output
     let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
     let outputStartDay: Observable<String> = Observable("")
     let outputCycle: Observable<String> = Observable("")
+    let outputCycleString: Observable<String> = Observable("")
     let outputTimeList: Observable<[String]> = Observable([])
     
     init() {
@@ -32,8 +33,13 @@ class AddViewModel {
         }
         
         inputCycle.bind { [weak self] value in
-            print(value)
-            self?.outputCycle.value = value
+            if value.count == DayOfTheWeek.allCases.count {
+                self?.outputCycle.value = "매일"
+            } else if value.contains(where: {Int($0) != nil}) {
+                self?.outputCycle.value = value.joined(separator: "") + "일 마다"
+            } else {
+                self?.outputCycle.value = value.joined(separator: ", ") + "요일 마다"
+            }
         }
         
         inputTimeList.bind { [weak self] value in

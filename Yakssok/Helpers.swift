@@ -21,6 +21,10 @@ class Helpers {
         let range = (text as NSString).range(of: changeText, options: .caseInsensitive)
         attributedText.addAttribute(.foregroundColor, value: UIColor.systemRed, range: range)
         return attributedText
-        
+    }
+    
+    func containsNumber(in string: String) -> Bool {
+        let numbers = CharacterSet.decimalDigits
+        return string.rangeOfCharacter(from: numbers) != nil
     }
 }

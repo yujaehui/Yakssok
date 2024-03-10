@@ -47,10 +47,13 @@
 		09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */; };
 		09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */; };
 		09C1570A2B9C87510008F86E /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 09C157092B9C87510008F86E /* Tabman */; };
-		09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */; };
-		09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */; };
-		09C157102B9D8B020008F86E /* DayOfTheWeekViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */; };
-		09C739BF2B9DA65500B200DE /* CycleSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */; };
+		09C739CF2B9DD1F800B200DE /* DayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739CE2B9DD1F800B200DE /* DayOfTheWeekViewController.swift */; };
+		09C739D12B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D02B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift */; };
+		09C739D32B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D22B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift */; };
+		09C739D52B9DDE7400B200DE /* DayIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */; };
+		09C739D72B9DDFC800B200DE /* DayIntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */; };
+		09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */; };
+		09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,10 +90,13 @@
 		09C157022B9C584A0008F86E /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySettingViewController.swift; sourceTree = "<group>"; };
 		09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewController.swift; sourceTree = "<group>"; };
-		09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewController.swift; sourceTree = "<group>"; };
-		09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyIntervalViewController.swift; sourceTree = "<group>"; };
-		09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewModel.swift; sourceTree = "<group>"; };
-		09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewModel.swift; sourceTree = "<group>"; };
+		09C739CE2B9DD1F800B200DE /* DayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewController.swift; sourceTree = "<group>"; };
+		09C739D02B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekCollectionViewCell.swift; sourceTree = "<group>"; };
+		09C739D22B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekViewModel.swift; sourceTree = "<group>"; };
+		09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayIntervalViewController.swift; sourceTree = "<group>"; };
+		09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayIntervalViewModel.swift; sourceTree = "<group>"; };
+		09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDayViewModel.swift; sourceTree = "<group>"; };
+		09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +214,7 @@
 		09C739C02B9DBB1600B200DE /* StartDay */ = {
 			isa = PBXGroup;
 			children = (
+				09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */,
 				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
 			);
 			path = StartDay;
@@ -216,11 +223,12 @@
 		09C739C12B9DBB1E00B200DE /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
-				09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */,
 				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
-				09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */,
-				09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */,
-				09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */,
+				09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */,
+				09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */,
+				09C739D22B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift */,
+				09C739CE2B9DD1F800B200DE /* DayOfTheWeekViewController.swift */,
+				09C739D02B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift */,
 			);
 			path = Cycle;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 			children = (
 				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
 				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
+				09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */,
 				09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */,
 				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
 			);
@@ -330,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09833C132B99C3080081E37E /* Observable.swift in Sources */,
-				09C739BF2B9DA65500B200DE /* CycleSettingViewModel.swift in Sources */,
+				09C739D52B9DDE7400B200DE /* DayIntervalViewController.swift in Sources */,
 				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
@@ -343,20 +352,23 @@
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
-				09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */,
-				09C157102B9D8B020008F86E /* DayOfTheWeekViewModel.swift in Sources */,
+				09C739D12B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
+				09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */,
+				09C739D32B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
+				09C739CF2B9DD1F800B200DE /* DayOfTheWeekViewController.swift in Sources */,
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
+				09C739D72B9DDFC800B200DE /* DayIntervalViewModel.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
+				09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
 				09C156F52B9B93790008F86E /* AddViewController.swift in Sources */,
-				09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
 				09833C0D2B99B3BC0081E37E /* Supplement.swift in Sources */,

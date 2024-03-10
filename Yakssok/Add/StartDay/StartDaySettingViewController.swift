@@ -10,14 +10,25 @@ import SnapKit
 import FSCalendar
 
 class StartDaySettingViewController: BaseViewController {
-    let startDayPicker = FSCalendar()
-    
     var selectDate: ((Date) -> Void)?
+    
+    let viewModel = StartDayViewModel()
+    
+    let startDayPicker = FSCalendar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
         setToolBar()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputDate.bind { value in
+            guard let value = value else { return }
+            self.startDayPicker.select(value)
+            self.selectDate?(value)
+        }
     }
     
     func setNav() {
@@ -37,9 +48,8 @@ class StartDaySettingViewController: BaseViewController {
     }
     
     @objc func registrationButtonClicked() {
-        guard let date = startDayPicker.selectedDate else { return }
-        selectDate?(date)
-        dismiss(animated: true)
+        viewModel.inputDate.value = startDayPicker.selectedDate
+        dismiss(animated: true)        
     }
     
     override func configureHierarchy() {
