@@ -37,8 +37,8 @@
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
-		09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* SearchDetailViewController.swift */; };
-		09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */; };
+		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
+		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
 		09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */; };
 		09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */; };
 		09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */; };
@@ -78,8 +78,8 @@
 		09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		09911F652B9A0D190093009D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
-		09C156F42B9B93790008F86E /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
-		09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
+		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewController.swift; sourceTree = "<group>"; };
 		09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingTableViewCell.swift; sourceTree = "<group>"; };
 		09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
@@ -134,9 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				09C156C12B9AFBFF0008F86E /* Add */,
+				09833BFE2B99A49F0081E37E /* Search */,
 				09833C072B99B2830081E37E /* Network */,
 				09833C042B99AA990081E37E /* Extension */,
-				09833BFE2B99A49F0081E37E /* Search */,
 				09833BF22B99A2940081E37E /* Base */,
 				09833BB32B9983AC0081E37E /* AppDelegate.swift */,
 				09833BB52B9983AC0081E37E /* SceneDelegate.swift */,
@@ -167,21 +167,9 @@
 		09833BFE2B99A49F0081E37E /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				09833C102B99C2740081E37E /* SearchViewModel.swift */,
-				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
-				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
-				09C156F62B9C2C5D0008F86E /* SearchDetailViewModel.swift */,
-				09C156F42B9B93790008F86E /* SearchDetailViewController.swift */,
-				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
-				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
-				09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */,
-				09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */,
-				09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */,
-				09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */,
-				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
-				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
-				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
-				09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */,
+				09C739CA2B9DBBDC00B200DE /* ViewModel */,
+				09C739CB2B9DBBE600B200DE /* ViewController */,
+				09C739CC2B9DBBEF00B200DE /* Cell */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -208,8 +196,124 @@
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				09C739C82B9DBBB500B200DE /* ViewModel */,
+				09C739C92B9DBBBD00B200DE /* ViewController */,
+				09C739C02B9DBB1600B200DE /* StartDay */,
+				09C739C12B9DBB1E00B200DE /* Cycle */,
+				09C739C22B9DBB3500B200DE /* Time */,
 			);
 			path = Add;
+			sourceTree = "<group>";
+		};
+		09C739C02B9DBB1600B200DE /* StartDay */ = {
+			isa = PBXGroup;
+			children = (
+				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
+			);
+			path = StartDay;
+			sourceTree = "<group>";
+		};
+		09C739C12B9DBB1E00B200DE /* Cycle */ = {
+			isa = PBXGroup;
+			children = (
+				09C739C72B9DBB9E00B200DE /* ViewModel */,
+				09C739C62B9DBB8D00B200DE /* ViewController */,
+			);
+			path = Cycle;
+			sourceTree = "<group>";
+		};
+		09C739C22B9DBB3500B200DE /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				09C739C32B9DBB5C00B200DE /* ViewModel */,
+				09C739C52B9DBB7700B200DE /* ViewController */,
+				09C739C42B9DBB6900B200DE /* Cell */,
+			);
+			path = Time;
+			sourceTree = "<group>";
+		};
+		09C739C32B9DBB5C00B200DE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		09C739C42B9DBB6900B200DE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		09C739C52B9DBB7700B200DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
+				09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		09C739C62B9DBB8D00B200DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
+				09C1570B2B9C893B0008F86E /* DayOfTheWeekViewController.swift */,
+				09C1570D2B9C894F0008F86E /* DailyIntervalViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		09C739C72B9DBB9E00B200DE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				09C739BE2B9DA65500B200DE /* CycleSettingViewModel.swift */,
+				09C1570F2B9D8B020008F86E /* DayOfTheWeekViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		09C739C82B9DBBB500B200DE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				09C156F62B9C2C5D0008F86E /* AddViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		09C739C92B9DBBBD00B200DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09C156F42B9B93790008F86E /* AddViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		09C739CA2B9DBBDC00B200DE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				09833C102B99C2740081E37E /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		09C739CB2B9DBBE600B200DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09833BFF2B99A4A80081E37E /* SearchViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		09C739CC2B9DBBEF00B200DE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,7 +421,7 @@
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
-				09C156F72B9C2C5D0008F86E /* SearchDetailViewModel.swift in Sources */,
+				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09C1570E2B9C894F0008F86E /* DailyIntervalViewController.swift in Sources */,
 				09C157102B9D8B020008F86E /* DayOfTheWeekViewModel.swift in Sources */,
@@ -331,7 +435,7 @@
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
-				09C156F52B9B93790008F86E /* SearchDetailViewController.swift in Sources */,
+				09C156F52B9B93790008F86E /* AddViewController.swift in Sources */,
 				09C1570C2B9C893B0008F86E /* DayOfTheWeekViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,

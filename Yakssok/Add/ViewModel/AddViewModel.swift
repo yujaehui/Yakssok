@@ -1,5 +1,5 @@
 //
-//  SearchDetailViewModel.swift
+//  AddViewModel.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchDetailViewModel {
+class AddViewModel {
     
     // input
     let inputSupplement: Observable<Row?> = Observable(nil)

@@ -68,7 +68,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = SearchDetailViewController()
+        let vc = AddViewController()
         vc.viewModel.inputSupplement.value = viewModel.outputSupplement.value[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }

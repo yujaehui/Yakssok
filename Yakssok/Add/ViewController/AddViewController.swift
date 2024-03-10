@@ -1,5 +1,5 @@
 //
-//  SearchDetailViewController.swift
+//  AddViewController.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -16,21 +16,21 @@ enum SectionType: String, CaseIterable {
     case time = "복용시간"
 }
 
-final class SearchDetailViewController: BaseViewController {
+final class AddViewController: BaseViewController {
     
-    let viewModel = SearchDetailViewModel()
+    let viewModel = AddViewModel()
         
     // MARK: - 1. Property
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
     var dataSource: UICollectionViewDiffableDataSource<SectionType, String>!
     
     deinit {
-        print("SearchDetailViewController deinit")
+        print("AddViewController deinit")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("SearchDetailViewController viewDidLoad")
+        print("AddViewController viewDidLoad")
         configureHierarchy()
         configureConstraints()
         configureDataSource()
@@ -106,7 +106,7 @@ final class SearchDetailViewController: BaseViewController {
     }
 }
 
-extension SearchDetailViewController: UICollectionViewDelegate {
+extension AddViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SectionType.allCases[indexPath.section] {
         case .name: print("name")
