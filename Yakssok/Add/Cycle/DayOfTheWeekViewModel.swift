@@ -15,8 +15,11 @@ class DayOfTheWeekViewModel {
     let inputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
     
     // output
+    let outputColor: Observable<Bool> = Observable(false)
+    let outputIsEnabled: Observable<Bool> = Observable(false)
     var outputSelectDayOfTheWeekList: Observable<[String]> = Observable([])
     let outputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
+    
     
     init() {
         inputSelectDayOfTheWeek.bind { value in
@@ -25,6 +28,7 @@ class DayOfTheWeekViewModel {
                 self.outputSelectDayOfTheWeekList.value.removeAll(where: {$0 == value})
             } else {
                 self.outputSelectDayOfTheWeekList.value.append(value)
+                // 정렬
                 self.outputSelectDayOfTheWeekList.value.sort { (day1, day2) -> Bool in
                     guard let index1 = DayOfTheWeek.allCases.firstIndex(of: DayOfTheWeek(rawValue: day1) ?? .sunday),
                           let index2 = DayOfTheWeek.allCases.firstIndex(of: DayOfTheWeek(rawValue: day2) ?? .sunday) else {
@@ -32,6 +36,15 @@ class DayOfTheWeekViewModel {
                     }
                     return index1 < index2
                 }
+            }
+            
+            if self.outputSelectDayOfTheWeekList.value == [] {
+                self.outputColor.value = false
+                self.outputIsEnabled.value = false
+            } else {
+                self.outputColor.value = true
+                self.outputIsEnabled.value = true
+
             }
         }
         

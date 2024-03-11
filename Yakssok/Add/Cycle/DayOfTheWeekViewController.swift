@@ -28,12 +28,25 @@ class DayOfTheWeekViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("DayOfTheWeekViewController viewDidLoad")
         bindData()
     }
     
+    deinit {
+        print("DayOfTheWeekViewController deinit")
+    }
+    
     func bindData() {
-        viewModel.outputSelectDayOfTheWeekList.bind { value in
-            self.collectionView.reloadData()
+        viewModel.outputColor.bind { value in
+            self.registrationButton.backgroundColor = value ? .systemBlue : .systemGray
+        }
+        
+        viewModel.outputIsEnabled.bind { value in
+            self.registrationButton.isEnabled = value
+        }
+        
+        viewModel.outputSelectDayOfTheWeekList.bind { [weak self] value in
+            self?.collectionView.reloadData()
         }
         
         viewModel.outputDayOfTheWeekList.bind { [weak self] value in

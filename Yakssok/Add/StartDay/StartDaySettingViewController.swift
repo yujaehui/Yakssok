@@ -18,16 +18,21 @@ class StartDaySettingViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("StartDaySettingViewController viewDidLoad")
         setNav()
         setToolBar()
         bindData()
     }
     
+    deinit {
+        print("StartDaySettingViewController deinit")
+    }
+    
     func bindData() {
-        viewModel.outputDate.bind { value in
+        viewModel.outputDate.bind { [weak self] value in
             guard let value = value else { return }
-            self.startDayPicker.select(value)
-            self.selectDate?(value)
+            self?.startDayPicker.select(value)
+            self?.selectDate?(value)
         }
     }
     
@@ -57,6 +62,8 @@ class StartDaySettingViewController: BaseViewController {
     }
     
     override func configureView() {
+        startDayPicker.delegate = self
+        startDayPicker.dataSource = self
         startDayPicker.locale = Locale(identifier: "ko_KR")
         startDayPicker.appearance.headerDateFormat = "yyyy년 M월"
     }
@@ -65,5 +72,11 @@ class StartDaySettingViewController: BaseViewController {
         startDayPicker.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+extension StartDaySettingViewController: FSCalendarDelegate, FSCalendarDataSource {
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return Date()
     }
 }

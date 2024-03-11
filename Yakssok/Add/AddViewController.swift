@@ -125,9 +125,9 @@ extension AddViewController: UICollectionViewDelegate {
         case .cycle: 
             let vc = CycleSettingViewController()
             if Helpers.shared.containsNumber(in: viewModel.outputCycle.value) {
-                vc.enterDayVC.viewModel.outputDayIntervalList.value = viewModel.inputCycle.value
+                vc.DayIntervalVC.viewModel.outputDayIntervalList.value = viewModel.inputCycle.value
             } else {
-                vc.selectDayVC.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+                vc.DayOfTheWeek.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
             }
             vc.selectCycle = { [weak self] value in
                 self?.viewModel.inputCycle.value = value

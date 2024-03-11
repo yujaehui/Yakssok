@@ -20,10 +20,14 @@ class TimeSettingViewModel {
     let addTimeButtonClicked: Observable<Void?> = Observable(nil)
     
     init() {
-        inputSelectTime.bind { [weak self] value in
+        inputSelectTime.bind { value in
             guard let value = value else { return }
-            self?.outputSelectTimeList.value.append(value)
-            self?.outputSelectTimeList.value.sort()
+            if self.outputSelectTimeList.value.contains(where: {$0 == value}) {
+                return
+            } else {
+                self.outputSelectTimeList.value.append(value)
+                self.outputSelectTimeList.value = DateFormatterManager.shared.sortTimeStrings(self.outputSelectTimeList.value)
+            }
         }
         
         inputTimeList.bind { [weak self] value in

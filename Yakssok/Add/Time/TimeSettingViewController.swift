@@ -33,6 +33,7 @@ class TimeSettingViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputSelectTimeList.bind { [weak self] value in
+            print(value)
             self?.timeTableView.reloadData()
         }
         
@@ -89,6 +90,7 @@ class TimeSettingViewController: BaseViewController {
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         editButton.setTitle("편집", for: .normal)
         editButton.setTitleColor(.systemBlue, for: .normal)
+        editButton.addTarget(self, action: #selector(editButtonClicked), for: .touchUpInside)
         noticeLabel.text = "영양제별 권장 용법을 참고하여 복용시간을 설정해주세요."
         timeTableView.delegate = self
         timeTableView.dataSource = self
@@ -99,6 +101,12 @@ class TimeSettingViewController: BaseViewController {
     
     @objc func addTimeButtonClicked() {
         viewModel.addTimeButtonClicked.value = ()
+    }
+    
+    @objc func editButtonClicked() {
+        let shouldBeEdited = !timeTableView.isEditing
+        timeTableView.setEditing(shouldBeEdited, animated: true)
+        editButton.isSelected = shouldBeEdited
     }
     
     override func configureConstraints() {
@@ -144,5 +152,12 @@ extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        if viewModel.outputSelectTimeList.value.count > 1 {
+            viewModel.outputSelectTimeList.value.remove(at: indexPath.row)
+        } else {
+           return // 나중에 알럿? 토스트? 처리 할 예정
+        }
+    }
 }

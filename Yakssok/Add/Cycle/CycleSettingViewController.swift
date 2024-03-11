@@ -12,23 +12,28 @@ import Pageboy
 class CycleSettingViewController: TabmanViewController {
     var selectCycle: (([String]) -> Void)?
     
-    let enterDayVC = DayIntervalViewController()
-    let selectDayVC = DayOfTheWeekViewController()
-    lazy var viewControllers = [enterDayVC, selectDayVC]
+    let DayIntervalVC = DayIntervalViewController()
+    let DayOfTheWeek = DayOfTheWeekViewController()
+    lazy var viewControllers = [DayIntervalVC, DayOfTheWeek]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("CycleSettingViewController viewDidLoad")
         view.backgroundColor = .white
         setNav()
         setButtonBar()
     
-        enterDayVC.selectDayInterval = { value in
-            self.selectCycle?(value)
+        DayIntervalVC.selectDayInterval = { [weak self] value in
+            self?.selectCycle?(value)
         }
         
-        selectDayVC.selectDayOfTheWeek = { value in
-            self.selectCycle?(value)
+        DayOfTheWeek.selectDayOfTheWeek = { [weak self] value in
+            self?.selectCycle?(value)
         }
+    }
+    
+    deinit {
+        print("CycleSettingViewController deinit")
     }
     
     func setNav() {
