@@ -55,6 +55,8 @@
 		09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */; };
 		09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */; };
 		09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E12B9ED52F00B200DE /* CalendarViewController.swift */; };
+		09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */; };
+		09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +101,8 @@
 		09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDayViewModel.swift; sourceTree = "<group>"; };
 		09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewModel.swift; sourceTree = "<group>"; };
 		09C739E12B9ED52F00B200DE /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCollectionViewCell.swift; sourceTree = "<group>"; };
+		09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,8 @@
 			children = (
 				09C156F62B9C2C5D0008F86E /* AddViewModel.swift */,
 				09C156F42B9B93790008F86E /* AddViewController.swift */,
+				09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */,
+				09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */,
 				09C739C02B9DBB1600B200DE /* StartDay */,
 				09C739C12B9DBB1E00B200DE /* Cycle */,
 				09C739C22B9DBB3500B200DE /* Time */,
@@ -361,6 +367,7 @@
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
+				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
@@ -368,6 +375,7 @@
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
+				09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */,
 				09C739D32B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift in Sources */,

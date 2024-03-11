@@ -19,7 +19,7 @@ enum SectionType: String, CaseIterable {
 final class AddViewController: BaseViewController {
     
     let viewModel = AddViewModel()
-        
+    
     // MARK: - 1. Property
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
     var dataSource: UICollectionViewDiffableDataSource<SectionType, String>!
@@ -54,6 +54,10 @@ final class AddViewController: BaseViewController {
         viewModel.outputTimeList.bind { [weak self] value in
             self?.updateSnapshot()
         }
+        
+        viewModel.outputAmount.bind { [weak self] value in
+            self?.updateSnapshot()
+        }
     }
     
     override func configureHierarchy() {
@@ -79,16 +83,38 @@ final class AddViewController: BaseViewController {
     
     // MARK: - 3. CellRegistration, DataSource
     private func configureDataSource() {
+        
+        let nameCellRegistration = UICollectionView.CellRegistration<NameCollectionViewCell, String> { cell, indexPath, itemIdentifier in
+            cell.nameTextField.text = itemIdentifier
+        }
+        let amountCellRegistration = UICollectionView.CellRegistration<AmountCollectionViewCell, String>  { cell, indexPath, itemIdentifier in
+            cell.amountLabel.text = itemIdentifier
+        }
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, itemIdentifier in
             var content = UIListContentConfiguration.subtitleCell()
             content.text = itemIdentifier
             content.textProperties.alignment = .center
             cell.contentConfiguration = content
         }
-        
+
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-            return cell
+            switch SectionType.allCases[indexPath.section] {
+            case .name:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            case .amount:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: amountCellRegistration, for: indexPath, item: itemIdentifier)
+                cell.minusButtonAction = {
+                    self.viewModel.inputMinusAmount.value = self.viewModel.outputAmount.value
+                }
+                cell.plusButtonAction = {
+                    self.viewModel.inputPlusAmount.value = self.viewModel.outputAmount.value
+                }
+                return cell
+            default:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            }
         })
     }
     
@@ -97,7 +123,7 @@ final class AddViewController: BaseViewController {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, String>()
         snapshot.appendSections(SectionType.allCases)
         snapshot.appendItems([viewModel.outputSupplement.value.prdlstNm], toSection: .name)
-        snapshot.appendItems(["amount"], toSection: .amount)
+        snapshot.appendItems([String(viewModel.outputAmount.value)], toSection: .amount)
         snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
         snapshot.appendItems([viewModel.outputCycle.value], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeList.value, toSection: .time)
@@ -122,7 +148,7 @@ extension AddViewController: UICollectionViewDelegate {
                 sheet.detents = [.medium()]
             }
             present(nav, animated: true)
-        case .cycle: 
+        case .cycle:
             let vc = CycleSettingViewController()
             if Helpers.shared.containsNumber(in: viewModel.outputCycle.value) {
                 vc.DayIntervalVC.viewModel.outputDayIntervalList.value = viewModel.inputCycle.value
