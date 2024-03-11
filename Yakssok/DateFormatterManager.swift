@@ -48,5 +48,11 @@ class DateFormatterManager {
         
         return sortedTimeStrings
     }
-
+    
+    func makeHeaderDateFormatter(date: Date) -> String {
+        formatter.dateFormat = "YYYY년 MM월"
+        formatter.locale = Locale(identifier: "ko_kr")
+        
+        return formatter.string(from: date)
+    }
 }

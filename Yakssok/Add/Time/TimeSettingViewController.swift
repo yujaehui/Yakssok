@@ -33,7 +33,6 @@ class TimeSettingViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputSelectTimeList.bind { [weak self] value in
-            print(value)
             self?.timeTableView.reloadData()
         }
         

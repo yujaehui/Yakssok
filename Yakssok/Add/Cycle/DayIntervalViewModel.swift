@@ -22,10 +22,10 @@ class DayIntervalViewModel {
     
     // output
     
+    let outputStateText: Observable<String> = Observable("")
     let outputColor: Observable<Bool> = Observable(false)
     let outputIsEnabled: Observable<Bool> = Observable(false)
     var outputDayIntervalList: Observable<[String]?> = Observable(nil)
-    let outputStateText: Observable<String> = Observable("")
     
     init() {
         inputText.bind { [weak self] value in

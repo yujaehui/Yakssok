@@ -135,8 +135,8 @@ final class AddViewController: BaseViewController {
 extension AddViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch SectionType.allCases[indexPath.section] {
-        case .name: print("name")
-        case .amount: print("amount")
+        case .name: return
+        case .amount: return
         case .startDay:
             let vc = StartDaySettingViewController()
             vc.viewModel.outputDate.value = viewModel.inputStartDay.value
