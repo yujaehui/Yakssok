@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import RealmSwift
 
 class AddViewModel {
+    let repository = SupplementRepository()
     
     // input
     let inputSupplement: Observable<Row?> = Observable(nil)

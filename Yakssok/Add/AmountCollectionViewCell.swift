@@ -63,5 +63,4 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
             make.size.equalTo(44)
         }
     }
-    
 }

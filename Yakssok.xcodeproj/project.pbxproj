@@ -58,6 +58,8 @@
 		09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */; };
 		09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */; };
 		09C739F52BA00F3000B200DE /* CycleSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */; };
+		09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739F72BA049F300B200DE /* SupplementRepository.swift */; };
+		09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739FB2BA04B7800B200DE /* MySupplement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,8 @@
 		09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCollectionViewCell.swift; sourceTree = "<group>"; };
 		09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountCollectionViewCell.swift; sourceTree = "<group>"; };
 		09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewModel.swift; sourceTree = "<group>"; };
+		09C739F72BA049F300B200DE /* SupplementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementRepository.swift; sourceTree = "<group>"; };
+		09C739FB2BA04B7800B200DE /* MySupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				09C739F62BA049D900B200DE /* Realm */,
 				09C739E02B9ED4F300B200DE /* Calendar */,
 				09C156C12B9AFBFF0008F86E /* Add */,
 				09833BFE2B99A49F0081E37E /* Search */,
@@ -265,6 +270,15 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		09C739F62BA049D900B200DE /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				09C739FB2BA04B7800B200DE /* MySupplement.swift */,
+				09C739F72BA049F300B200DE /* SupplementRepository.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -370,6 +384,7 @@
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
+				09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */,
 				09C739F52BA00F3000B200DE /* CycleSettingViewModel.swift in Sources */,
 				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
@@ -381,6 +396,7 @@
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
+				09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */,
 				09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */,
 				09C739D32B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,

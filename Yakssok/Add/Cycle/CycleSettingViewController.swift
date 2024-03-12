@@ -9,7 +9,7 @@ import UIKit
 import Tabman
 import Pageboy
 
-class CycleSettingViewController: TabmanViewController {
+final class CycleSettingViewController: TabmanViewController {
     let viewModel = CycleSettingViewModel()
     
     var selectCycle: (([String]) -> Void)?

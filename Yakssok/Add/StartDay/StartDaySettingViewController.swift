@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-class StartDaySettingViewController: BaseViewController {
+final class StartDaySettingViewController: BaseViewController {
     var selectDate: ((Date) -> Void)?
     
     let viewModel = StartDayViewModel()
     
-    let startDayPicker = FSCalendar()
+    private let startDayPicker = FSCalendar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class StartDaySettingViewController: BaseViewController {
         print("StartDaySettingViewController deinit")
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputDate.bind { [weak self] value in
             guard let value = value else { return }
             self?.startDayPicker.select(value)
@@ -36,15 +36,15 @@ class StartDaySettingViewController: BaseViewController {
         }
     }
     
-    func setNav() {
+    private func setNav() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     
-    @objc func rightBarButtonItemClikced() {
+    @objc private func rightBarButtonItemClikced() {
         dismiss(animated: true)
     }
     
-    func setToolBar() {
+    private func setToolBar() {
         navigationController?.isToolbarHidden = false
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
@@ -52,7 +52,7 @@ class StartDaySettingViewController: BaseViewController {
         self.toolbarItems = barItems
     }
     
-    @objc func registrationButtonClicked() {
+    @objc private func registrationButtonClicked() {
         viewModel.inputDate.value = startDayPicker.selectedDate
         dismiss(animated: true)        
     }

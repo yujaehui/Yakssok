@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-class CalendarViewController: BaseViewController {
+final class CalendarViewController: BaseViewController {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: Date())
@@ -23,7 +23,7 @@ class CalendarViewController: BaseViewController {
         return button
     }()
     
-    lazy var calendar: FSCalendar = {
+    private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.delegate = self
         calendar.dataSource = self
@@ -34,13 +34,13 @@ class CalendarViewController: BaseViewController {
         return calendar
     }()
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
         return collectionView
     }()
     
     
-    var dataSource: UICollectionViewDiffableDataSource<Int, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Int, String>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +107,7 @@ class CalendarViewController: BaseViewController {
         dataSource.apply(snapshot)
     }
     
-    @objc func tapToggleButton() {
+    @objc private func tapToggleButton() {
         if self.calendar.scope == .month {
             self.calendar.setScope(.week, animated: true)
             self.toggleButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)

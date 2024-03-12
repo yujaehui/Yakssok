@@ -7,8 +7,9 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
-enum SectionType: String, CaseIterable {
+enum Section: String, CaseIterable {
     case name = "영양제 이름"
     case amount = "복용량"
     case startDay = "복용시작일"
@@ -20,9 +21,8 @@ final class AddViewController: BaseViewController {
     
     let viewModel = AddViewModel()
     
-    // MARK: - 1. Property
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
-    var dataSource: UICollectionViewDiffableDataSource<SectionType, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     deinit {
         print("AddViewController deinit")
@@ -34,11 +34,14 @@ final class AddViewController: BaseViewController {
         configureHierarchy()
         configureConstraints()
         configureDataSource()
+        
+        setToolBar()
+        
         updateSnapshot()
         bindData()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputSupplement.bind { [weak self] _ in
             self?.updateSnapshot()
         }
@@ -60,6 +63,20 @@ final class AddViewController: BaseViewController {
         }
     }
     
+    private func setToolBar() {
+        navigationController?.isToolbarHidden = false
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
+        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
+        self.toolbarItems = barItems
+    }
+    
+    @objc private func registrationButtonClicked() {
+        let data = MySupplement(name: viewModel.outputSupplement.value.prdlstNm, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
+        viewModel.repository.createItem(data)
+        //dismiss(animated: true)
+    }
+    
     override func configureHierarchy() {
         view.addSubview(collectionView)
     }
@@ -74,14 +91,12 @@ final class AddViewController: BaseViewController {
         }
     }
     
-    // MARK: - 2. Layout : Flow -> Compositional(ListConfiguration)
     private func configureUICollectioViewLayout() -> UICollectionViewLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         return layout
     }
     
-    // MARK: - 3. CellRegistration, DataSource
     private func configureDataSource() {
         
         let nameCellRegistration = UICollectionView.CellRegistration<NameCollectionViewCell, String> { cell, indexPath, itemIdentifier in
@@ -98,7 +113,7 @@ final class AddViewController: BaseViewController {
         }
 
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            switch SectionType.allCases[indexPath.section] {
+            switch Section.allCases[indexPath.section] {
             case .name:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
                 return cell
@@ -118,10 +133,9 @@ final class AddViewController: BaseViewController {
         })
     }
     
-    // MARK: - 4. Snapshot
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionType, String>()
-        snapshot.appendSections(SectionType.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        snapshot.appendSections(Section.allCases)
         snapshot.appendItems([viewModel.outputSupplement.value.prdlstNm], toSection: .name)
         snapshot.appendItems([String(viewModel.outputAmount.value)], toSection: .amount)
         snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
@@ -134,7 +148,7 @@ final class AddViewController: BaseViewController {
 
 extension AddViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch SectionType.allCases[indexPath.section] {
+        switch Section.allCases[indexPath.section] {
         case .name: return
         case .amount: return
         case .startDay:

@@ -56,3 +56,24 @@ class DateFormatterManager {
         return formatter.string(from: date)
     }
 }
+
+
+//func sortTimeStrings(_ timeStrings: [Times]) -> [Times] {
+//    formatter.dateFormat = "a hh:mm"
+//    
+//    let times = timeStrings.map { timeString -> Date in
+//        guard let time = formatter.date(from: timeString.time) else {
+//            fatalError("Invalid time string format: \(timeString)")
+//        }
+//        return time
+//    }
+//    
+//    let sortedTimes = times.sorted()
+//    
+//    let sortedTimeStrings = sortedTimes.map { time -> Times in
+//        let time = formatter.string(from: time)
+//        return Times(time: time)
+//    }
+//    
+//    return sortedTimeStrings
+//}
