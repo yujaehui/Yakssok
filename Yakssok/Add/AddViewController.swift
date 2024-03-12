@@ -72,7 +72,7 @@ final class AddViewController: BaseViewController {
     }
     
     @objc private func registrationButtonClicked() {
-        let data = MySupplement(name: viewModel.outputSupplement.value.prdlstNm, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
+        let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
         viewModel.repository.createItem(data)
         //dismiss(animated: true)
     }
@@ -116,6 +116,9 @@ final class AddViewController: BaseViewController {
             switch Section.allCases[indexPath.section] {
             case .name:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
+                cell.passName = { value in
+                    self.viewModel.inputName.value = value
+                }
                 return cell
             case .amount:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: amountCellRegistration, for: indexPath, item: itemIdentifier)
@@ -136,7 +139,7 @@ final class AddViewController: BaseViewController {
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([viewModel.outputSupplement.value.prdlstNm], toSection: .name)
+        snapshot.appendItems([viewModel.outputName.value], toSection: .name)
         snapshot.appendItems([String(viewModel.outputAmount.value)], toSection: .amount)
         snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
         snapshot.appendItems([viewModel.outputCycle.value], toSection: .cycle)

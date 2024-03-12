@@ -13,6 +13,7 @@ class AddViewModel {
     
     // input
     let inputSupplement: Observable<Row?> = Observable(nil)
+    let inputName: Observable<String?> = Observable(nil)
     let inputMinusAmount: Observable<Int> = Observable(1)
     let inputPlusAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(Date())
@@ -21,16 +22,21 @@ class AddViewModel {
     
     // output
     let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
+    let outputName: Observable<String> = Observable("")
     let outputAmount: Observable<Int> = Observable(0)
     let outputStartDay: Observable<String> = Observable("")
     let outputCycle: Observable<String> = Observable("")
-    let outputCycleString: Observable<String> = Observable("")
     let outputTimeList: Observable<[String]> = Observable([])
     
     init() {
         inputSupplement.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputSupplement.value = value
+        }
+        
+        inputName.bind { value in
+            guard let value = value else { return }
+            self.outputName.value = value
         }
         
         inputMinusAmount.bind { [weak self] value in

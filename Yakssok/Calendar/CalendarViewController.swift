@@ -35,7 +35,7 @@ final class CalendarViewController: BaseViewController {
     }()
     
     private lazy var collectionView: UICollectionView = {
-       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
         return collectionView
     }()
     
@@ -120,7 +120,7 @@ final class CalendarViewController: BaseViewController {
     }
 }
 
-extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
+extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendar.snp.updateConstraints {
             $0.height.equalTo(bounds.height)
@@ -133,10 +133,35 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print(date)
+        
         if calendar.scope == .week {
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: date)
         } else {
             return
         }
     }
+    
+//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd"
+//        let baseDate = formatter.date(from: "2024/03/10")
+//        guard let baseDate = baseDate else { return nil }
+//    
+//        print(date)
+//        let calendar = Calendar.current
+//        let components = calendar.dateComponents([.day], from: baseDate, to: Date())
+//       print(components)
+//        if let days = components.day {
+//            print(days)
+//            switch days % 3 {
+//            case 0:
+//                return UIColor.red
+//            default:
+//                return nil
+//            }
+//        }
+//        
+//        return nil
+//    }
 }

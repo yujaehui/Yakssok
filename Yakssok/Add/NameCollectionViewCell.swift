@@ -11,6 +11,8 @@ import SnapKit
 class NameCollectionViewCell: BaseCollectionViewCell {
     let nameTextField = UITextField()
     
+    var passName: ((String?) -> Void)?
+    
     override func configureHierarchy() {
         contentView.addSubview(nameTextField)
     }
@@ -23,6 +25,7 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     
     @objc func nameTextFieldChanged() {
         print(nameTextField.text!)
+        passName?(nameTextField.text)
     }
     
     override func configureConstraints() {
