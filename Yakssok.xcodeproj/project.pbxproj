@@ -57,6 +57,7 @@
 		09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E12B9ED52F00B200DE /* CalendarViewController.swift */; };
 		09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */; };
 		09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */; };
+		09C739F52BA00F3000B200DE /* CycleSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		09C739E12B9ED52F00B200DE /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCollectionViewCell.swift; sourceTree = "<group>"; };
 		09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountCollectionViewCell.swift; sourceTree = "<group>"; };
+		09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 		09C739C12B9DBB1E00B200DE /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
+				09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */,
 				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
 				09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */,
 				09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */,
@@ -367,6 +370,7 @@
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
+				09C739F52BA00F3000B200DE /* CycleSettingViewModel.swift in Sources */,
 				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,

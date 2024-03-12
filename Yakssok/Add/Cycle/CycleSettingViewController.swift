@@ -10,6 +10,8 @@ import Tabman
 import Pageboy
 
 class CycleSettingViewController: TabmanViewController {
+    let viewModel = CycleSettingViewModel()
+    
     var selectCycle: (([String]) -> Void)?
     
     let DayIntervalVC = DayIntervalViewController()
@@ -70,6 +72,6 @@ extension CycleSettingViewController: PageboyViewControllerDataSource, TMBarData
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return nil
+        return .at(index: viewModel.outputIndex.value)
     }
 }
