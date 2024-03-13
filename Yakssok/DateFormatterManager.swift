@@ -48,4 +48,11 @@ class DateFormatterManager {
         
         return formatter.string(from: date)
     }
+    
+    func dayOfWeek(from date: Date) -> String {
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "E"
+        let dayOfWeekString = formatter.string(from: date)
+        return dayOfWeekString
+    }
 }

@@ -51,7 +51,6 @@ class DayOfTheWeekViewController: BaseViewController {
         
         viewModel.outputDayOfTheWeekList.bind { [weak self] value in
             guard let value = value else { return }
-            self?.collectionView.reloadData()
             self?.selectDayOfTheWeek?(value)
         }
     }

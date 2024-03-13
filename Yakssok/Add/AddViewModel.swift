@@ -17,7 +17,7 @@ class AddViewModel {
     let inputMinusAmount: Observable<Int> = Observable(1)
     let inputPlusAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(Date())
-    let inputCycle: Observable<[String]> = Observable(["1"])
+    let inputCycle: Observable<[String]> = Observable(["월"])
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
     
     // output
@@ -30,7 +30,8 @@ class AddViewModel {
     let outputStartDay: Observable<Date> = Observable(Date())
     let outputStartDayString: Observable<String> = Observable("")
     
-    let outputCycle: Observable<String> = Observable("")
+    let outputCycle: Observable<[String]> = Observable([])
+    let outputCycleString: Observable<String> = Observable("")
     
     let outputTimeList: Observable<[Date]> = Observable([])
     let outputTimeListString: Observable<[String]> = Observable([])
@@ -68,11 +69,8 @@ class AddViewModel {
         }
         
         inputCycle.bind { [weak self] value in
-            if value.contains(where: {Int($0) != nil}) {
-                self?.outputCycle.value = value.joined(separator: "") + "일 마다"
-            } else {
-                self?.outputCycle.value = value.joined(separator: ", ") + "요일 마다"
-            }
+            self?.outputCycle.value = value
+            self?.outputCycleString.value = value.joined(separator: ", ")
         }
         
         inputTimeList.bind { [weak self] value in

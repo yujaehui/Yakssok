@@ -147,6 +147,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print(DateFormatterManager.shared.dayOfWeek(from: date))
         
         viewModel.inputDidSelectTrigger.value = ()
         
@@ -156,27 +157,4 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             return
         }
     }
-    
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy/MM/dd"
-//        let baseDate = formatter.date(from: "2024/03/10")
-//        guard let baseDate = baseDate else { return nil }
-//    
-//        print(date)
-//        let calendar = Calendar.current
-//        let components = calendar.dateComponents([.day], from: baseDate, to: Date())
-//       print(components)
-//        if let days = components.day {
-//            print(days)
-//            switch days % 3 {
-//            case 0:
-//                return UIColor.red
-//            default:
-//                return nil
-//            }
-//        }
-//        
-//        return nil
-//    }
 }

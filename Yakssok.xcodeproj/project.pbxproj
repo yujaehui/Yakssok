@@ -215,6 +215,17 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		09ABD4362BA1941A00826A73 /* Update... */ = {
+			isa = PBXGroup;
+			children = (
+				09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */,
+				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
+				09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */,
+				09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */,
+			);
+			path = Update...;
+			sourceTree = "<group>";
+		};
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,10 +252,7 @@
 		09C739C12B9DBB1E00B200DE /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
-				09C739F42BA00F3000B200DE /* CycleSettingViewModel.swift */,
-				09C157062B9C85DF0008F86E /* CycleSettingViewController.swift */,
-				09C739D62B9DDFC800B200DE /* DayIntervalViewModel.swift */,
-				09C739D42B9DDE7400B200DE /* DayIntervalViewController.swift */,
+				09ABD4362BA1941A00826A73 /* Update... */,
 				09C739D22B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift */,
 				09C739CE2B9DD1F800B200DE /* DayOfTheWeekViewController.swift */,
 				09C739D02B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift */,

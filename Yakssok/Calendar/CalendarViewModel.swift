@@ -20,7 +20,6 @@ class CalendarViewModel {
         inputDidSelectTrigger.bind { [weak self] _ in
             guard let self = self else { return }
             self.outputMySupplement.value = self.repository.fetchItem()
-            print(self.outputMySupplement.value)
         }
     }
 }

@@ -54,7 +54,7 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
-        viewModel.outputCycle.bind { [weak self] value in
+        viewModel.outputCycleString.bind { [weak self] value in
             self?.updateSnapshot()
         }
         
@@ -72,7 +72,7 @@ final class AddViewController: BaseViewController {
     }
     
     @objc private func registrationButtonClicked() {
-        let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
+        let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
         viewModel.repository.createItem(data)
         //dismiss(animated: true)
     }
@@ -142,7 +142,7 @@ final class AddViewController: BaseViewController {
         snapshot.appendItems([viewModel.outputName.value], toSection: .name)
         snapshot.appendItems([viewModel.outputAmountString.value], toSection: .amount)
         snapshot.appendItems([viewModel.outputStartDayString.value], toSection: .startDay)
-        snapshot.appendItems([viewModel.outputCycle.value], toSection: .cycle)
+        snapshot.appendItems([viewModel.outputCycleString.value], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeListString.value, toSection: .time)
         dataSource.apply(snapshot)
         
@@ -166,15 +166,9 @@ extension AddViewController: UICollectionViewDelegate {
             }
             present(nav, animated: true)
         case .cycle:
-            let vc = CycleSettingViewController()
-            if Helpers.shared.containsNumber(in: viewModel.outputCycle.value) {
-                vc.viewModel.inputIndex.value = 0
-                vc.DayIntervalVC.viewModel.outputDayIntervalList.value = viewModel.inputCycle.value
-            } else {
-                vc.viewModel.inputIndex.value = 1
-                vc.DayOfTheWeek.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
-            }
-            vc.selectCycle = { [weak self] value in
+            let vc = DayOfTheWeekViewController()
+            vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+            vc.selectDayOfTheWeek = { [weak self] value in
                 self?.viewModel.inputCycle.value = value
             }
             let nav = UINavigationController(rootViewController: vc)

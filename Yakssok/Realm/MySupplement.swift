@@ -13,8 +13,16 @@ class MySupplement: Object {
     @Persisted var name: String
     @Persisted var amout: Int
     @Persisted var startDay: Date
-    @Persisted var cycle: String
+    @Persisted var cycle: List<String>
     @Persisted var time: List<Date>
+    var cycleArray: [String] {
+        get {
+            return cycle.map{$0}
+        } set {
+            cycle.removeAll()
+            cycle.append(objectsIn: newValue)
+        }
+    }
     var timeArray: [Date] {
         get {
             return time.map{$0}
@@ -25,12 +33,12 @@ class MySupplement: Object {
         }
     }
     
-    convenience init(name: String, amout: Int, startDay: Date, cycle: String, timeArray: [Date]) {
+    convenience init(name: String, amout: Int, startDay: Date, cycleArray: [String], timeArray: [Date]) {
         self.init()
         self.name = name
         self.amout = amout
         self.startDay = startDay
-        self.cycle = cycle
+        self.cycleArray = cycleArray
         self.timeArray = timeArray
     }
 }
