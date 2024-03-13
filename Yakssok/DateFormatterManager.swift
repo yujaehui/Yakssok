@@ -55,4 +55,11 @@ class DateFormatterManager {
         let dayOfWeekString = formatter.string(from: date)
         return dayOfWeekString
     }
+    
+    func makeHeaderDateFormatter2(date: Date) -> String {
+        formatter.dateFormat = "a hh:mm"
+        formatter.locale = Locale(identifier: "ko_kr")
+        
+        return formatter.string(from: date)
+    }
 }

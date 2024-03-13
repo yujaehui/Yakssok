@@ -41,26 +41,34 @@ final class CalendarViewController: BaseViewController {
         return calendar
     }()
     
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
-        return collectionView
+    private lazy var tableView: UITableView = {
+       let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tableView
     }()
     
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, MySupplement>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, [MySupplement]>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDataSource()
-        updateSnapshot()
         bindData()
     }
     
     func bindData() {
         viewModel.outputMySupplement.bind { [weak self] value in
             guard let self = self else { return }
-            print(value)
-            self.updateSnapshot()
+            self.viewModel.inputGroupedDataDict.value = value
+        }
+        
+        viewModel.outputGroupedData.bind { _ in
+            self.tableView.reloadData()
+        }
+        
+        viewModel.outputSectionHeader.bind { _ in
+            self.tableView.reloadData()
         }
     }
     
@@ -68,7 +76,7 @@ final class CalendarViewController: BaseViewController {
         view.addSubview(headerLabel)
         view.addSubview(toggleButton)
         view.addSubview(calendar)
-        view.addSubview(collectionView)
+        view.addSubview(tableView)
     }
     
     override func configureConstraints() {
@@ -90,39 +98,11 @@ final class CalendarViewController: BaseViewController {
             make.height.equalTo(300)
         }
         
-        collectionView.snp.makeConstraints { make in
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(calendar.snp.bottom).offset(8)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-    private func configureUICollectioViewLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        return layout
-    }
-    
-    private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, MySupplement> { cell, indexPath, itemIdentifier in
-            var content = UIListContentConfiguration.subtitleCell()
-            content.text = itemIdentifier.name
-            content.textProperties.alignment = .center
-            cell.contentConfiguration = content
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-            return cell
-        })
-    }
-    
-    private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, MySupplement>()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(viewModel.outputMySupplement.value, toSection: .main)
-        dataSource.apply(snapshot)
-    }
-    
     @objc private func tapToggleButton() {
         if self.calendar.scope == .month {
             self.calendar.setScope(.week, animated: true)
@@ -133,6 +113,27 @@ final class CalendarViewController: BaseViewController {
             self.toggleButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.currentPage)
         }
+    }
+}
+
+extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.outputGroupedData.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let data = viewModel.outputSectionHeader.value[section]
+        return DateFormatterManager.shared.makeHeaderDateFormatter2(date: data)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.outputGroupedData.value[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        cell.textLabel?.text = viewModel.outputGroupedData.value[indexPath.section][indexPath.row].name
+        return cell
     }
 }
 
