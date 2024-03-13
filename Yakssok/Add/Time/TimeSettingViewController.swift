@@ -159,6 +159,7 @@ extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource 
         guard editingStyle == .delete else { return }
         if viewModel.outputSelectTimeStringList.value.count > 1 {
             viewModel.outputSelectTimeStringList.value.remove(at: indexPath.row)
+            viewModel.outputSelectTimeList.value.remove(at: indexPath.row)
         } else {
            return // 나중에 알럿? 토스트? 처리 할 예정
         }
