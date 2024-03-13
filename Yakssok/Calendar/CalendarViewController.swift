@@ -53,11 +53,13 @@ final class CalendarViewController: BaseViewController {
         super.viewDidLoad()
         configureDataSource()
         updateSnapshot()
+        bindData()
     }
     
     func bindData() {
         viewModel.outputMySupplement.bind { [weak self] value in
             guard let self = self else { return }
+            print(value)
             self.updateSnapshot()
         }
     }
@@ -148,8 +150,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print(DateFormatterManager.shared.dayOfWeek(from: date))
-        
-        viewModel.inputDidSelectTrigger.value = ()
+        viewModel.inputDidSelectTrigger.value = (date)
         
         if calendar.scope == .week {
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: date)

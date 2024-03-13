@@ -11,15 +11,16 @@ class CalendarViewModel {
     let repository = SupplementRepository()
     
     //input
-    let inputDidSelectTrigger: Observable<Void?> = Observable(nil)
+    let inputDidSelectTrigger: Observable<Date?> = Observable(nil)
     
     //output
     let outputMySupplement: Observable<[MySupplement]> = Observable([])
     
     init() {
-        inputDidSelectTrigger.bind { [weak self] _ in
+        inputDidSelectTrigger.bind { [weak self] value in
             guard let self = self else { return }
-            self.outputMySupplement.value = self.repository.fetchItem()
+            guard let value = value else { return }
+            self.outputMySupplement.value = self.repository.fetchBySelectedDate(date: value)
         }
     }
 }

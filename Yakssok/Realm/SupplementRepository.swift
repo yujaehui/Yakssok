@@ -26,4 +26,9 @@ class SupplementRepository {
         let result = realm.objects(MySupplement.self)
         return Array(result)
     }
+    
+    func fetchBySelectedDate(date: Date) -> [MySupplement] {
+        let result = realm.objects(MySupplement.self).filter { $0.startDay < date && $0.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: date) }) }
+        return Array(result)
+    }
 }
