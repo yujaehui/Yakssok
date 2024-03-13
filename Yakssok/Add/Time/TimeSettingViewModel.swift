@@ -17,7 +17,7 @@ class TimeSettingViewModel {
     //output
     let outputSelectTimeList: Observable<[Date]> = Observable([])
     let outputSelectTimeStringList: Observable<[String]> = Observable([])
-    let outputTimeList: Observable<[Date]> = Observable([])
+    let outputTimeList: Observable<[Date]?> = Observable(nil)
     
     let addTimeButtonClicked: Observable<Void?> = Observable(nil)
     

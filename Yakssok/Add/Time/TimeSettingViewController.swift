@@ -36,7 +36,7 @@ class TimeSettingViewController: BaseViewController {
             guard value != nil else { return }
             let vc = TimePickerViewController()
             vc.selectTime = { [weak self] value in
-                self?.viewModel.inputSelectTime.value =  value //DateFormatterManager.shared.formatTimeToString(time: value)
+                self?.viewModel.inputSelectTime.value =  value
             }
             self?.navigationController?.pushViewController(vc, animated: true)
         }
@@ -50,6 +50,7 @@ class TimeSettingViewController: BaseViewController {
         }
         
         viewModel.outputTimeList.bind { [weak self] value in
+            guard let value = value else { return }
             self?.selectTimeList?(value)
         }
     }

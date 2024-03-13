@@ -76,6 +76,7 @@ class AddViewModel {
         inputTimeList.bind { [weak self] value in
             self?.outputTimeList.value = value
             self?.outputTimeListString.value = DateFormatterManager.shared.convertDateArrayToStringArray(dates: value)
+            print(self?.outputTimeListString.value)
         }
     }
 }
