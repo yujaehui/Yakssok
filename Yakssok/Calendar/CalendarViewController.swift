@@ -10,6 +10,13 @@ import SnapKit
 import FSCalendar
 
 final class CalendarViewController: BaseViewController {
+    
+    let viewModel = CalendarViewModel()
+    
+    enum Section: CaseIterable {
+        case main
+    }
+    
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: Date())
@@ -40,12 +47,19 @@ final class CalendarViewController: BaseViewController {
     }()
     
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, MySupplement>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDataSource()
         updateSnapshot()
+    }
+    
+    func bindData() {
+        viewModel.outputMySupplement.bind { [weak self] value in
+            guard let self = self else { return }
+            self.updateSnapshot()
+        }
     }
     
     override func configureHierarchy() {
@@ -87,9 +101,9 @@ final class CalendarViewController: BaseViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, itemIdentifier in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, MySupplement> { cell, indexPath, itemIdentifier in
             var content = UIListContentConfiguration.subtitleCell()
-            content.text = itemIdentifier
+            content.text = itemIdentifier.name
             content.textProperties.alignment = .center
             cell.contentConfiguration = content
         }
@@ -101,9 +115,9 @@ final class CalendarViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-        snapshot.appendSections([1])
-        snapshot.appendItems(["hhh"], toSection: 1)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MySupplement>()
+        snapshot.appendSections(Section.allCases)
+        snapshot.appendItems(viewModel.outputMySupplement.value, toSection: .main)
         dataSource.apply(snapshot)
     }
     
@@ -133,7 +147,8 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(date)
+        
+        viewModel.inputDidSelectTrigger.value = ()
         
         if calendar.scope == .week {
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: date)

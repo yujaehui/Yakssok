@@ -12,7 +12,7 @@ class SupplementRepository {
     let realm = try! Realm()
     
     func createItem(_ data: MySupplement) {
-        print(realm.configuration.fileURL)
+        //print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(data)
@@ -20,5 +20,10 @@ class SupplementRepository {
         } catch {
             print(error)
         }
+    }
+    
+    func fetchItem() -> [MySupplement] {
+        let result = realm.objects(MySupplement.self)
+        return Array(result)
     }
 }
