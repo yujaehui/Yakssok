@@ -13,40 +13,33 @@ class DateFormatterManager {
     
     let formatter = DateFormatter()
     
-    func formatTimeToString(time: Date) -> String {
-        formatter.dateFormat = "a hh:mm"
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.amSymbol = "오전"
-        formatter.pmSymbol = "오후"
-        
-        return formatter.string(from: time)
-    }
-    
-    func formatDateToString(date: Date) -> String {
+    func convertformatDateToString(date: Date) -> String {
         formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko_KR")
         
         return formatter.string(from: date)
     }
     
+    func extractTime(date: Date) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date)
+        return calendar.date(from: components)!
+    }
     
-    func sortTimeStrings(_ timeStrings: [String]) -> [String] {
+    func convertDateArrayToStringArray(dates: [Date]) -> [String] {
         formatter.dateFormat = "a hh:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.amSymbol = "오전"
+        formatter.pmSymbol = "오후"
         
-        let times = timeStrings.map { timeString -> Date in
-            guard let time = formatter.date(from: timeString) else {
-                fatalError("Invalid time string format: \(timeString)")
-            }
-            return time
+        var stringArray = [String]()
+        
+        for date in dates {
+            let dateString = formatter.string(from: date)
+            stringArray.append(dateString)
         }
         
-        let sortedTimes = times.sorted()
-        
-        let sortedTimeStrings = sortedTimes.map { time -> String in
-            return formatter.string(from: time)
-        }
-        
-        return sortedTimeStrings
+        return stringArray
     }
     
     func makeHeaderDateFormatter(date: Date) -> String {
@@ -56,24 +49,3 @@ class DateFormatterManager {
         return formatter.string(from: date)
     }
 }
-
-
-//func sortTimeStrings(_ timeStrings: [Times]) -> [Times] {
-//    formatter.dateFormat = "a hh:mm"
-//    
-//    let times = timeStrings.map { timeString -> Date in
-//        guard let time = formatter.date(from: timeString.time) else {
-//            fatalError("Invalid time string format: \(timeString)")
-//        }
-//        return time
-//    }
-//    
-//    let sortedTimes = times.sorted()
-//    
-//    let sortedTimeStrings = sortedTimes.map { time -> Times in
-//        let time = formatter.string(from: time)
-//        return Times(time: time)
-//    }
-//    
-//    return sortedTimeStrings
-//}

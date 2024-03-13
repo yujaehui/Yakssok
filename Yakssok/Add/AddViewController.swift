@@ -46,7 +46,11 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
-        viewModel.outputStartDay.bind { [weak self] value in
+        viewModel.outputAmountString.bind { [weak self] value in
+            self?.updateSnapshot()
+        }
+        
+        viewModel.outputStartDayString.bind { [weak self] value in
             self?.updateSnapshot()
         }
         
@@ -54,11 +58,7 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
-        viewModel.outputTimeList.bind { [weak self] value in
-            self?.updateSnapshot()
-        }
-        
-        viewModel.outputAmount.bind { [weak self] value in
+        viewModel.outputTimeListString.bind { [weak self] value in
             self?.updateSnapshot()
         }
     }
@@ -140,10 +140,10 @@ final class AddViewController: BaseViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems([viewModel.outputName.value], toSection: .name)
-        snapshot.appendItems([String(viewModel.outputAmount.value)], toSection: .amount)
-        snapshot.appendItems([viewModel.outputStartDay.value], toSection: .startDay)
+        snapshot.appendItems([viewModel.outputAmountString.value], toSection: .amount)
+        snapshot.appendItems([viewModel.outputStartDayString.value], toSection: .startDay)
         snapshot.appendItems([viewModel.outputCycle.value], toSection: .cycle)
-        snapshot.appendItems(viewModel.outputTimeList.value, toSection: .time)
+        snapshot.appendItems(viewModel.outputTimeListString.value, toSection: .time)
         dataSource.apply(snapshot)
         
     }

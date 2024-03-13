@@ -10,24 +10,31 @@ import Foundation
 class TimeSettingViewModel {
     
     //input
-    let inputSelectTime: Observable<String?> = Observable(nil)
-    let inputTimeList: Observable<[String]?> = Observable(nil)
+    let inputSelectTime: Observable<Date?> = Observable(nil)
+    let inputSelectTimeList: Observable<[Date]?> = Observable(nil)
+    let inputTimeList: Observable<[Date]?> = Observable(nil)
     
     //output
-    let outputSelectTimeList: Observable<[String]> = Observable([])
-    let outputTimeList: Observable<[String]?> = Observable(nil)
+    let outputSelectTimeList: Observable<[Date]> = Observable([])
+    let outputSelectTimeStringList: Observable<[String]> = Observable([])
+    let outputTimeList: Observable<[Date]> = Observable([])
     
     let addTimeButtonClicked: Observable<Void?> = Observable(nil)
     
     init() {
         inputSelectTime.bind { value in
             guard let value = value else { return }
-            if self.outputSelectTimeList.value.contains(where: {$0 == value}) {
+            if self.outputSelectTimeList.value.contains(where: {$0 == DateFormatterManager.shared.extractTime(date: value)}) {
                 return
             } else {
-                self.outputSelectTimeList.value.append(value)
-                self.outputSelectTimeList.value = DateFormatterManager.shared.sortTimeStrings(self.outputSelectTimeList.value)
+                self.outputSelectTimeList.value.append(DateFormatterManager.shared.extractTime(date: value))
+                self.outputSelectTimeList.value.sort()
             }
+        }
+        
+        inputSelectTimeList.bind { value in
+            guard let value = value else { return }
+            self.outputSelectTimeStringList.value = DateFormatterManager.shared.convertDateArrayToStringArray(dates: value)
         }
         
         inputTimeList.bind { [weak self] value in

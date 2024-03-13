@@ -12,10 +12,10 @@ class MySupplement: Object {
     @Persisted(primaryKey: true) var pk: ObjectId
     @Persisted var name: String
     @Persisted var amout: Int
-    @Persisted var startDay: String
+    @Persisted var startDay: Date
     @Persisted var cycle: String
-    @Persisted var time: List<String>
-    var timeArray: [String] {
+    @Persisted var time: List<Date>
+    var timeArray: [Date] {
         get {
             return time.map{$0}
         }
@@ -25,7 +25,7 @@ class MySupplement: Object {
         }
     }
     
-    convenience init(name: String, amout: Int, startDay: String, cycle: String, timeArray: [String]) {
+    convenience init(name: String, amout: Int, startDay: Date, cycle: String, timeArray: [Date]) {
         self.init()
         self.name = name
         self.amout = amout

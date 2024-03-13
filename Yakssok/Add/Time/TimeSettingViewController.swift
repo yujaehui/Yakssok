@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class TimeSettingViewController: BaseViewController {
-    var selectTimeList: (([String]) -> Void)?
+    var selectTimeList: (([Date]) -> Void)?
     
     let viewModel = TimeSettingViewModel()
     
@@ -32,21 +32,24 @@ class TimeSettingViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputSelectTimeList.bind { [weak self] value in
-            self?.timeTableView.reloadData()
-        }
-        
         viewModel.addTimeButtonClicked.bind { [weak self] value in
             guard value != nil else { return }
             let vc = TimePickerViewController()
             vc.selectTime = { [weak self] value in
-                self?.viewModel.inputSelectTime.value = DateFormatterManager.shared.formatTimeToString(time: value)
+                self?.viewModel.inputSelectTime.value =  value //DateFormatterManager.shared.formatTimeToString(time: value)
             }
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
+        viewModel.outputSelectTimeList.bind { [weak self] value in
+            self?.viewModel.inputSelectTimeList.value = value
+        }
+        
+        viewModel.outputSelectTimeStringList.bind { [weak self] value in
+            self?.timeTableView.reloadData()
+        }
+        
         viewModel.outputTimeList.bind { [weak self] value in
-            guard let value = value else { return }
             self?.selectTimeList?(value)
         }
     }
@@ -142,19 +145,19 @@ class TimeSettingViewController: BaseViewController {
 
 extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.outputSelectTimeList.value.count
+        return viewModel.outputSelectTimeStringList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimeSettingTableViewCell.identifier, for: indexPath) as! TimeSettingTableViewCell
-        cell.timeLabel.text = viewModel.outputSelectTimeList.value[indexPath.row]
+        cell.timeLabel.text = viewModel.outputSelectTimeStringList.value[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        if viewModel.outputSelectTimeList.value.count > 1 {
-            viewModel.outputSelectTimeList.value.remove(at: indexPath.row)
+        if viewModel.outputSelectTimeStringList.value.count > 1 {
+            viewModel.outputSelectTimeStringList.value.remove(at: indexPath.row)
         } else {
            return // 나중에 알럿? 토스트? 처리 할 예정
         }

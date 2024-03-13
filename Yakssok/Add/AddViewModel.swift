@@ -18,15 +18,22 @@ class AddViewModel {
     let inputPlusAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(Date())
     let inputCycle: Observable<[String]> = Observable(["1"])
-    let inputTimeList: Observable<[String]> = Observable(["오전 09:00"])
+    let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
     
     // output
     let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
     let outputName: Observable<String> = Observable("")
+    
     let outputAmount: Observable<Int> = Observable(0)
-    let outputStartDay: Observable<String> = Observable("")
+    let outputAmountString: Observable<String> = Observable("")
+    
+    let outputStartDay: Observable<Date> = Observable(Date())
+    let outputStartDayString: Observable<String> = Observable("")
+    
     let outputCycle: Observable<String> = Observable("")
-    let outputTimeList: Observable<[String]> = Observable([])
+    
+    let outputTimeList: Observable<[Date]> = Observable([])
+    let outputTimeListString: Observable<[String]> = Observable([])
     
     init() {
         inputSupplement.bind { [weak self] value in
@@ -45,16 +52,19 @@ class AddViewModel {
                 return
             } else {
                 self.outputAmount.value -= 1
+                self.outputAmountString.value = String(self.outputAmount.value)
             }
         }
         
         inputPlusAmount.bind { [weak self] value in
             guard let self = self else { return }
             self.outputAmount.value += 1
+            self.outputAmountString.value = String(self.outputAmount.value)
         }
         
         inputStartDay.bind { [weak self] value in
-            self?.outputStartDay.value = DateFormatterManager.shared.formatDateToString(date: value)
+            self?.outputStartDay.value = value
+            self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
         }
         
         inputCycle.bind { [weak self] value in
@@ -67,6 +77,7 @@ class AddViewModel {
         
         inputTimeList.bind { [weak self] value in
             self?.outputTimeList.value = value
+            self?.outputTimeListString.value = DateFormatterManager.shared.convertDateArrayToStringArray(dates: value)
         }
     }
 }
