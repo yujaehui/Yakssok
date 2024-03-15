@@ -46,6 +46,10 @@ final class AddViewController: BaseViewController {
         bindData()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     private func bindData() {
         viewModel.outputSupplement.bind { [weak self] _ in
             self?.updateSnapshot()
@@ -188,6 +192,10 @@ final class AddViewController: BaseViewController {
 }
 
 extension AddViewController: UICollectionViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch Section.allCases[indexPath.section] {
         case .image:
