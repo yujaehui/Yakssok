@@ -10,6 +10,7 @@ import SnapKit
 import RealmSwift
 
 enum Section: String, CaseIterable {
+    case image = "영양제 이미지"
     case name = "영양제 이름"
     case amount = "복용량"
     case startDay = "복용시작일"
@@ -19,6 +20,7 @@ enum Section: String, CaseIterable {
 
 struct SectionItem: Hashable {
     let section: Section
+    let image: UIImage?
     let item: String
 }
 
@@ -26,8 +28,10 @@ final class AddViewController: BaseViewController {
     
     let viewModel = AddViewModel()
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
+    
+    private var image = UIImage(systemName: "pill.fill")
     
     deinit {
         print("AddViewController deinit")
@@ -92,10 +96,24 @@ final class AddViewController: BaseViewController {
         }
     }
     
-    private func configureUICollectioViewLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
+            let layoutSection: NSCollectionLayoutSection
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            layoutSection = NSCollectionLayoutSection(group: group)
+            layoutSection.interGroupSpacing = 5
+            return layoutSection
+        }
         return layout
+    }
+    
+    private func imageCellRegistration() -> UICollectionView.CellRegistration<ImageCollectionViewCell, SectionItem> {
+        UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.imageView.image = itemIdentifier.image
+        }
     }
     
     private func nameCellRegistration() -> UICollectionView.CellRegistration<NameCollectionViewCell, SectionItem> {
@@ -129,12 +147,16 @@ final class AddViewController: BaseViewController {
     }
     
     private func configureDataSource() {
+        let imageCellRegistration = imageCellRegistration()
         let nameCellRegistration = nameCellRegistration()
         let amountCellRegistration = amoutCellRegistration()
         let cellRegistration = commonCellRegistration()
 
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             switch Section.allCases[indexPath.section] {
+            case .image:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: imageCellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
             case .name:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
                 return cell
@@ -151,11 +173,12 @@ final class AddViewController: BaseViewController {
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([SectionItem(section: .name, item: viewModel.outputName.value)], toSection: .name)
-        snapshot.appendItems([SectionItem(section: .amount, item: viewModel.outputAmountString.value)], toSection: .amount)
-        snapshot.appendItems([SectionItem(section: .startDay, item: viewModel.outputStartDayString.value)], toSection: .startDay)
-        snapshot.appendItems([SectionItem(section: .cycle, item: viewModel.outputCycleString.value)], toSection: .cycle)
-        snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, item: $0) }, toSection: .time)
+        snapshot.appendItems([SectionItem(section: .image, image: image, item: "")], toSection: .image)
+        snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
+        snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
+        snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
+        snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
+        snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
         
     }
@@ -164,6 +187,17 @@ final class AddViewController: BaseViewController {
 extension AddViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch Section.allCases[indexPath.section] {
+        case .image:
+            let vc = ImageTypeSelectViewController()
+            vc.selectImage = { value in
+                self.image = value
+                self.updateSnapshot()
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
         case .name: return
         case .amount: return
         case .startDay:

@@ -30,7 +30,6 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     override func configureConstraints() {
         nameTextField.snp.makeConstraints { make in
             make.edges.equalTo(contentView)
-            make.height.equalTo(44)
         }
     }
     

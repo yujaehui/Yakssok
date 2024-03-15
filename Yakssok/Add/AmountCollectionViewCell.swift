@@ -48,19 +48,16 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
         minusButton.snp.makeConstraints { make in
             make.verticalEdges.equalTo(contentView)
             make.leading.equalTo(contentView).inset(16)
-            make.size.equalTo(44)
         }
         
         amountLabel.snp.makeConstraints { make in
             make.verticalEdges.equalTo(contentView)
             make.center.equalTo(contentView)
-            make.height.equalTo(44)
         }
         
         plusButton.snp.makeConstraints { make in
             make.verticalEdges.equalTo(contentView)
             make.trailing.equalTo(contentView).inset(16)
-            make.size.equalTo(44)
         }
     }
     

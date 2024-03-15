@@ -37,6 +37,10 @@
 		09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */; };
 		09911F662B9A0D1A0093009D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09911F652B9A0D190093009D /* Helpers.swift */; };
 		09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4342BA18E9700826A73 /* CalendarViewModel.swift */; };
+		09ABD43A2BA45CAB00826A73 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4392BA45CAB00826A73 /* ImageCollectionViewCell.swift */; };
+		09ABD43D2BA45E8500826A73 /* ImageTypeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD43C2BA45E8400826A73 /* ImageTypeSelectViewController.swift */; };
+		09ABD43F2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */; };
+		09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -88,6 +92,10 @@
 		09911F632B9A0BC50093009D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		09911F652B9A0D190093009D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		09ABD4342BA18E9700826A73 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		09ABD4392BA45CAB00826A73 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		09ABD43C2BA45E8400826A73 /* ImageTypeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectViewController.swift; sourceTree = "<group>"; };
+		09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectTableViewCell.swift; sourceTree = "<group>"; };
+		09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectViewModel.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -226,9 +234,21 @@
 			path = Update...;
 			sourceTree = "<group>";
 		};
+		09ABD43B2BA45E3900826A73 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				09ABD4392BA45CAB00826A73 /* ImageCollectionViewCell.swift */,
+				09ABD43C2BA45E8400826A73 /* ImageTypeSelectViewController.swift */,
+				09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */,
+				09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				09ABD43B2BA45E3900826A73 /* Image */,
 				09C156F62B9C2C5D0008F86E /* AddViewModel.swift */,
 				09C156F42B9B93790008F86E /* AddViewController.swift */,
 				09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */,
@@ -395,11 +415,13 @@
 				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
+				09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
 				09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */,
 				09C739F52BA00F3000B200DE /* CycleSettingViewModel.swift in Sources */,
 				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
+				09ABD43F2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift in Sources */,
@@ -407,6 +429,7 @@
 				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */,
+				09ABD43A2BA45CAB00826A73 /* ImageCollectionViewCell.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */,
 				09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */,
@@ -420,6 +443,7 @@
 				09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
+				09ABD43D2BA45E8500826A73 /* ImageTypeSelectViewController.swift in Sources */,
 				09C156F52B9B93790008F86E /* AddViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
 				09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */,
