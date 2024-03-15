@@ -63,4 +63,8 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
             make.size.equalTo(44)
         }
     }
+    
+    func configureCell(_ itemIdentifier: SectionItem) {
+        amountLabel.text = itemIdentifier.item
+    }
 }

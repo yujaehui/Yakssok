@@ -36,12 +36,8 @@ final class AddViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("AddViewController viewDidLoad")
-        configureHierarchy()
-        configureConstraints()
-        configureDataSource()
-        
         setToolBar()
-        
+        configureDataSource()
         updateSnapshot()
         bindData()
     }
@@ -102,37 +98,48 @@ final class AddViewController: BaseViewController {
         return layout
     }
     
-    private func configureDataSource() {
-        
-        let nameCellRegistration = UICollectionView.CellRegistration<NameCollectionViewCell, SectionItem> { cell, indexPath, itemIdentifier in
-            cell.nameTextField.text = itemIdentifier.item
+    private func nameCellRegistration() -> UICollectionView.CellRegistration<NameCollectionViewCell, SectionItem> {
+        UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.configureCell(itemIdentifier)
+            cell.passName = { value in
+                self.viewModel.inputName.value = value
+            }
         }
-        let amountCellRegistration = UICollectionView.CellRegistration<AmountCollectionViewCell, SectionItem>  { cell, indexPath, itemIdentifier in
-            cell.amountLabel.text = itemIdentifier.item
+    }
+    
+    private func amoutCellRegistration() -> UICollectionView.CellRegistration<AmountCollectionViewCell, SectionItem> {
+        UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+            cell.configureCell(itemIdentifier)
+            cell.minusButtonAction = {
+                self.viewModel.inputMinusAmount.value = self.viewModel.outputAmount.value
+            }
+            cell.plusButtonAction = {
+                self.viewModel.inputPlusAmount.value = self.viewModel.outputAmount.value
+            }
         }
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SectionItem> { cell, indexPath, itemIdentifier in
+    }
+    
+    private func commonCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, SectionItem> {
+        UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             var content = UIListContentConfiguration.subtitleCell()
             content.text = itemIdentifier.item
             content.textProperties.alignment = .center
             cell.contentConfiguration = content
         }
+    }
+    
+    private func configureDataSource() {
+        let nameCellRegistration = nameCellRegistration()
+        let amountCellRegistration = amoutCellRegistration()
+        let cellRegistration = commonCellRegistration()
 
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             switch Section.allCases[indexPath.section] {
             case .name:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
-                cell.passName = { value in
-                    self.viewModel.inputName.value = value
-                }
                 return cell
             case .amount:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: amountCellRegistration, for: indexPath, item: itemIdentifier)
-                cell.minusButtonAction = {
-                    self.viewModel.inputMinusAmount.value = self.viewModel.outputAmount.value
-                }
-                cell.plusButtonAction = {
-                    self.viewModel.inputPlusAmount.value = self.viewModel.outputAmount.value
-                }
                 return cell
             default:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)

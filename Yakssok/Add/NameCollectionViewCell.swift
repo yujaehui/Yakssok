@@ -24,7 +24,6 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     }
     
     @objc func nameTextFieldChanged() {
-        print(nameTextField.text!)
         passName?(nameTextField.text)
     }
     
@@ -33,5 +32,9 @@ class NameCollectionViewCell: BaseCollectionViewCell {
             make.edges.equalTo(contentView)
             make.height.equalTo(44)
         }
+    }
+    
+    func configureCell(_ itemIdentifier: SectionItem) {
+        nameTextField.text = itemIdentifier.item
     }
 }
