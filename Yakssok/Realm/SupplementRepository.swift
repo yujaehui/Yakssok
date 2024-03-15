@@ -12,7 +12,6 @@ class SupplementRepository {
     let realm = try! Realm()
     
     func createItem(_ data: MySupplement) {
-        print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(data)
@@ -28,6 +27,8 @@ class SupplementRepository {
     }
     
     func fetchBySelectedDate(date: Date) -> [MySupplement] {
+        print(realm.configuration.fileURL)
+
         let result = realm.objects(MySupplement.self).filter { $0.startDay < date && $0.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: date) }) }
         return Array(result)
     }

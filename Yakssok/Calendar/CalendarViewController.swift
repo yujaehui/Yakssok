@@ -63,11 +63,7 @@ final class CalendarViewController: BaseViewController {
             self.viewModel.inputGroupData.value = value
         }
         
-        viewModel.outputGroupedDate.bind { _ in
-            self.tableView.reloadData()
-        }
-        
-        viewModel.outputGroupedMySupplement.bind { _ in
+        viewModel.outputGroupedDataDict.bind { _ in
             self.tableView.reloadData()
         }
     }
@@ -118,20 +114,21 @@ final class CalendarViewController: BaseViewController {
 
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.outputGroupedMySupplement.value.count
+        return viewModel.outputGroupedDataDict.value.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.outputGroupedDate.value[section]
+        let date = viewModel.outputGroupedDataDict.value[section].key
+        return DateFormatterManager.shared.makeHeaderDateFormatter2(date: date)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.outputGroupedMySupplement.value[section].count
+        return viewModel.outputGroupedDataDict.value[section].value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = viewModel.outputGroupedMySupplement.value[indexPath.section][indexPath.row].name
+        cell.textLabel?.text = viewModel.outputGroupedDataDict.value[indexPath.section].value[indexPath.row].name
         return cell
     }
 }

@@ -12,14 +12,12 @@ class CalendarViewModel {
     
     //input
     let inputDidSelectTrigger: Observable<Date?> = Observable(nil)
-    
     let inputGroupData: Observable<[MySupplement]?> = Observable(nil)
     
     //output
     let outputMySupplement: Observable<[MySupplement]> = Observable([])
+    let outputGroupedDataDict: Observable<[(key: Date, value: Array<MySupplement>)]> = Observable([])
     
-    let outputGroupedDate: Observable<[String]> = Observable([])
-    let outputGroupedMySupplement: Observable<[[MySupplement]]> = Observable([[]])
     init() {
         inputDidSelectTrigger.bind { [weak self] value in
             guard let self = self else { return }
@@ -40,8 +38,7 @@ class CalendarViewModel {
                     }
                 }
             }
-            self.outputGroupedDate.value = DateFormatterManager.shared.convertDateArrayToStringArray(dates: groupedDataDict.sorted{ $0.key < $1.key}.map { $0.key })
-            self.outputGroupedMySupplement.value = groupedDataDict.sorted{ $0.key < $1.key }.map { $0.value }
+            self.outputGroupedDataDict.value = groupedDataDict.sorted{ $0.key < $1.key}
         }
     }
 }
