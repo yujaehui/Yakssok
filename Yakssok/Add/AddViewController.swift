@@ -17,12 +17,17 @@ enum Section: String, CaseIterable {
     case time = "복용시간"
 }
 
+struct SectionItem: Hashable {
+    let section: Section
+    let item: String
+}
+
 final class AddViewController: BaseViewController {
     
     let viewModel = AddViewModel()
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureUICollectioViewLayout())
-    private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
     
     deinit {
         print("AddViewController deinit")
@@ -99,15 +104,15 @@ final class AddViewController: BaseViewController {
     
     private func configureDataSource() {
         
-        let nameCellRegistration = UICollectionView.CellRegistration<NameCollectionViewCell, String> { cell, indexPath, itemIdentifier in
-            cell.nameTextField.text = itemIdentifier
+        let nameCellRegistration = UICollectionView.CellRegistration<NameCollectionViewCell, SectionItem> { cell, indexPath, itemIdentifier in
+            cell.nameTextField.text = itemIdentifier.item
         }
-        let amountCellRegistration = UICollectionView.CellRegistration<AmountCollectionViewCell, String>  { cell, indexPath, itemIdentifier in
-            cell.amountLabel.text = itemIdentifier
+        let amountCellRegistration = UICollectionView.CellRegistration<AmountCollectionViewCell, SectionItem>  { cell, indexPath, itemIdentifier in
+            cell.amountLabel.text = itemIdentifier.item
         }
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, itemIdentifier in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SectionItem> { cell, indexPath, itemIdentifier in
             var content = UIListContentConfiguration.subtitleCell()
-            content.text = itemIdentifier
+            content.text = itemIdentifier.item
             content.textProperties.alignment = .center
             cell.contentConfiguration = content
         }
@@ -137,13 +142,13 @@ final class AddViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([viewModel.outputName.value], toSection: .name)
-        snapshot.appendItems([viewModel.outputAmountString.value], toSection: .amount)
-        snapshot.appendItems([viewModel.outputStartDayString.value], toSection: .startDay)
-        snapshot.appendItems([viewModel.outputCycleString.value], toSection: .cycle)
-        snapshot.appendItems(viewModel.outputTimeListString.value, toSection: .time)
+        snapshot.appendItems([SectionItem(section: .name, item: viewModel.outputName.value)], toSection: .name)
+        snapshot.appendItems([SectionItem(section: .amount, item: viewModel.outputAmountString.value)], toSection: .amount)
+        snapshot.appendItems([SectionItem(section: .startDay, item: viewModel.outputStartDayString.value)], toSection: .startDay)
+        snapshot.appendItems([SectionItem(section: .cycle, item: viewModel.outputCycleString.value)], toSection: .cycle)
+        snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
         
     }
