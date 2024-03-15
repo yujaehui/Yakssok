@@ -79,6 +79,9 @@ final class AddViewController: BaseViewController {
     @objc private func registrationButtonClicked() {
         let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
         viewModel.repository.createItem(data)
+        if let image = image {
+            saveImageToDocument(image: image, fileName: "\(data.pk)")
+        }        
         //dismiss(animated: true)
     }
     
