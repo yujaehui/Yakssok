@@ -12,21 +12,15 @@ class CalendarViewModel {
     
     //input
     let inputDidSelectTrigger: Observable<Date?> = Observable(nil)
-    let inputGroupData: Observable<[MySupplement]?> = Observable(nil)
     
     //output
-    let outputMySupplement: Observable<[MySupplement]> = Observable([])
-    let outputGroupedDataDict: Observable<[(key: Date, value: Array<MySupplement>)]> = Observable([])
+    let outputGroupedDataDict: Observable<[(Date, [MySupplement])]> = Observable([])
     
     init() {
         inputDidSelectTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
-            self.outputMySupplement.value = self.repository.fetchBySelectedDate(date: value)
-        }
-        
-        inputGroupData.bind { supplements in
-            guard let supplements = supplements else { return }
+            let supplements = self.repository.fetchBySelectedDate(date: value)
             var groupedDataDict: [Date: [MySupplement]] = [:]
             for supplement in supplements {
                 for time in supplement.timeArray {
@@ -39,6 +33,7 @@ class CalendarViewModel {
                 }
             }
             self.outputGroupedDataDict.value = groupedDataDict.sorted{ $0.key < $1.key}
+            
         }
     }
 }
