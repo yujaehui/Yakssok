@@ -49,7 +49,6 @@ class AddViewModel {
             self?.outputType.value = value
         }
         
-        
         inputSupplement.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputSupplement.value = value
@@ -61,9 +60,7 @@ class AddViewModel {
         }
         
         inputAmount.bind { [weak self] value in
-            print(value)
             self?.outputAmount.value = value
-            print(self?.outputAmount.value)
             self?.outputAmountString.value = String(value)
         }
         

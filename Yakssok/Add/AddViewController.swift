@@ -40,6 +40,7 @@ final class AddViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("AddViewController viewDidLoad")
+        setNav()
         setToolBar()
         configureDataSource()
         updateSnapshot()
@@ -74,6 +75,20 @@ final class AddViewController: BaseViewController {
         viewModel.outputTimeListString.bind { [weak self] value in
             self?.updateSnapshot()
         }
+    }
+    
+    private func setNav() {
+        switch viewModel.outputType.value {
+        case .create: return
+        case .update:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "삭제", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+        }
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        removeImageFromDocument(fileName: "\(viewModel.inputMySupplement.value.pk)")
+        viewModel.repository.deleteItem(viewModel.inputMySupplement.value)
+        navigationController?.popViewController(animated: true)
     }
     
     private func setToolBar() {
@@ -145,7 +160,6 @@ final class AddViewController: BaseViewController {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.configureCell(itemIdentifier)
             cell.passAmount = { value in
-                print(value)
                 self.viewModel.inputAmount.value = value
             }
         }
