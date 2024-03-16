@@ -135,11 +135,8 @@ final class AddViewController: BaseViewController {
     private func amoutCellRegistration() -> UICollectionView.CellRegistration<AmountCollectionViewCell, SectionItem> {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.configureCell(itemIdentifier)
-            cell.minusButtonAction = {
-                self.viewModel.inputMinusAmount.value = self.viewModel.outputAmount.value
-            }
-            cell.plusButtonAction = {
-                self.viewModel.inputPlusAmount.value = self.viewModel.outputAmount.value
+            cell.passAmount = { value in
+                self.viewModel.inputAmount.value = value
             }
         }
     }

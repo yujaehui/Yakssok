@@ -75,4 +75,14 @@ class MyViewController: BaseViewController {
 }
 
 extension MyViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let row = indexPath.row
+        let vc = AddViewController()
+        vc.viewModel.inputName.value = viewModel.repository.fetchItem()[row].name
+        vc.viewModel.inputAmount.value = viewModel.repository.fetchItem()[row].amout
+        vc.viewModel.inputStartDay.value = viewModel.repository.fetchItem()[row].startDay
+        vc.viewModel.inputCycle.value = viewModel.repository.fetchItem()[row].cycleArray
+        vc.viewModel.inputTimeList.value = viewModel.repository.fetchItem()[row].timeArray
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

@@ -14,8 +14,7 @@ class AddViewModel {
     // input
     let inputSupplement: Observable<Row?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
-    let inputMinusAmount: Observable<Int> = Observable(1)
-    let inputPlusAmount: Observable<Int> = Observable(1)
+    let inputAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(Date())
     let inputCycle: Observable<[String]> = Observable(["월"])
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
@@ -47,20 +46,9 @@ class AddViewModel {
             self.outputName.value = value
         }
         
-        inputMinusAmount.bind { [weak self] value in
-            guard let self = self else { return }
-            if self.outputAmount.value <= 1 {
-                return
-            } else {
-                self.outputAmount.value -= 1
-                self.outputAmountString.value = String(self.outputAmount.value)
-            }
-        }
-        
-        inputPlusAmount.bind { [weak self] value in
-            guard let self = self else { return }
-            self.outputAmount.value += 1
-            self.outputAmountString.value = String(self.outputAmount.value)
+        inputAmount.bind { value in
+            self.outputAmount.value = value
+            self.outputAmountString.value = String(value)
         }
         
         inputStartDay.bind { [weak self] value in

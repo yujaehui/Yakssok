@@ -84,3 +84,4 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         timeLabel.text = DateFormatterManager.shared.convertDateArrayToStringArray(dates: itemIdentifier.timeArray).joined(separator: " | ")
     }
 }
+

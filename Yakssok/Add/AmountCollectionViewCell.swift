@@ -10,20 +10,14 @@ import SnapKit
 
 class AmountCollectionViewCell: BaseCollectionViewCell {
     let minusButton = UIButton()
-    let amountLabel = UILabel()
+    let amountTextField = UITextField()
     let plusButton = UIButton()
     
-    var minusButtonAction: (() -> Void)?
-    var plusButtonAction: (() -> Void)?
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
+    var passAmount: ((Int) -> Void)?
     
     override func configureHierarchy() {
         contentView.addSubview(minusButton)
-        contentView.addSubview(amountLabel)
+        contentView.addSubview(amountTextField)
         contentView.addSubview(plusButton)
     }
     
@@ -32,16 +26,31 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
         minusButton.addTarget(self, action: #selector(minusButtonClicked), for: .touchUpInside)
         plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
         plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
+        
+        amountTextField.placeholder = "0"
+        amountTextField.textAlignment = .center
+        amountTextField.isUserInteractionEnabled = false
+        amountTextField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
+    }
+    
+    @objc func amountTextFieldChanged() {
+        guard let text = amountTextField.text else { return }
+        guard let number = Int(text), number > 1 else { return }
+        passAmount?(number)
     }
     
     @objc func minusButtonClicked() {
-        print(#function)
-        minusButtonAction?()
+        guard let text = amountTextField.text else { return }
+        guard var number = Int(text), number > 1 else { return }
+        number = number - 1
+        amountTextField.text = String(number)
     }
     
     @objc func plusButtonClicked() {
-        print(#function)
-        plusButtonAction?()
+        guard let text = amountTextField.text else { return }
+        guard var number = Int(text) else { return }
+        number = number + 1
+        amountTextField.text = String(number)
     }
     
     override func configureConstraints() {
@@ -50,7 +59,7 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
             make.leading.equalTo(contentView).inset(16)
         }
         
-        amountLabel.snp.makeConstraints { make in
+        amountTextField.snp.makeConstraints { make in
             make.verticalEdges.equalTo(contentView)
             make.center.equalTo(contentView)
         }
@@ -62,6 +71,6 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(_ itemIdentifier: SectionItem) {
-        amountLabel.text = itemIdentifier.item
+        amountTextField.text = itemIdentifier.item
     }
 }
