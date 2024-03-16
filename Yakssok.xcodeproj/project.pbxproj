@@ -43,6 +43,9 @@
 		09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */; };
 		09ABD4432BA48A9000826A73 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4422BA48A9000826A73 /* UIViewController+Extension.swift */; };
 		09ABD4452BA4A3AB00826A73 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4442BA4A3AB00826A73 /* CalendarTableViewCell.swift */; };
+		09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4472BA5654C00826A73 /* MyViewController.swift */; };
+		09ABD44A2BA5662000826A73 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4492BA5662000826A73 /* MyCollectionViewCell.swift */; };
+		09ABD44C2BA57D0500826A73 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44B2BA57D0500826A73 /* MyViewModel.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -100,6 +103,9 @@
 		09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectViewModel.swift; sourceTree = "<group>"; };
 		09ABD4422BA48A9000826A73 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		09ABD4442BA4A3AB00826A73 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		09ABD4472BA5654C00826A73 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		09ABD4492BA5662000826A73 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
+		09ABD44B2BA57D0500826A73 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				09ABD4462BA5653400826A73 /* My */,
 				09C739F62BA049D900B200DE /* Realm */,
 				09C739E02B9ED4F300B200DE /* Calendar */,
 				09C156C12B9AFBFF0008F86E /* Add */,
@@ -248,6 +255,16 @@
 				09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		09ABD4462BA5653400826A73 /* My */ = {
+			isa = PBXGroup;
+			children = (
+				09ABD4472BA5654C00826A73 /* MyViewController.swift */,
+				09ABD44B2BA57D0500826A73 /* MyViewModel.swift */,
+				09ABD4492BA5662000826A73 /* MyCollectionViewCell.swift */,
+			);
+			path = My;
 			sourceTree = "<group>";
 		};
 		09C156C12B9AFBFF0008F86E /* Add */ = {
@@ -431,6 +448,7 @@
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09ABD4452BA4A3AB00826A73 /* CalendarTableViewCell.swift in Sources */,
+				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09C157072B9C85DF0008F86E /* CycleSettingViewController.swift in Sources */,
@@ -444,6 +462,7 @@
 				09C739D32B9DD5FA00B200DE /* DayOfTheWeekViewModel.swift in Sources */,
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09C739CF2B9DD1F800B200DE /* DayOfTheWeekViewController.swift in Sources */,
+				09ABD44A2BA5662000826A73 /* MyCollectionViewCell.swift in Sources */,
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
 				09C739D72B9DDFC800B200DE /* DayIntervalViewModel.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
@@ -451,6 +470,7 @@
 				09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */,
 				09833C062B99AAA80081E37E /* UIView+Extension.swift in Sources */,
 				09833C0B2B99B2F40081E37E /* APIService.swift in Sources */,
+				09ABD44C2BA57D0500826A73 /* MyViewModel.swift in Sources */,
 				09ABD43D2BA45E8500826A73 /* ImageTypeSelectViewController.swift in Sources */,
 				09C156F52B9B93790008F86E /* AddViewController.swift in Sources */,
 				09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */,
