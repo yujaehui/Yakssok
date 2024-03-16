@@ -36,6 +36,7 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
     @objc func amountTextFieldChanged() {
         guard let text = amountTextField.text else { return }
         guard let number = Int(text), number > 1 else { return }
+        print(number)
         passAmount?(number)
     }
     

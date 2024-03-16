@@ -51,6 +51,10 @@ final class AddViewController: BaseViewController {
     }
     
     private func bindData() {
+        viewModel.outputType.bind { [weak self] _ in
+            self?.updateSnapshot()
+        }
+        
         viewModel.outputSupplement.bind { [weak self] _ in
             self?.updateSnapshot()
         }
@@ -75,18 +79,23 @@ final class AddViewController: BaseViewController {
     private func setToolBar() {
         navigationController?.isToolbarHidden = false
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
+        let registrationButton = UIBarButtonItem(title: viewModel.outputType.value.rawValue, style: .plain, target: self, action: #selector(registrationButtonClicked))
         let barItems = [flexibleSpace, registrationButton, flexibleSpace]
         self.toolbarItems = barItems
     }
     
     @objc private func registrationButtonClicked() {
-        let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
-        viewModel.repository.createItem(data)
-        if let image = image {
-            saveImageToDocument(image: image, fileName: "\(data.pk)")
-        }        
-        //dismiss(animated: true)
+        switch viewModel.outputType.value {
+        case .create:
+            let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
+            viewModel.repository.createItem(data)
+            if let image = image {
+                saveImageToDocument(image: image, fileName: "\(data.pk)")
+            }
+        case .update:
+            viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, time: viewModel.outputTimeList.value)
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     override func configureHierarchy() {
@@ -136,6 +145,7 @@ final class AddViewController: BaseViewController {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.configureCell(itemIdentifier)
             cell.passAmount = { value in
+                print(value)
                 self.viewModel.inputAmount.value = value
             }
         }
@@ -197,9 +207,9 @@ extension AddViewController: UICollectionViewDelegate {
         switch Section.allCases[indexPath.section] {
         case .image:
             let vc = ImageTypeSelectViewController()
-            vc.selectImage = { value in
-                self.image = value
-                self.updateSnapshot()
+            vc.selectImage = { [weak self] value in
+                self?.image = value
+                self?.updateSnapshot()
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {

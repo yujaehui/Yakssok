@@ -21,6 +21,10 @@ class MyViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         configureDataSource()
         updateSnapshot()
     }
@@ -67,6 +71,7 @@ class MyViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
+        print(#function)
         var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
         snapshot.appendSections(MySection.allCases)
         snapshot.appendItems(viewModel.repository.fetchItem(), toSection: .main)
@@ -78,6 +83,8 @@ extension MyViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let row = indexPath.row
         let vc = AddViewController()
+        vc.viewModel.inputType.value = .update
+        vc.viewModel.inputMySupplement.value = viewModel.repository.fetchItem()[row]
         vc.viewModel.inputName.value = viewModel.repository.fetchItem()[row].name
         vc.viewModel.inputAmount.value = viewModel.repository.fetchItem()[row].amout
         vc.viewModel.inputStartDay.value = viewModel.repository.fetchItem()[row].startDay

@@ -8,10 +8,17 @@
 import Foundation
 import RealmSwift
 
+enum AccessType: String {
+    case create
+    case update
+}
+
 class AddViewModel {
     let repository = SupplementRepository()
     
     // input
+    let inputType: Observable<AccessType> = Observable(.create)
+    let inputMySupplement: Observable<MySupplement> = Observable(MySupplement())
     let inputSupplement: Observable<Row?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)
@@ -20,9 +27,11 @@ class AddViewModel {
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
     
     // output
+    let outputType: Observable<AccessType> = Observable(.create)
+    
     let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
     let outputName: Observable<String> = Observable("")
-    
+
     let outputAmount: Observable<Int> = Observable(0)
     let outputAmountString: Observable<String> = Observable("")
     
@@ -36,19 +45,26 @@ class AddViewModel {
     let outputTimeListString: Observable<[String]> = Observable([])
     
     init() {
+        inputType.bind { [weak self] value in
+            self?.outputType.value = value
+        }
+        
+        
         inputSupplement.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputSupplement.value = value
         }
         
-        inputName.bind { value in
+        inputName.bind { [weak self] value in
             guard let value = value else { return }
-            self.outputName.value = value
+            self?.outputName.value = value
         }
         
-        inputAmount.bind { value in
-            self.outputAmount.value = value
-            self.outputAmountString.value = String(value)
+        inputAmount.bind { [weak self] value in
+            print(value)
+            self?.outputAmount.value = value
+            print(self?.outputAmount.value)
+            self?.outputAmountString.value = String(value)
         }
         
         inputStartDay.bind { [weak self] value in
