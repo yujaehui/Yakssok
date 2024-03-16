@@ -45,7 +45,7 @@ final class CalendarViewController: BaseViewController {
        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.identifier)
         return tableView
     }()
     
@@ -127,8 +127,8 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = viewModel.outputGroupedDataDict.value[indexPath.section].value[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTableViewCell.identifier, for: indexPath) as! CalendarTableViewCell
+        cell.supplementLabel.text = viewModel.outputGroupedDataDict.value[indexPath.section].value[indexPath.row].name
         return cell
     }
 }
