@@ -46,6 +46,7 @@
 		09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4472BA5654C00826A73 /* MyViewController.swift */; };
 		09ABD44C2BA57D0500826A73 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44B2BA57D0500826A73 /* MyViewModel.swift */; };
 		09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */; };
+		09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4582BA5EFE800826A73 /* MySupplements.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -106,6 +107,7 @@
 		09ABD4472BA5654C00826A73 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		09ABD44B2BA57D0500826A73 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 		09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
+		09ABD4582BA5EFE800826A73 /* MySupplements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplements.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				09C739FB2BA04B7800B200DE /* MySupplement.swift */,
+				09ABD4582BA5EFE800826A73 /* MySupplements.swift */,
 				09C739F72BA049F300B200DE /* SupplementRepository.swift */,
 			);
 			path = Realm;
@@ -433,6 +436,7 @@
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
 				09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */,
 				09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */,
+				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,
 				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,

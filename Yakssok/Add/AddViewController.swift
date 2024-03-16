@@ -99,14 +99,51 @@ final class AddViewController: BaseViewController {
         self.toolbarItems = barItems
     }
     
+    private func saveScheduledSupplements(_ data: MySupplement) {
+        var startDay = viewModel.outputStartDay.value
+        let cycle = viewModel.outputCycle.value
+        let timeList = viewModel.outputTimeList.value
+        
+        let endDate = Calendar.current.date(byAdding: .month, value: 3, to: startDay)!
+        
+        while startDay <= endDate {
+            print(startDay)
+            for dayOfWeek in cycle {
+                print(DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
+                let dayComponents = DateComponents(weekday: DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
+                if let nextDay = Calendar.current.nextDate(after: startDay, matching: dayComponents, matchingPolicy: .nextTime) {
+                    for time in timeList {
+                        let scheduledSupplement = MySupplements(date: nextDay, time: time, name: viewModel.outputName.value, amount: viewModel.outputAmount.value, isChecked: false)
+                        viewModel.repository.createItems(scheduledSupplement)
+                    }
+                    startDay = Calendar.current.date(byAdding: .day, value: 0, to: nextDay)!
+                    print(startDay)
+                } else {
+                    break
+                }
+            }
+        }
+    }
+    
+    
     @objc private func registrationButtonClicked() {
         switch viewModel.outputType.value {
         case .create:
             let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
+            
+            
+            saveScheduledSupplements(data)
             viewModel.repository.createItem(data)
+            
             if let image = image {
                 saveImageToDocument(image: image, fileName: "\(data.pk)")
             }
+            
+            
+            
+            
+            
+            
         case .update:
             viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, time: viewModel.outputTimeList.value)
             navigationController?.popViewController(animated: true)
@@ -179,7 +216,7 @@ final class AddViewController: BaseViewController {
         let nameCellRegistration = nameCellRegistration()
         let amountCellRegistration = amoutCellRegistration()
         let cellRegistration = commonCellRegistration()
-
+        
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             switch Section.allCases[indexPath.section] {
             case .image:

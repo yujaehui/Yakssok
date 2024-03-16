@@ -62,4 +62,21 @@ class DateFormatterManager {
         
         return formatter.string(from: date)
     }
+    
+    
+    
+    
+    func dayOfWeekToNumber(_ dayOfWeek: String) -> Int {
+        let daysOfWeek: [String: Int] = [
+            "일": 1,
+            "월": 2,
+            "화": 3,
+            "수": 4,
+            "목": 5,
+            "금": 6,
+            "토": 7
+        ]
+        
+        return daysOfWeek[dayOfWeek] ?? 0
+    }
 }
