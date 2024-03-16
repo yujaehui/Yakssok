@@ -27,17 +27,8 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
         plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
         plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         
-        amountTextField.placeholder = "0"
         amountTextField.textAlignment = .center
         amountTextField.isUserInteractionEnabled = false
-        amountTextField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
-    }
-    
-    @objc func amountTextFieldChanged() {
-        guard let text = amountTextField.text else { return }
-        guard let number = Int(text), number > 1 else { return }
-        print(number)
-        passAmount?(number)
     }
     
     @objc func minusButtonClicked() {
@@ -45,6 +36,8 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
         guard var number = Int(text), number > 1 else { return }
         number = number - 1
         amountTextField.text = String(number)
+        passAmount?(number)
+        
     }
     
     @objc func plusButtonClicked() {
@@ -52,6 +45,7 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
         guard var number = Int(text) else { return }
         number = number + 1
         amountTextField.text = String(number)
+        passAmount?(number)
     }
     
     override func configureConstraints() {
