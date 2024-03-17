@@ -19,6 +19,7 @@ class AddViewModel {
     // input
     let inputType: Observable<AccessType> = Observable(.create)
     let inputMySupplement: Observable<MySupplement> = Observable(MySupplement())
+    let inputMySupplements: Observable<[MySupplements]> = Observable([])
     let inputSupplement: Observable<Row?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)

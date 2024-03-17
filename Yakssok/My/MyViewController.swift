@@ -85,6 +85,7 @@ extension MyViewController: UICollectionViewDelegate {
         let vc = AddViewController()
         vc.viewModel.inputType.value = .update
         vc.viewModel.inputMySupplement.value = viewModel.repository.fetchItem()[row]
+        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchItmes(name: viewModel.repository.fetchItem()[row].name)
         vc.viewModel.inputName.value = viewModel.repository.fetchItem()[row].name
         vc.viewModel.inputAmount.value = viewModel.repository.fetchItem()[row].amout
         vc.viewModel.inputStartDay.value = viewModel.repository.fetchItem()[row].startDay

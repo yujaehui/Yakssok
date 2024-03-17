@@ -37,26 +37,52 @@ class SupplementRepository {
         return Array(result)
     }
     
-    func fetchBySelectedDate(date: Date) -> [MySupplement] {
-        let result = realm.objects(MySupplement.self).filter { $0.startDay < date && $0.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: date) }) }
+    func fetchItmes(name: String) -> [MySupplements] {
+        let result = realm.objects(MySupplements.self).where { $0.name == name }
         return Array(result)
     }
     
-    func updateItem(pk: ObjectId, name: String, amount: Int, startDay: Date, cycle: [String], time: [Date]) {
+    func fetchByDate(date: Date) -> [MySupplements] {
+        let result = realm.objects(MySupplements.self).where { $0.date == date }
+        return Array(result)
+    }
+    
+    func updateIsCompleted(pk: ObjectId) {
         do {
             try realm.write {
-                if var supplement = realm.objects(MySupplement.self).where({ $0.pk == pk }).first {
+                realm.objects(MySupplements.self).where{ $0.pk == pk }.first?.isChecked.toggle()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateItem(pk: ObjectId, name: String, amount: Int) {
+        do {
+            try realm.write {
+                if let supplement = realm.objects(MySupplement.self).where({ $0.pk == pk }).first {
                     supplement.name = name
                     supplement.amout = amount
-                    supplement.startDay = startDay
-                    supplement.cycleArray = cycle
-                    supplement.timeArray = time
                 }
             }
         } catch {
             print(error)
         }
     }
+    
+    func updateItems(data: [MySupplements], name: String, amount: Int) {
+        do {
+            try realm.write {
+                for item in data {
+                    item.name = name
+                    item.amount = amount
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+
     
     func deleteItem(_ data: MySupplement) {
         do {
@@ -67,4 +93,15 @@ class SupplementRepository {
             print(error)
         }
     }
+    
+    func deleteItems(_ data: [MySupplements]) {
+        do {
+            try realm.write {
+                realm.delete(data)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
 }

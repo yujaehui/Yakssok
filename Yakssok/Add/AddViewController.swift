@@ -88,6 +88,7 @@ final class AddViewController: BaseViewController {
     @objc private func rightBarButtonItemClikced() {
         removeImageFromDocument(fileName: "\(viewModel.inputMySupplement.value.pk)")
         viewModel.repository.deleteItem(viewModel.inputMySupplement.value)
+        viewModel.repository.deleteItems(viewModel.inputMySupplements.value)
         navigationController?.popViewController(animated: true)
     }
     
@@ -99,7 +100,7 @@ final class AddViewController: BaseViewController {
         self.toolbarItems = barItems
     }
     
-    private func saveScheduledSupplements(_ data: MySupplement) {
+    private func saveScheduledSupplements() {
         var startDay = viewModel.outputStartDay.value
         let cycle = viewModel.outputCycle.value
         let timeList = viewModel.outputTimeList.value
@@ -107,9 +108,7 @@ final class AddViewController: BaseViewController {
         let endDate = Calendar.current.date(byAdding: .month, value: 3, to: startDay)!
         
         while startDay <= endDate {
-            print(startDay)
             for dayOfWeek in cycle {
-                print(DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
                 let dayComponents = DateComponents(weekday: DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
                 if let nextDay = Calendar.current.nextDate(after: startDay, matching: dayComponents, matchingPolicy: .nextTime) {
                     for time in timeList {
@@ -117,7 +116,6 @@ final class AddViewController: BaseViewController {
                         viewModel.repository.createItems(scheduledSupplement)
                     }
                     startDay = Calendar.current.date(byAdding: .day, value: 0, to: nextDay)!
-                    print(startDay)
                 } else {
                     break
                 }
@@ -125,27 +123,20 @@ final class AddViewController: BaseViewController {
         }
     }
     
-    
     @objc private func registrationButtonClicked() {
         switch viewModel.outputType.value {
         case .create:
             let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
             
-            
-            saveScheduledSupplements(data)
+            saveScheduledSupplements()
             viewModel.repository.createItem(data)
             
             if let image = image {
                 saveImageToDocument(image: image, fileName: "\(data.pk)")
             }
-            
-            
-            
-            
-            
-            
         case .update:
-            viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycle: viewModel.outputCycle.value, time: viewModel.outputTimeList.value)
+            viewModel.repository.updateItems(data: viewModel.inputMySupplements.value, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
+            viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
             navigationController?.popViewController(animated: true)
         }
     }

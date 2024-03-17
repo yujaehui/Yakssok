@@ -124,6 +124,11 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTableViewCell.identifier, for: indexPath) as! CalendarTableViewCell
         cell.supplementLabel.text = viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].name
+        cell.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].isChecked ? .green : .clear
+        cell.buttonAction = {
+            self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].pk)
+            self.tableView.reloadData()
+        }
         return cell
     }
 }
