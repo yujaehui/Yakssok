@@ -47,6 +47,7 @@
 		09ABD44C2BA57D0500826A73 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44B2BA57D0500826A73 /* MyViewModel.swift */; };
 		09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */; };
 		09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4582BA5EFE800826A73 /* MySupplements.swift */; };
+		09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD45D2BA71A7400826A73 /* CustomChartView.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -108,6 +109,7 @@
 		09ABD44B2BA57D0500826A73 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 		09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		09ABD4582BA5EFE800826A73 /* MySupplements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplements.swift; sourceTree = "<group>"; };
+		09ABD45D2BA71A7400826A73 /* CustomChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartView.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				09ABD45C2BA71A6300826A73 /* Custom */,
 				09ABD4462BA5653400826A73 /* My */,
 				09C739F62BA049D900B200DE /* Realm */,
 				09C739E02B9ED4F300B200DE /* Calendar */,
@@ -267,6 +270,14 @@
 				09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */,
 			);
 			path = My;
+			sourceTree = "<group>";
+		};
+		09ABD45C2BA71A6300826A73 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				09ABD45D2BA71A7400826A73 /* CustomChartView.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		09C156C12B9AFBFF0008F86E /* Add */ = {
@@ -469,6 +480,7 @@
 				09C739CF2B9DD1F800B200DE /* DayOfTheWeekViewController.swift in Sources */,
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
 				09C739D72B9DDFC800B200DE /* DayIntervalViewModel.swift in Sources */,
+				09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* Helpers.swift in Sources */,
 				09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */,

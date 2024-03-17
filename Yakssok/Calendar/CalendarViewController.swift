@@ -42,12 +42,7 @@ final class CalendarViewController: BaseViewController {
         return calendar
     }()
     
-    private lazy var pieChartView: PieChartView = {
-        let chartView = PieChartView()
-        chartView.isUserInteractionEnabled = false
-        chartView.legend.enabled = false
-        return chartView
-    }()
+    private let chartView = CustomChartView()
     
     
     private lazy var tableView: UITableView = {
@@ -67,8 +62,9 @@ final class CalendarViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputGroupedDataDict.bind { _ in
-            self.updatePieChartData()
+        viewModel.outputGroupedDataDict.bind { value in
+            self.chartView.configureView(total: value.flatMap { $0.1 }.count,
+                                         checked: value.flatMap { $0.1 }.filter { $0.isChecked }.count)
             self.tableView.reloadData()
         }
     }
@@ -77,7 +73,7 @@ final class CalendarViewController: BaseViewController {
         view.addSubview(headerLabel)
         view.addSubview(toggleButton)
         view.addSubview(calendar)
-        view.addSubview(pieChartView)
+        view.addSubview(chartView)
         view.addSubview(tableView)
     }
     
@@ -100,43 +96,16 @@ final class CalendarViewController: BaseViewController {
             make.height.equalTo(300)
         }
         
-        pieChartView.snp.makeConstraints { make in
+        chartView.snp.makeConstraints { make in
             make.top.equalTo(calendar.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(200)
+            make.trailing.equalToSuperview().inset(16)
+            make.size.equalTo(150)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(pieChartView.snp.bottom).offset(8)
+            make.top.equalTo(chartView.snp.bottom).offset(8)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-    
-    private func updatePieChartData() {
-        let totalItems = viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count
-        let checkedItems = viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count
-        
-        let checkedEntry = PieChartDataEntry(value: Double(checkedItems), label: "")
-        let uncheckedEntry = PieChartDataEntry(value: Double(totalItems - checkedItems), label: "")
-        
-        let dataSet = PieChartDataSet(entries: [uncheckedEntry, checkedEntry], label: "")
-        dataSet.colors = [UIColor.clear, UIColor.green]
-        dataSet.entryLabelColor = .clear
-        dataSet.valueTextColor = .clear
-        
-        let data = PieChartData(dataSet: dataSet)
-        pieChartView.data = data
-        
-        
-        
-        animateChartWithCustomAnimation()
-        pieChartView.notifyDataSetChanged()
-    }
-    
-    private func animateChartWithCustomAnimation() {
-        let duration = 1.0
-        pieChartView.animate(xAxisDuration: duration, yAxisDuration: duration, easingOption: .easeInOutQuart)
-        pieChartView.spin(duration: duration, fromAngle: 270, toAngle: -90, easingOption: .easeInOutQuart)
     }
     
     @objc private func tapToggleButton() {
@@ -172,7 +141,8 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].isChecked ? .green : .clear
         cell.buttonAction = {
             self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].pk)
-            self.updatePieChartData()
+            self.chartView.configureView(total: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count,
+                                         checked: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)
             self.tableView.reloadData()
         }
         return cell
