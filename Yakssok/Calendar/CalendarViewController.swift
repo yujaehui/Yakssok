@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import FSCalendar
+import DGCharts
 
 final class CalendarViewController: BaseViewController {
     
@@ -41,8 +42,16 @@ final class CalendarViewController: BaseViewController {
         return calendar
     }()
     
+    private lazy var pieChartView: PieChartView = {
+        let chartView = PieChartView()
+        chartView.isUserInteractionEnabled = false
+        chartView.legend.enabled = false
+        return chartView
+    }()
+    
+    
     private lazy var tableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.identifier)
@@ -59,6 +68,7 @@ final class CalendarViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputGroupedDataDict.bind { _ in
+            self.updatePieChartData()
             self.tableView.reloadData()
         }
     }
@@ -67,6 +77,7 @@ final class CalendarViewController: BaseViewController {
         view.addSubview(headerLabel)
         view.addSubview(toggleButton)
         view.addSubview(calendar)
+        view.addSubview(pieChartView)
         view.addSubview(tableView)
     }
     
@@ -89,11 +100,45 @@ final class CalendarViewController: BaseViewController {
             make.height.equalTo(300)
         }
         
-        tableView.snp.makeConstraints { make in
+        pieChartView.snp.makeConstraints { make in
             make.top.equalTo(calendar.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(200)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(pieChartView.snp.bottom).offset(8)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    private func updatePieChartData() {
+        let totalItems = viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count
+        let checkedItems = viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count
+        
+        let checkedEntry = PieChartDataEntry(value: Double(checkedItems), label: "")
+        let uncheckedEntry = PieChartDataEntry(value: Double(totalItems - checkedItems), label: "")
+        
+        let dataSet = PieChartDataSet(entries: [uncheckedEntry, checkedEntry], label: "")
+        dataSet.colors = [UIColor.clear, UIColor.green]
+        dataSet.entryLabelColor = .clear
+        dataSet.valueTextColor = .clear
+        
+        let data = PieChartData(dataSet: dataSet)
+        pieChartView.data = data
+        
+        
+        
+        animateChartWithCustomAnimation()
+        pieChartView.notifyDataSetChanged()
+    }
+    
+    private func animateChartWithCustomAnimation() {
+        let duration = 1.0
+        pieChartView.animate(xAxisDuration: duration, yAxisDuration: duration, easingOption: .easeInOutQuart)
+        pieChartView.spin(duration: duration, fromAngle: 270, toAngle: -90, easingOption: .easeInOutQuart)
+    }
+    
     @objc private func tapToggleButton() {
         if self.calendar.scope == .month {
             self.calendar.setScope(.week, animated: true)
@@ -127,6 +172,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].isChecked ? .green : .clear
         cell.buttonAction = {
             self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section].1[indexPath.row].pk)
+            self.updatePieChartData()
             self.tableView.reloadData()
         }
         return cell
@@ -146,9 +192,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(DateFormatterManager.shared.dayOfWeek(from: date))
         viewModel.inputDidSelectTrigger.value = (date)
-        
         if calendar.scope == .week {
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: date)
         } else {
