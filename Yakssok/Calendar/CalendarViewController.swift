@@ -44,7 +44,6 @@ final class CalendarViewController: BaseViewController {
     
     private let chartView = CustomChartView()
     
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self

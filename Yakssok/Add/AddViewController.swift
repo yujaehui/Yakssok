@@ -28,7 +28,12 @@ final class AddViewController: BaseViewController {
     
     let viewModel = AddViewModel()
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.delegate = self
+        return collectionView
+    }()
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
         
     deinit {
@@ -78,7 +83,55 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
     }
+
+    override func configureHierarchy() {
+        view.addSubview(collectionView)
+    }
     
+    override func configureConstraints() {
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    private func configureDataSource() {
+        let imageCellRegistration = imageCellRegistration()
+        let nameCellRegistration = nameCellRegistration()
+        let amountCellRegistration = amoutCellRegistration()
+        let cellRegistration = commonCellRegistration()
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            switch Section.allCases[indexPath.section] {
+            case .image:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: imageCellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            case .name:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            case .amount:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: amountCellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            default:
+                let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+                return cell
+            }
+        })
+    }
+    
+    private func updateSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
+        snapshot.appendSections(Section.allCases)
+        snapshot.appendItems([SectionItem(section: .image, image: viewModel.outputImage.value, item: "")], toSection: .image)
+        snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
+        snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
+        snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
+        snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
+        snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
+        dataSource.apply(snapshot)
+    }
+}
+
+extension AddViewController {
     private func setNav() {
         switch viewModel.outputType.value {
         case .create: return
@@ -88,9 +141,7 @@ final class AddViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonItemClikced() {
-        removeImageFromDocument(fileName: "\(viewModel.inputMySupplement.value.pk)")
-        viewModel.repository.deleteItem(viewModel.inputMySupplement.value)
-        viewModel.repository.deleteItems(viewModel.inputMySupplements.value)
+        viewModel.inputDeleteTrigger.value = ()
         navigationController?.popViewController(animated: true)
     }
     
@@ -111,22 +162,9 @@ final class AddViewController: BaseViewController {
             navigationController?.popViewController(animated: true)
         }
     }
-    
-    
-    override func configureHierarchy() {
-        view.addSubview(collectionView)
-    }
-    
-    override func configureView() {
-        collectionView.delegate = self
-    }
-    
-    override func configureConstraints() {
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
+}
+
+extension AddViewController {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
             let layoutSection: NSCollectionLayoutSection
@@ -173,42 +211,6 @@ final class AddViewController: BaseViewController {
             cell.contentConfiguration = content
         }
     }
-    
-    private func configureDataSource() {
-        let imageCellRegistration = imageCellRegistration()
-        let nameCellRegistration = nameCellRegistration()
-        let amountCellRegistration = amoutCellRegistration()
-        let cellRegistration = commonCellRegistration()
-        
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            switch Section.allCases[indexPath.section] {
-            case .image:
-                let cell = collectionView.dequeueConfiguredReusableCell(using: imageCellRegistration, for: indexPath, item: itemIdentifier)
-                return cell
-            case .name:
-                let cell = collectionView.dequeueConfiguredReusableCell(using: nameCellRegistration, for: indexPath, item: itemIdentifier)
-                return cell
-            case .amount:
-                let cell = collectionView.dequeueConfiguredReusableCell(using: amountCellRegistration, for: indexPath, item: itemIdentifier)
-                return cell
-            default:
-                let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-                return cell
-            }
-        })
-    }
-    
-    private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([SectionItem(section: .image, image: viewModel.outputImage.value, item: "")], toSection: .image)
-        snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
-        snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
-        snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
-        snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
-        snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
-        dataSource.apply(snapshot)
-    }
 }
 
 extension AddViewController: UICollectionViewDelegate {
@@ -224,9 +226,6 @@ extension AddViewController: UICollectionViewDelegate {
                 self?.viewModel.inputImage.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
-            if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
             present(nav, animated: true)
         case .name: return
         case .amount: return
@@ -237,9 +236,6 @@ extension AddViewController: UICollectionViewDelegate {
                 self?.viewModel.inputStartDay.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
-            if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
             present(nav, animated: true)
         case .cycle:
             let vc = DayOfTheWeekViewController()
@@ -248,9 +244,6 @@ extension AddViewController: UICollectionViewDelegate {
                 self?.viewModel.inputCycle.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
-            if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
             present(nav, animated: true)
             
         case .time:
@@ -260,9 +253,6 @@ extension AddViewController: UICollectionViewDelegate {
                 self?.viewModel.inputTimeList.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
-            if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
             present(nav, animated: true)
         }
     }

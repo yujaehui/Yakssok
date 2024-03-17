@@ -16,7 +16,12 @@ class MyViewController: BaseViewController {
     
     let viewModel = MyViewModel()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.delegate = self
+        return collectionView
+    }()
+    
     var dataSource: UICollectionViewDiffableDataSource<MySection, MySupplement>!
     
     override func viewDidLoad() {
@@ -33,16 +38,30 @@ class MyViewController: BaseViewController {
         view.addSubview(collectionView)
     }
     
-    override func configureView() {
-        collectionView.delegate = self
-    }
-    
     override func configureConstraints() {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
+    private func configureDataSource() {
+        let cellRegistration = cellRegistration()
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return cell
+        })
+    }
+    
+    private func updateSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
+        snapshot.appendSections(MySection.allCases)
+        snapshot.appendItems(viewModel.repository.fetchAllItem(), toSection: .main)
+        dataSource.apply(snapshot)
+    }
+}
+
+extension MyViewController {
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -60,23 +79,6 @@ class MyViewController: BaseViewController {
             cell.configureCell(itemIdentifier)
         }
     }
-    
-    private func configureDataSource() {
-        let cellRegistration = cellRegistration()
-        
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-            return cell
-        })
-    }
-    
-    private func updateSnapshot() {
-        print(#function)
-        var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
-        snapshot.appendSections(MySection.allCases)
-        snapshot.appendItems(viewModel.repository.fetchAllItem(), toSection: .main)
-        dataSource.apply(snapshot)
-    }
 }
 
 extension MyViewController: UICollectionViewDelegate {
@@ -86,11 +88,6 @@ extension MyViewController: UICollectionViewDelegate {
         vc.viewModel.inputType.value = .update
         vc.viewModel.inputMySupplement.value = viewModel.repository.fetchAllItem()[row]
         vc.viewModel.inputMySupplements.value = viewModel.repository.fetchItmes(name: viewModel.repository.fetchAllItem()[row].name)
-        vc.viewModel.inputName.value = viewModel.repository.fetchAllItem()[row].name
-        vc.viewModel.inputAmount.value = viewModel.repository.fetchAllItem()[row].amout
-        vc.viewModel.inputStartDay.value = viewModel.repository.fetchAllItem()[row].startDay
-        vc.viewModel.inputCycle.value = viewModel.repository.fetchAllItem()[row].cycleArray
-        vc.viewModel.inputTimeList.value = viewModel.repository.fetchAllItem()[row].timeArray
         navigationController?.pushViewController(vc, animated: true)
     }
 }

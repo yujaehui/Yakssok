@@ -32,7 +32,6 @@ class MyCollectionViewCell: BaseCollectionViewCell {
     override func configureView() {
         backgroundColor = .lightGray
         layer.cornerRadius = 12
-        imageView.image = UIImage(systemName: "pill.fill")
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillEqually

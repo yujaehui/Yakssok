@@ -15,7 +15,6 @@ class MySupplements: Object {
     @Persisted var name: String
     @Persisted var amount: Int
     @Persisted var isChecked: Bool
-    //@Persisted var supplement: MySupplement?
     
     convenience init(date: Date, time: Date, name: String, amount: Int, isChecked: Bool) {
         self.init()

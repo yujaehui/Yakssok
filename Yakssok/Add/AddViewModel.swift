@@ -14,13 +14,13 @@ enum AccessType: String {
     case update
 }
 
-class AddViewModel {
+final class AddViewModel {
     let repository = SupplementRepository()
     
     // input
     let inputType: Observable<AccessType> = Observable(.create)
     
-    let inputMySupplement: Observable<MySupplement> = Observable(MySupplement())
+    let inputMySupplement: Observable<MySupplement?> = Observable(nil)
     let inputMySupplements: Observable<[MySupplements]> = Observable([])
     
     let inputSupplement: Observable<Row?> = Observable(nil)
@@ -34,6 +34,7 @@ class AddViewModel {
     
     let inputCreateTrigger: Observable<Void?> = Observable(nil)
     let inputUpdateTrigger: Observable<Void?> = Observable(nil)
+    let inputDeleteTrigger: Observable<Void?> = Observable(nil)
     
     // output
     let outputType: Observable<AccessType> = Observable(.create)
@@ -68,10 +69,15 @@ class AddViewModel {
                 }
             }
             
+            if outputName.value.isEmpty {
+                print("빈 이름. 저장 ㄴㄴ") // 토스트
+                return
+            }
+            
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             repository.createItem(data)
-            saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
+            Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             
             var startDay = outputStartDay.value
             let cycle = outputCycle.value
@@ -105,13 +111,40 @@ class AddViewModel {
                     return
                 }
             }
+            
+            if outputName.value.isEmpty {
+                print("빈 이름. 변경 ㄴㄴ") // 토스트
+                return
+            }
+            
+            guard let mySupplement = inputMySupplement.value else { return }
+            repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value)
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
-            repository.updateItem(data: inputMySupplement.value, name: outputName.value, amount: outputAmount.value)
+        }
+        
+        inputDeleteTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            guard let mySupplement = inputMySupplement.value else { return }
+            Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            repository.deleteItem(mySupplement)
+            repository.deleteItems(inputMySupplements.value)
         }
         
         inputType.bind { [weak self] value in
             guard let self = self else { return }
             outputType.value = value
+        }
+        
+        inputMySupplement.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            inputName.value = value.name
+            inputAmount.value = value.amout
+            inputStartDay.value = value.startDay
+            inputCycle.value = value.cycleArray
+            inputTimeList.value = value.timeArray
         }
         
         inputSupplement.bind { [weak self] value in
@@ -147,17 +180,6 @@ class AddViewModel {
         inputTimeList.bind { [weak self] value in
             self?.outputTimeList.value = value
             self?.outputTimeListString.value = DateFormatterManager.shared.convertDateArrayToStringArray(dates: value)
-        }
-    }
-    
-    func saveImageToDocument(image: UIImage, fileName: String) {
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let fileURL = documentDirectory.appendingPathComponent("\(fileName).jpg")
-        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
-        do {
-            try data.write(to: fileURL)
-        } catch {
-            print(error)
         }
     }
 }

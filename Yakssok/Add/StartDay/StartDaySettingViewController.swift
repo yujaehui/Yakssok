@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-final class StartDaySettingViewController: BaseViewController {
+final class StartDaySettingViewController: BaseSheetViewController {
     var selectDate: ((Date) -> Void)?
     
     let viewModel = StartDayViewModel()

@@ -43,5 +43,4 @@ class CalendarTableViewCell: BaseTableViewCell {
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
         }
     }
-
 }

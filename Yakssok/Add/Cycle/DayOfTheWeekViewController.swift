@@ -18,7 +18,7 @@ enum DayOfTheWeek: String, CaseIterable {
     case saturday = "토"
 }
 
-class DayOfTheWeekViewController: BaseViewController {
+class DayOfTheWeekViewController: BaseSheetViewController {
     var selectDayOfTheWeek: (([String]) -> Void)?
     
     let viewModel = DayOfTheWeekViewModel()
