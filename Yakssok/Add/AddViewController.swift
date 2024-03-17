@@ -126,6 +126,12 @@ final class AddViewController: BaseViewController {
     @objc private func registrationButtonClicked() {
         switch viewModel.outputType.value {
         case .create:
+            for i in viewModel.repository.fetchItem() {
+                if i.name == viewModel.outputName.value {
+                    print("같은 이름이 이미 존재함. 저장 ㄴㄴ") // 토스트
+                    return
+                }
+            }
             let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
             
             saveScheduledSupplements()
@@ -135,6 +141,14 @@ final class AddViewController: BaseViewController {
                 saveImageToDocument(image: image, fileName: "\(data.pk)")
             }
         case .update:
+            
+            
+            for i in viewModel.repository.fetchItem() {
+                if i.name == viewModel.outputName.value {
+                    print("같은 이름이 이미 존재함. 변경 ㄴㄴ") // 토스트
+                    return
+                }
+            }
             viewModel.repository.updateItems(data: viewModel.inputMySupplements.value, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
             viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
             navigationController?.popViewController(animated: true)
