@@ -26,4 +26,7 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
+    func configureCell(_ itemIdentifier: SectionItem) {
+        imageView.image = itemIdentifier.image
+    }
 }

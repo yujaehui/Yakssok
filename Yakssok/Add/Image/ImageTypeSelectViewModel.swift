@@ -8,4 +8,7 @@
 import Foundation
 
 class ImageTypeSelectViewModel {
+    
+    let selectImage: Observable<Void?> = Observable(nil)
+    let selectCamera: Observable<Void?> = Observable(nil)
 }

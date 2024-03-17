@@ -26,4 +26,8 @@ class ImageTypeSelectTableViewCell: BaseTableViewCell {
             make.bottom.lessThanOrEqualTo(contentView)
         }
     }
+    
+    func configureCell(_ data: ImageType) {
+        typeLabel.text = data.rawValue
+    }
 }

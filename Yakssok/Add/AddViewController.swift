@@ -30,9 +30,7 @@ final class AddViewController: BaseViewController {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
-    
-    private var image = UIImage(systemName: "pill.fill")
-    
+        
     deinit {
         print("AddViewController deinit")
     }
@@ -57,6 +55,10 @@ final class AddViewController: BaseViewController {
         }
         
         viewModel.outputSupplement.bind { [weak self] _ in
+            self?.updateSnapshot()
+        }
+        
+        viewModel.outputImage.bind { [weak self] value in
             self?.updateSnapshot()
         }
         
@@ -100,60 +102,16 @@ final class AddViewController: BaseViewController {
         self.toolbarItems = barItems
     }
     
-    private func saveScheduledSupplements() {
-        var startDay = viewModel.outputStartDay.value
-        let cycle = viewModel.outputCycle.value
-        let timeList = viewModel.outputTimeList.value
-        
-        let endDate = Calendar.current.date(byAdding: .month, value: 3, to: startDay)!
-        
-        while startDay <= endDate {
-            for dayOfWeek in cycle {
-                let dayComponents = DateComponents(weekday: DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
-                if let nextDay = Calendar.current.nextDate(after: startDay, matching: dayComponents, matchingPolicy: .nextTime) {
-                    for time in timeList {
-                        let scheduledSupplement = MySupplements(date: nextDay, time: time, name: viewModel.outputName.value, amount: viewModel.outputAmount.value, isChecked: false)
-                        viewModel.repository.createItems(scheduledSupplement)
-                    }
-                    startDay = Calendar.current.date(byAdding: .day, value: 0, to: nextDay)!
-                } else {
-                    break
-                }
-            }
-        }
-    }
-    
     @objc private func registrationButtonClicked() {
         switch viewModel.outputType.value {
         case .create:
-            for i in viewModel.repository.fetchItem() {
-                if i.name == viewModel.outputName.value {
-                    print("같은 이름이 이미 존재함. 저장 ㄴㄴ") // 토스트
-                    return
-                }
-            }
-            let data = MySupplement(name: viewModel.outputName.value, amout: viewModel.outputAmount.value, startDay: viewModel.outputStartDay.value, cycleArray: viewModel.outputCycle.value, timeArray: viewModel.outputTimeList.value)
-            
-            saveScheduledSupplements()
-            viewModel.repository.createItem(data)
-            
-            if let image = image {
-                saveImageToDocument(image: image, fileName: "\(data.pk)")
-            }
+            viewModel.inputCreateTrigger.value = ()
         case .update:
-            
-            
-            for i in viewModel.repository.fetchItem() {
-                if i.name == viewModel.outputName.value {
-                    print("같은 이름이 이미 존재함. 변경 ㄴㄴ") // 토스트
-                    return
-                }
-            }
-            viewModel.repository.updateItems(data: viewModel.inputMySupplements.value, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
-            viewModel.repository.updateItem(pk: viewModel.inputMySupplement.value.pk, name: viewModel.outputName.value, amount: viewModel.outputAmount.value)
+            viewModel.inputUpdateTrigger.value = ()
             navigationController?.popViewController(animated: true)
         }
     }
+    
     
     override func configureHierarchy() {
         view.addSubview(collectionView)
@@ -185,7 +143,7 @@ final class AddViewController: BaseViewController {
     
     private func imageCellRegistration() -> UICollectionView.CellRegistration<ImageCollectionViewCell, SectionItem> {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
-            cell.imageView.image = itemIdentifier.image
+            cell.configureCell(itemIdentifier)
         }
     }
     
@@ -243,14 +201,13 @@ final class AddViewController: BaseViewController {
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([SectionItem(section: .image, image: image, item: "")], toSection: .image)
+        snapshot.appendItems([SectionItem(section: .image, image: viewModel.outputImage.value, item: "")], toSection: .image)
         snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
         snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
         snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
         snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
-        
     }
 }
 
@@ -264,8 +221,7 @@ extension AddViewController: UICollectionViewDelegate {
         case .image:
             let vc = ImageTypeSelectViewController()
             vc.selectImage = { [weak self] value in
-                self?.image = value
-                self?.updateSnapshot()
+                self?.viewModel.inputImage.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {

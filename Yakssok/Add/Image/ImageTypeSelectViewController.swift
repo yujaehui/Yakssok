@@ -25,6 +25,50 @@ class ImageTypeSelectViewController: BaseViewController {
         super.viewDidLoad()
         setNav()
         setToolBar()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.selectImage.bind { [weak self] value in
+            guard let value = value else { return }
+            let vc = UIImagePickerController()
+            vc.allowsEditing = true
+            vc.delegate = self
+            self?.present(vc, animated: true)
+        }
+        
+        viewModel.selectCamera.bind { [weak self] value in
+            guard let value = value else { return }
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] isAuthorized in
+                guard isAuthorized else {
+                    self?.showAlertGoToSetting()
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let vc = UIImagePickerController()
+                    vc.sourceType = .camera
+                    vc.allowsEditing = false
+                    vc.delegate = self
+                    self?.present(vc, animated: true)
+                }
+            }
+        }
+    }
+    
+    func showAlertGoToSetting() {
+        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > {앱 이름}탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
+        let cancelAlert = UIAlertAction(title: "취소", style: .cancel) { _ in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        let goToSettingAlert = UIAlertAction(title: "설정으로 이동하기", style: .default) { _ in
+            guard let settingURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingURL) else { return }
+            UIApplication.shared.open(settingURL, options: [:])
+        }
+        [cancelAlert, goToSettingAlert].forEach(alertController.addAction(_:))
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
     
     override func configureHierarchy() {
@@ -72,49 +116,16 @@ extension ImageTypeSelectViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImageTypeSelectTableViewCell.identifier, for: indexPath) as! ImageTypeSelectTableViewCell
-        cell.typeLabel.text = ImageType.allCases[indexPath.row].rawValue
+        let data = ImageType.allCases[indexPath.row]
+        cell.configureCell(data)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch ImageType.allCases[indexPath.row] {
-        case .icon:
-            print("icon")
-        case .image:
-            let vc = UIImagePickerController()
-            vc.allowsEditing = true
-            vc.delegate = self
-            present(vc, animated: true)
-        case .camera:
-            AVCaptureDevice.requestAccess(for: .video) { [weak self] isAuthorized in
-                guard isAuthorized else {
-                    self?.showAlertGoToSetting()
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    let vc = UIImagePickerController()
-                    vc.sourceType = .camera
-                    vc.allowsEditing = false
-                    vc.delegate = self
-                    self?.present(vc, animated: true)
-                }
-            }
-        }
-    }
-    
-    func showAlertGoToSetting() {
-        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > {앱 이름}탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
-        let cancelAlert = UIAlertAction(title: "취소", style: .cancel) { _ in
-            alertController.dismiss(animated: true, completion: nil)
-        }
-        let goToSettingAlert = UIAlertAction(title: "설정으로 이동하기", style: .default) { _ in
-            guard let settingURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingURL) else { return }
-            UIApplication.shared.open(settingURL, options: [:])
-        }
-        [cancelAlert, goToSettingAlert].forEach(alertController.addAction(_:))
-        DispatchQueue.main.async {
-            self.present(alertController, animated: true)
+        case .icon: return
+        case .image: viewModel.selectImage.value = ()
+        case .camera: viewModel.selectCamera.value = ()
         }
     }
 }

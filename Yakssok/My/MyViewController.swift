@@ -74,7 +74,7 @@ class MyViewController: BaseViewController {
         print(#function)
         var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
         snapshot.appendSections(MySection.allCases)
-        snapshot.appendItems(viewModel.repository.fetchItem(), toSection: .main)
+        snapshot.appendItems(viewModel.repository.fetchAllItem(), toSection: .main)
         dataSource.apply(snapshot)
     }
 }
@@ -84,13 +84,13 @@ extension MyViewController: UICollectionViewDelegate {
         let row = indexPath.row
         let vc = AddViewController()
         vc.viewModel.inputType.value = .update
-        vc.viewModel.inputMySupplement.value = viewModel.repository.fetchItem()[row]
-        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchItmes(name: viewModel.repository.fetchItem()[row].name)
-        vc.viewModel.inputName.value = viewModel.repository.fetchItem()[row].name
-        vc.viewModel.inputAmount.value = viewModel.repository.fetchItem()[row].amout
-        vc.viewModel.inputStartDay.value = viewModel.repository.fetchItem()[row].startDay
-        vc.viewModel.inputCycle.value = viewModel.repository.fetchItem()[row].cycleArray
-        vc.viewModel.inputTimeList.value = viewModel.repository.fetchItem()[row].timeArray
+        vc.viewModel.inputMySupplement.value = viewModel.repository.fetchAllItem()[row]
+        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchItmes(name: viewModel.repository.fetchAllItem()[row].name)
+        vc.viewModel.inputName.value = viewModel.repository.fetchAllItem()[row].name
+        vc.viewModel.inputAmount.value = viewModel.repository.fetchAllItem()[row].amout
+        vc.viewModel.inputStartDay.value = viewModel.repository.fetchAllItem()[row].startDay
+        vc.viewModel.inputCycle.value = viewModel.repository.fetchAllItem()[row].cycleArray
+        vc.viewModel.inputTimeList.value = viewModel.repository.fetchAllItem()[row].timeArray
         navigationController?.pushViewController(vc, animated: true)
     }
 }

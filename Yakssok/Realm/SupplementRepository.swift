@@ -22,7 +22,6 @@ class SupplementRepository {
     }
     
     func createItems(_ data: MySupplements) {
-        //print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(data)
@@ -32,7 +31,7 @@ class SupplementRepository {
         }
     }
     
-    func fetchItem() -> [MySupplement] {
+    func fetchAllItem() -> [MySupplement] {
         let result = realm.objects(MySupplement.self)
         return Array(result)
     }
@@ -57,13 +56,11 @@ class SupplementRepository {
         }
     }
     
-    func updateItem(pk: ObjectId, name: String, amount: Int) {
+    func updateItem(data: MySupplement, name: String, amount: Int) {
         do {
             try realm.write {
-                if let supplement = realm.objects(MySupplement.self).where({ $0.pk == pk }).first {
-                    supplement.name = name
-                    supplement.amout = amount
-                }
+                data.name = name
+                data.amout = amount
             }
         } catch {
             print(error)
