@@ -11,4 +11,6 @@ class ImageTypeSelectViewModel {
     
     let selectImage: Observable<Void?> = Observable(nil)
     let selectCamera: Observable<Void?> = Observable(nil)
+    let selectDelete: Observable<Void?> = Observable(nil)
+    
 }

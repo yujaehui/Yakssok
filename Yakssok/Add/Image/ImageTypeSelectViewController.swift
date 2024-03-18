@@ -12,6 +12,15 @@ import AVFoundation
 enum ImageType: String, CaseIterable {
     case image = "라이브러리에서 선택"
     case camera = "사진 찍기"
+    case delete = "현재 사진 삭제"
+    
+    var image: UIImage {
+        switch self {
+        case .image: return UIImage(systemName: "photo") ?? UIImage()
+        case .camera: return UIImage(systemName: "camera")  ?? UIImage()
+        case .delete: return UIImage(systemName: "trash") ?? UIImage()
+        }
+    }
 }
 
 class ImageTypeSelectViewController: BaseViewController {
@@ -23,7 +32,6 @@ class ImageTypeSelectViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
-        setToolBar()
         bindData()
     }
     
@@ -52,6 +60,12 @@ class ImageTypeSelectViewController: BaseViewController {
                     self?.present(vc, animated: true)
                 }
             }
+        }
+        
+        viewModel.selectDelete.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.selectImage?(UIImage(systemName: "pill")!)
+            self?.dismiss(animated: true)
         }
     }
     
@@ -94,18 +108,6 @@ class ImageTypeSelectViewController: BaseViewController {
     @objc private func rightBarButtonItemClikced() {
         dismiss(animated: true)
     }
-    
-    private func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc private func registrationButtonClicked() {
-        dismiss(animated: true)
-    }
 }
 
 extension ImageTypeSelectViewController: UITableViewDelegate, UITableViewDataSource {
@@ -124,6 +126,7 @@ extension ImageTypeSelectViewController: UITableViewDelegate, UITableViewDataSou
         switch ImageType.allCases[indexPath.row] {
         case .image: viewModel.selectImage.value = ()
         case .camera: viewModel.selectCamera.value = ()
+        case .delete: viewModel.selectDelete.value = ()
         }
     }
 }
