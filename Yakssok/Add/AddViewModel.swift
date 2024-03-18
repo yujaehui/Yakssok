@@ -31,7 +31,7 @@ final class AddViewModel {
     let inputStartDay: Observable<Date> = Observable(Date())
     let inputPeriod: Observable<Int> = Observable(1)
     let inputCycle: Observable<[String]> = Observable(["월"])
-    let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
+    let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
     
     let inputCreateTrigger: Observable<Void?> = Observable(nil)
     let inputUpdateTrigger: Observable<Void?> = Observable(nil)

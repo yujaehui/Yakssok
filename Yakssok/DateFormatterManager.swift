@@ -13,6 +13,15 @@ class DateFormatterManager {
     
     let formatter = DateFormatter()
     
+    func generateNineAM() -> Date {
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.hour = 9
+        components.minute = 0
+        components.second = 0
+        return calendar.date(from: components)!
+    }
+    
     func convertformatDateToString(date: Date) -> String {
         formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko_KR")
