@@ -104,9 +104,10 @@ final class AddViewModel {
         inputUpdateTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
+            guard let mySupplement = inputMySupplement.value else { return }
             
             for i in repository.fetchAllItem() {
-                if i.name == outputName.value {
+                if i.name !=  mySupplement.name && i.name == outputName.value {
                     print("같은 이름이 이미 존재함. 변경 ㄴㄴ") // 토스트
                     return
                 }
@@ -117,7 +118,6 @@ final class AddViewModel {
                 return
             }
             
-            guard let mySupplement = inputMySupplement.value else { return }
             repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value)
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
         }
