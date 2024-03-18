@@ -80,9 +80,11 @@ final class AddViewModel {
             
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
-            repository.createItem(data)
-            Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
+            if outputImage.value != UIImage(systemName: "pill") {
+                Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
+            }
             
+            repository.createItem(data)
             var startDay = outputStartDay.value
             let cycle = outputCycle.value
             let period = outputPeriod.value
@@ -123,8 +125,14 @@ final class AddViewModel {
                 return
             }
             
-            Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
-            Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
+            if Helpers.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
+                Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            }
+            
+            if outputImage.value != UIImage(systemName: "pill") {
+                Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
+
+            }
             repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value)
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
         }

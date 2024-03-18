@@ -76,7 +76,11 @@ class MyCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(_ itemIdentifier: MySupplement) {
-        imageView.image = Helpers.shared.loadImageToDocument(fileName: "\(itemIdentifier.pk)")
+        if let image = Helpers.shared.loadImageToDocument(fileName: "\(itemIdentifier.pk)") {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(systemName: "pill")
+        }
         nameLabel.text = itemIdentifier.name
         amountLabel.text = "1회 복용량 : \(itemIdentifier.amout)개"
         startDayLabel.text = "시작일 : " + DateFormatterManager.shared.convertformatDateToString(date: itemIdentifier.startDay)

@@ -294,6 +294,9 @@ extension AddViewController: UICollectionViewDelegate {
                     self?.viewModel.inputImage.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
             case .name: return
             case .amount: return
