@@ -13,6 +13,7 @@ class MySupplement: Object {
     @Persisted var name: String
     @Persisted var amout: Int
     @Persisted var startDay: Date
+    @Persisted var period: Int
     @Persisted var cycle: List<String>
     @Persisted var time: List<Date>
     var cycleArray: [String] {
@@ -33,11 +34,12 @@ class MySupplement: Object {
         }
     }
     
-    convenience init(name: String, amout: Int, startDay: Date, cycleArray: [String], timeArray: [Date]) {
+    convenience init(name: String, amout: Int, startDay: Date, period: Int, cycleArray: [String], timeArray: [Date]) {
         self.init()
         self.name = name
         self.amout = amout
         self.startDay = startDay
+        self.period = period
         self.cycleArray = cycleArray
         self.timeArray = timeArray
     }

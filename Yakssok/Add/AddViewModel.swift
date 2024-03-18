@@ -29,6 +29,7 @@ final class AddViewModel {
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(Date())
+    let inputPeriod: Observable<Int> = Observable(1)
     let inputCycle: Observable<[String]> = Observable(["월"])
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: Date())])
     
@@ -50,6 +51,9 @@ final class AddViewModel {
     
     let outputStartDay: Observable<Date> = Observable(Date())
     let outputStartDayString: Observable<String> = Observable("")
+    
+    let outputPeriod: Observable<Int> = Observable(1)
+    let outputPeriodString: Observable<String> = Observable("")
     
     let outputCycle: Observable<[String]> = Observable([])
     let outputCycleString: Observable<String> = Observable("")
@@ -74,16 +78,17 @@ final class AddViewModel {
                 return
             }
             
-            let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             repository.createItem(data)
             Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             
             var startDay = outputStartDay.value
             let cycle = outputCycle.value
+            let period = outputPeriod.value
             let timeList = outputTimeList.value
             
-            let endDate = Calendar.current.date(byAdding: .month, value: 3, to: startDay)!
+            let endDate = Calendar.current.date(byAdding: .month, value: period, to: startDay)!
             
             while startDay <= endDate {
                 for dayOfWeek in cycle {
@@ -173,6 +178,11 @@ final class AddViewModel {
         inputStartDay.bind { [weak self] value in
             self?.outputStartDay.value = value
             self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
+        }
+        
+        inputPeriod.bind { [weak self] value in
+            self?.outputPeriod.value = value
+            self?.outputPeriodString.value = String(value)
         }
         
         inputCycle.bind { [weak self] value in

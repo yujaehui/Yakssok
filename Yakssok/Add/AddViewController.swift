@@ -14,7 +14,8 @@ enum Section: String, CaseIterable {
     case name = "영양제 이름"
     case amount = "복용량"
     case startDay = "복용시작일"
-    case cycle = "복용주기"
+    case period = "복용기간"
+    case cycle = "복용요일"
     case time = "복용시간"
 }
 
@@ -75,6 +76,10 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
+        viewModel.outputPeriodString.bind { [weak self] value in
+            self?.updateSnapshot()
+        }
+        
         viewModel.outputCycleString.bind { [weak self] value in
             self?.updateSnapshot()
         }
@@ -125,6 +130,7 @@ final class AddViewController: BaseViewController {
         snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
         snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
         snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
+        snapshot.appendItems([SectionItem(section: .period, image: nil, item: viewModel.outputPeriodString.value)], toSection: .period)
         snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
@@ -236,6 +242,14 @@ extension AddViewController: UICollectionViewDelegate {
                 vc.viewModel.outputDate.value = viewModel.inputStartDay.value
                 vc.selectDate = { [weak self] value in
                     self?.viewModel.inputStartDay.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+            case .period:
+                let vc = PeriodViewController()
+                vc.viewModel.outputPeriod.value = viewModel.inputPeriod.value
+                vc.selectPeriod = { [weak self] value in
+                    self?.viewModel.inputPeriod.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
                 present(nav, animated: true)
