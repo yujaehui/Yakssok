@@ -26,12 +26,25 @@ class MyViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNav()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureDataSource()
         updateSnapshot()
+    }
+    
+    func setNav() {
+        let searchController = UISearchController()
+        navigationItem.title = "My"
+        navigationItem.backButtonTitle = ""
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        let vc = AddViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func configureHierarchy() {
@@ -65,11 +78,11 @@ extension MyViewController {
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(120))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 8
-        section.contentInsets = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
+        section.interGroupSpacing = 16
+        section.contentInsets = .init(top: 8, leading: 16, bottom: 8, trailing: 16)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }

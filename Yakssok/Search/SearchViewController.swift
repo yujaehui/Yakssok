@@ -44,12 +44,12 @@ class SearchViewController: BaseViewController {
     }
     
     func setNav() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        navigationItem.searchController = searchController
-        navigationItem.title = "Search"
-        navigationItem.backButtonTitle = ""
+            let searchController = UISearchController()
+            searchController.searchResultsUpdater = self
+            searchController.searchBar.delegate = self
+            navigationItem.searchController = searchController
+            navigationItem.title = "Search"
+            navigationItem.backButtonTitle = ""
     }
 }
 

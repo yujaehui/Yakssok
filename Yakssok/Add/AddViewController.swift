@@ -163,6 +163,7 @@ extension AddViewController {
         switch viewModel.outputType.value {
         case .create:
             viewModel.inputCreateTrigger.value = ()
+            navigationController?.popViewController(animated: true)
         case .update:
             viewModel.inputUpdateTrigger.value = ()
             navigationController?.popViewController(animated: true)

@@ -29,6 +29,13 @@ class DateFormatterManager {
         return formatter.string(from: date)
     }
     
+    func convertformatDateToString2(date: Date) -> String {
+        formatter.dateFormat = "yy.MM.dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        return formatter.string(from: date)
+    }
+    
     func extractTime(date: Date) -> Date {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: date)
