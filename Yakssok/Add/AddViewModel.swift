@@ -142,6 +142,7 @@ final class AddViewModel {
         inputMySupplement.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
+            inputImage.value = Helpers.shared.loadImageToDocument(fileName: "\(value.pk)")
             inputName.value = value.name
             inputAmount.value = value.amout
             inputStartDay.value = value.startDay
