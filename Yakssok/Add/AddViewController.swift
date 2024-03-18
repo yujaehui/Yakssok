@@ -230,6 +230,7 @@ extension AddViewController: UICollectionViewDelegate {
             switch Section.allCases[indexPath.section] {
             case .image:
                 let vc = ImageTypeSelectViewController()
+                vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
                 vc.selectImage = { [weak self] value in
                     self?.viewModel.inputImage.value = value
                 }
@@ -290,6 +291,7 @@ extension AddViewController: UICollectionViewDelegate {
             switch Section.allCases[indexPath.section] {
             case .image:
                 let vc = ImageTypeSelectViewController()
+                vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
                 vc.selectImage = { [weak self] value in
                     self?.viewModel.inputImage.value = value
                 }

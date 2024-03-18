@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 
-enum ImageType: String, CaseIterable {
+enum MyImageVersion: String, CaseIterable {
     case image = "라이브러리에서 선택"
     case camera = "사진 찍기"
     case delete = "현재 사진 삭제"
@@ -20,6 +20,10 @@ enum ImageType: String, CaseIterable {
         case .camera: return UIImage(systemName: "camera")  ?? UIImage()
         case .delete: return UIImage(systemName: "trash") ?? UIImage()
         }
+    }
+    
+    var isHidden: Bool {
+        return self == .delete
     }
 }
 
@@ -112,18 +116,21 @@ class ImageTypeSelectViewController: BaseViewController {
 
 extension ImageTypeSelectViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ImageType.allCases.count
+        return MyImageVersion.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImageTypeSelectTableViewCell.identifier, for: indexPath) as! ImageTypeSelectTableViewCell
-        let data = ImageType.allCases[indexPath.row]
+        let data = MyImageVersion.allCases[indexPath.row]
         cell.configureCell(data)
+        if data.isHidden && viewModel.outputCurrentImage.value {
+            cell.isHidden = true
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch ImageType.allCases[indexPath.row] {
+        switch MyImageVersion.allCases[indexPath.row] {
         case .image: viewModel.selectImage.value = ()
         case .camera: viewModel.selectCamera.value = ()
         case .delete: viewModel.selectDelete.value = ()

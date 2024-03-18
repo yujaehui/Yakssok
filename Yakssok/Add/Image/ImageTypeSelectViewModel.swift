@@ -13,4 +13,13 @@ class ImageTypeSelectViewModel {
     let selectCamera: Observable<Void?> = Observable(nil)
     let selectDelete: Observable<Void?> = Observable(nil)
     
+    var inputCurrentImage: Observable<Bool?> = Observable(nil)
+    var outputCurrentImage: Observable<Bool> = Observable(true)
+    
+    init() {
+        inputCurrentImage.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.outputCurrentImage.value = value
+        }
+    }
 }

@@ -43,6 +43,7 @@ final class AddViewModel {
     let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
     
     let outputImage: Observable<UIImage> = Observable(UIImage(systemName: "pill")!)
+    let outputCurrentImage: Observable<Bool> = Observable(true)
     
     let outputName: Observable<String> = Observable("")
     
@@ -171,6 +172,8 @@ final class AddViewModel {
         inputImage.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputImage.value = value
+            
+            self?.outputCurrentImage.value = value == UIImage(systemName: "pill") ? true : false
         }
         
         inputName.bind { [weak self] value in

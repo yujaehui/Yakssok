@@ -33,7 +33,7 @@ class ImageTypeSelectTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configureCell(_ data: ImageType) {
+    func configureCell(_ data: MyImageVersion) {
         typeImageView.image = data.image
         typeLabel.text = data.rawValue
     }
