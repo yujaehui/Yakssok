@@ -219,41 +219,59 @@ extension AddViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch Section.allCases[indexPath.section] {
-        case .image:
-            let vc = ImageTypeSelectViewController()
-            vc.selectImage = { [weak self] value in
-                self?.viewModel.inputImage.value = value
+        switch viewModel.outputType.value {
+        case .create:
+            switch Section.allCases[indexPath.section] {
+            case .image:
+                let vc = ImageTypeSelectViewController()
+                vc.selectImage = { [weak self] value in
+                    self?.viewModel.inputImage.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+            case .name: return
+            case .amount: return
+            case .startDay:
+                let vc = StartDaySettingViewController()
+                vc.viewModel.outputDate.value = viewModel.inputStartDay.value
+                vc.selectDate = { [weak self] value in
+                    self?.viewModel.inputStartDay.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+            case .cycle:
+                let vc = DayOfTheWeekViewController()
+                vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+                vc.selectDayOfTheWeek = { [weak self] value in
+                    self?.viewModel.inputCycle.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+                
+            case .time:
+                let vc = TimeSettingViewController()
+                vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
+                vc.selectTimeList = { [weak self] value in
+                    self?.viewModel.inputTimeList.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
             }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
-        case .name: return
-        case .amount: return
-        case .startDay:
-            let vc = StartDaySettingViewController()
-            vc.viewModel.outputDate.value = viewModel.inputStartDay.value
-            vc.selectDate = { [weak self] value in
-                self?.viewModel.inputStartDay.value = value
+        case .update:
+            switch Section.allCases[indexPath.section] {
+            case .image:
+                let vc = ImageTypeSelectViewController()
+                vc.selectImage = { [weak self] value in
+                    self?.viewModel.inputImage.value = value
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+            case .name: return
+            case .amount: return
+            default:
+                print("수정 불가능한 항목") // 토스트
+                return
             }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
-        case .cycle:
-            let vc = DayOfTheWeekViewController()
-            vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
-            vc.selectDayOfTheWeek = { [weak self] value in
-                self?.viewModel.inputCycle.value = value
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
-            
-        case .time:
-            let vc = TimeSettingViewController()
-            vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
-            vc.selectTimeList = { [weak self] value in
-                self?.viewModel.inputTimeList.value = value
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
         }
     }
 }
