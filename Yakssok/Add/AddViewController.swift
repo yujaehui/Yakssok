@@ -234,6 +234,9 @@ extension AddViewController: UICollectionViewDelegate {
                     self?.viewModel.inputImage.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
             case .name: return
             case .amount: return
@@ -243,7 +246,11 @@ extension AddViewController: UICollectionViewDelegate {
                 vc.selectDate = { [weak self] value in
                     self?.viewModel.inputStartDay.value = value
                 }
+                
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
             case .period:
                 let vc = PeriodViewController()
@@ -252,6 +259,9 @@ extension AddViewController: UICollectionViewDelegate {
                     self?.viewModel.inputPeriod.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
             case .cycle:
                 let vc = DayOfTheWeekViewController()
@@ -260,8 +270,10 @@ extension AddViewController: UICollectionViewDelegate {
                     self?.viewModel.inputCycle.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
-                
             case .time:
                 let vc = TimeSettingViewController()
                 vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
@@ -269,6 +281,9 @@ extension AddViewController: UICollectionViewDelegate {
                     self?.viewModel.inputTimeList.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
+                if let sheet = nav.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
                 present(nav, animated: true)
             }
         case .update:

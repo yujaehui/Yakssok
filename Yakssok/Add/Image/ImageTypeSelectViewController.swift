@@ -15,7 +15,7 @@ enum ImageType: String, CaseIterable {
     case camera = "사진 찍기"
 }
 
-class ImageTypeSelectViewController: BaseSheetViewController {
+class ImageTypeSelectViewController: BaseViewController {
     var selectImage: ((UIImage) -> Void)?
     let viewModel = ImageTypeSelectViewModel()
     

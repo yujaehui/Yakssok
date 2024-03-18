@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PeriodViewController: BaseSheetViewController {    
+class PeriodViewController: BaseViewController {    
     var selectPeriod: ((Int) -> Void)?
     
     let viewModel = PeriodViewModel()

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TimeSettingViewController: BaseSheetViewController {
+class TimeSettingViewController: BaseViewController {
     var selectTimeList: (([Date]) -> Void)?
     
     let viewModel = TimeSettingViewModel()

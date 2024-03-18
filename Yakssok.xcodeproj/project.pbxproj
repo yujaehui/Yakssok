@@ -47,7 +47,6 @@
 		09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */; };
 		09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4582BA5EFE800826A73 /* MySupplements.swift */; };
 		09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD45D2BA71A7400826A73 /* CustomChartView.swift */; };
-		09ABD4622BA749A000826A73 /* BaseSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4612BA749A000826A73 /* BaseSheetViewController.swift */; };
 		09ABD4652BA816BB00826A73 /* PeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4642BA816BB00826A73 /* PeriodViewController.swift */; };
 		09ABD4692BA819A000826A73 /* PeriodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4682BA819A000826A73 /* PeriodViewModel.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
@@ -111,7 +110,6 @@
 		09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		09ABD4582BA5EFE800826A73 /* MySupplements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplements.swift; sourceTree = "<group>"; };
 		09ABD45D2BA71A7400826A73 /* CustomChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartView.swift; sourceTree = "<group>"; };
-		09ABD4612BA749A000826A73 /* BaseSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSheetViewController.swift; sourceTree = "<group>"; };
 		09ABD4642BA816BB00826A73 /* PeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewController.swift; sourceTree = "<group>"; };
 		09ABD4682BA819A000826A73 /* PeriodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewModel.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 			children = (
 				09833BF92B99A3640081E37E /* BaseView.swift */,
 				09833BF32B99A29B0081E37E /* BaseViewController.swift */,
-				09ABD4612BA749A000826A73 /* BaseSheetViewController.swift */,
 				09833BF72B99A31D0081E37E /* BaseTableViewCell.swift */,
 				09833BF52B99A2E70081E37E /* BaseCollectionViewCell.swift */,
 				09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */,
@@ -466,7 +463,6 @@
 				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
-				09ABD4622BA749A000826A73 /* BaseSheetViewController.swift in Sources */,
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */,
