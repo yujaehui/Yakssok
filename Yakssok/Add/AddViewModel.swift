@@ -118,6 +118,8 @@ final class AddViewModel {
                 return
             }
             
+            Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
             repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value)
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
         }
