@@ -65,7 +65,7 @@ final class AddViewModel {
     init() {
         inputCreateTrigger.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
+            guard let _ = value else { return }
             
             for i in repository.fetchAllItem() {
                 if i.name == outputName.value {
@@ -111,7 +111,7 @@ final class AddViewModel {
         
         inputUpdateTrigger.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
+            guard let _ = value else { return }
             guard let mySupplement = inputMySupplement.value else { return }
             
             for i in repository.fetchAllItem() {
@@ -140,7 +140,7 @@ final class AddViewModel {
         
         inputDeleteTrigger.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
+            guard let _ = value else { return }
             
             guard let mySupplement = inputMySupplement.value else { return }
             Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
@@ -193,12 +193,16 @@ final class AddViewModel {
         
         inputPeriod.bind { [weak self] value in
             self?.outputPeriod.value = value
-            self?.outputPeriodString.value = String(value)
+            self?.outputPeriodString.value = String(value) + "개월"
         }
         
         inputCycle.bind { [weak self] value in
             self?.outputCycle.value = value
-            self?.outputCycleString.value = value.joined(separator: ", ")
+            if value.count == DayOfTheWeek.allCases.count {
+                self?.outputCycleString.value = "매일"
+            } else {
+                self?.outputCycleString.value = value.joined(separator: ", ")
+            }
         }
         
         inputTimeList.bind { [weak self] value in

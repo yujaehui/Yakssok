@@ -41,7 +41,7 @@ class ImageTypeSelectViewController: BaseViewController {
     
     func bindData() {
         viewModel.selectImage.bind { [weak self] value in
-            guard let value = value else { return }
+            guard let _ = value else { return }
             let vc = UIImagePickerController()
             vc.allowsEditing = true
             vc.delegate = self
@@ -49,7 +49,7 @@ class ImageTypeSelectViewController: BaseViewController {
         }
         
         viewModel.selectCamera.bind { [weak self] value in
-            guard let value = value else { return }
+            guard let _ = value else { return }
             AVCaptureDevice.requestAccess(for: .video) { [weak self] isAuthorized in
                 guard isAuthorized else {
                     self?.showAlertGoToSetting()
@@ -67,7 +67,7 @@ class ImageTypeSelectViewController: BaseViewController {
         }
         
         viewModel.selectDelete.bind { [weak self] value in
-            guard let value = value else { return }
+            guard let _ = value else { return }
             self?.selectImage?(UIImage(systemName: "pill")!)
             self?.dismiss(animated: true)
         }

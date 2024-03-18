@@ -16,12 +16,17 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        imageView.image = UIImage(systemName: "star.fill")
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 12
+        
     }
     
     override func configureConstraints() {
         imageView.snp.makeConstraints { make in
-            make.center.equalTo(contentView)
+            //make.center.equalTo(contentView)
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.centerX.equalTo(contentView)
             make.size.equalTo(100)
         }
     }

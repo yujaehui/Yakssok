@@ -24,11 +24,12 @@ class DayOfTheWeekViewController: BaseViewController {
     let viewModel = DayOfTheWeekViewModel()
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-    let registrationButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("DayOfTheWeekViewController viewDidLoad")
+        setNav()
+        setToolBar()
         bindData()
     }
     
@@ -38,11 +39,11 @@ class DayOfTheWeekViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputColor.bind { value in
-            self.registrationButton.backgroundColor = value ? .systemBlue : .systemGray
+            self.navigationController?.toolbar.tintColor = value ? .systemBlue : .systemGray
         }
         
         viewModel.outputIsEnabled.bind { value in
-            self.registrationButton.isEnabled = value
+            self.navigationController?.toolbar.isUserInteractionEnabled = value
         }
         
         viewModel.outputSelectDayOfTheWeekList.bind { [weak self] value in
@@ -55,35 +56,41 @@ class DayOfTheWeekViewController: BaseViewController {
         }
     }
     
+    private func setNav() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        dismiss(animated: true)
+    }
+    
+    private func setToolBar() {
+        navigationController?.isToolbarHidden = false
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
+        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
+        self.toolbarItems = barItems
+    }
+    
+    @objc private func registrationButtonClicked() {
+        viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
+        dismiss(animated: true)
+    }
+    
     override func configureHierarchy() {
         view.addSubview(collectionView)
-        view.addSubview(registrationButton)
     }
     
     override func configureView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(DayOfTheWeekCollectionViewCell.self, forCellWithReuseIdentifier: DayOfTheWeekCollectionViewCell.identifier)
-        
-        registrationButton.setTitle("등록", for: .normal)
-        registrationButton.backgroundColor = .lightGray
-        registrationButton.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
-    }
-    
-    @objc func registrationButtonClicked() {
-        viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
-        dismiss(animated: true)
     }
     
     override func configureConstraints() {
         collectionView.snp.makeConstraints { make in
             make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(100)
-        }
-        
-        registrationButton.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(40)
         }
     }
 }

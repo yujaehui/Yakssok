@@ -9,26 +9,29 @@ import UIKit
 import SnapKit
 
 class AmountCollectionViewCell: BaseCollectionViewCell {
-    let minusButton = UIButton()
     let amountTextField = UITextField()
+    let minusButton = UIButton()
     let plusButton = UIButton()
     
     var passAmount: ((Int) -> Void)?
     
     override func configureHierarchy() {
-        contentView.addSubview(minusButton)
         contentView.addSubview(amountTextField)
+        contentView.addSubview(minusButton)
         contentView.addSubview(plusButton)
     }
     
     override func configureView() {
-        minusButton.setImage(UIImage(systemName: "minus"), for: .normal)
-        minusButton.addTarget(self, action: #selector(minusButtonClicked), for: .touchUpInside)
-        plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
-        
+        backgroundColor = .systemGray6
+        amountTextField.clipsToBounds = true
+        amountTextField.layer.cornerRadius = 12
+        amountTextField.font = .boldSystemFont(ofSize: 18)
         amountTextField.textAlignment = .center
         amountTextField.isUserInteractionEnabled = false
+        minusButton.configuration = .calculate(image: "minus.circle.fill")
+        plusButton.configuration = .calculate(image: "plus.circle.fill")
+        minusButton.addTarget(self, action: #selector(minusButtonClicked), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
     }
     
     @objc func minusButtonClicked() {
@@ -49,18 +52,24 @@ class AmountCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureConstraints() {
+        amountTextField.snp.makeConstraints { make in
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.height.equalTo(44)
+            make.horizontalEdges.equalTo(contentView)
+        }
+        
         minusButton.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(contentView)
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.size.equalTo(44)
             make.leading.equalTo(contentView).inset(16)
         }
         
-        amountTextField.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(contentView)
-            make.center.equalTo(contentView)
-        }
-        
         plusButton.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(contentView)
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.size.equalTo(44)
             make.trailing.equalTo(contentView).inset(16)
         }
     }

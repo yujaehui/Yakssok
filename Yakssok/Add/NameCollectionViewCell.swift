@@ -18,8 +18,13 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        nameTextField.placeholder = "영양제 이름을 입력해주세요"
-        nameTextField.textAlignment = .center
+        backgroundColor = .systemGray6
+        nameTextField.clipsToBounds = true
+        nameTextField.layer.cornerRadius = 12
+        nameTextField.font = .boldSystemFont(ofSize: 18)
+        nameTextField.placeholder = "영양제 이름을 입력해주세요."
+        nameTextField.addLeftPadding()
+        //nameTextField.addRightStatus(true)
         nameTextField.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
     }
     
@@ -29,7 +34,10 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     
     override func configureConstraints() {
         nameTextField.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.height.equalTo(44)
+            make.horizontalEdges.equalTo(contentView)
         }
     }
     

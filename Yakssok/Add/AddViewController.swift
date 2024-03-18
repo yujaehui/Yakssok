@@ -36,7 +36,7 @@ final class AddViewController: BaseViewController {
     }()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
-        
+    
     deinit {
         print("AddViewController deinit")
     }
@@ -104,6 +104,7 @@ final class AddViewController: BaseViewController {
         let nameCellRegistration = nameCellRegistration()
         let amountCellRegistration = amoutCellRegistration()
         let cellRegistration = commonCellRegistration()
+        let headerRegistration = headerRegistration()
         
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             switch Section.allCases[indexPath.section] {
@@ -120,7 +121,15 @@ final class AddViewController: BaseViewController {
                 let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
                 return cell
             }
+            
         })
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            if kind == UICollectionView.elementKindSectionHeader {
+                return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            } else {
+                return nil
+            }
+        }
     }
     
     private func updateSnapshot() {
@@ -173,17 +182,19 @@ extension AddViewController {
 
 extension AddViewController {
     private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
-            let layoutSection: NSCollectionLayoutSection
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            layoutSection = NSCollectionLayoutSection(group: group)
-            layoutSection.interGroupSpacing = 5
-            return layoutSection
+        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        config.backgroundColor = .white
+        config.headerMode = .supplementary
+        return UICollectionViewCompositionalLayout.list(using: config)
+    }
+    
+    private func headerRegistration() -> UICollectionView.SupplementaryRegistration<UICollectionViewListCell> {
+        UICollectionView.SupplementaryRegistration(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, string, indexPath in
+            var headerConfig = UIListContentConfiguration.groupedHeader()
+            headerConfig.text = Section.allCases[indexPath.section].rawValue
+            headerConfig.textProperties.font = .boldSystemFont(ofSize: 18)
+            supplementaryView.contentConfiguration = headerConfig
         }
-        return layout
     }
     
     private func imageCellRegistration() -> UICollectionView.CellRegistration<ImageCollectionViewCell, SectionItem> {
@@ -210,12 +221,9 @@ extension AddViewController {
         }
     }
     
-    private func commonCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, SectionItem> {
+    private func commonCellRegistration() -> UICollectionView.CellRegistration<CommonCollectionViewCell, SectionItem> {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
-            var content = UIListContentConfiguration.subtitleCell()
-            content.text = itemIdentifier.item
-            content.textProperties.alignment = .center
-            cell.contentConfiguration = content
+            cell.configureCell(itemIdentifier)
         }
     }
 }
@@ -308,5 +316,6 @@ extension AddViewController: UICollectionViewDelegate {
                 return
             }
         }
+        collectionView.deselectItem(at: indexPath, animated: false)
     }
 }

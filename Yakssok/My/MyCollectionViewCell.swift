@@ -80,7 +80,12 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         } else {
             imageView.image = UIImage(systemName: "pill")
         }
-        dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + itemIdentifier.cycleArray.joined(separator: ", ")
+        if itemIdentifier.cycleArray.count == DayOfTheWeek.allCases.count {
+            dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + "매일"
+        } else {
+            dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + itemIdentifier.cycleArray.joined(separator: ", ")
+        }
+        
         nameLabel.text = itemIdentifier.name
         countInfoLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amout)개씩 복용"
     }
