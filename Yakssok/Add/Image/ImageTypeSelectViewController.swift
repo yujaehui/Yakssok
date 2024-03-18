@@ -10,7 +10,6 @@ import SnapKit
 import AVFoundation
 
 enum ImageType: String, CaseIterable {
-    case icon = "아이콘에서 선택"
     case image = "라이브러리에서 선택"
     case camera = "사진 찍기"
 }
@@ -123,7 +122,6 @@ extension ImageTypeSelectViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch ImageType.allCases[indexPath.row] {
-        case .icon: return
         case .image: viewModel.selectImage.value = ()
         case .camera: viewModel.selectCamera.value = ()
         }
