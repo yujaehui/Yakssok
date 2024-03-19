@@ -9,12 +9,16 @@ import Foundation
 
 class ImageTypeSelectViewModel {
     
+    // input
+    var inputCurrentImage: Observable<Bool?> = Observable(nil)
+    
+    // output
+    var outputCurrentImage: Observable<Bool> = Observable(true)
+    
+    // transition
     let selectImage: Observable<Void?> = Observable(nil)
     let selectCamera: Observable<Void?> = Observable(nil)
     let selectDelete: Observable<Void?> = Observable(nil)
-    
-    var inputCurrentImage: Observable<Bool?> = Observable(nil)
-    var outputCurrentImage: Observable<Bool> = Observable(true)
     
     init() {
         inputCurrentImage.bind { [weak self] value in

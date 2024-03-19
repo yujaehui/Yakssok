@@ -19,8 +19,6 @@ class CustomCalendar: FSCalendar {
     }
     
     func configureView() {
-        backgroundColor = .systemGray6
-        
         clipsToBounds = true
         layer.cornerRadius = 12
         
@@ -29,8 +27,8 @@ class CustomCalendar: FSCalendar {
         
         placeholderType = .none
         
-        appearance.headerTitleColor = .clear
-        appearance.headerMinimumDissolvedAlpha = 0.0
+        appearance.headerTitleFont = .boldSystemFont(ofSize: 18)
+        appearance.headerTitleColor = .orange
         
         appearance.todayColor = .clear
         appearance.titleTodayColor = .black

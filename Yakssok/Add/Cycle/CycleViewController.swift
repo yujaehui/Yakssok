@@ -1,5 +1,5 @@
 //
-//  DayOfTheWeekViewController.swift
+//  CycleViewController.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/10/24.
@@ -18,31 +18,34 @@ enum DayOfTheWeek: String, CaseIterable {
     case saturday = "토"
 }
 
-class DayOfTheWeekViewController: BaseViewController {
+class CycleViewController: BaseViewController {
     var selectDayOfTheWeek: (([String]) -> Void)?
     
-    let viewModel = DayOfTheWeekViewModel()
+    let viewModel = CycleViewModel()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CycleCollectionViewCell.self, forCellWithReuseIdentifier: CycleCollectionViewCell.identifier)
+        return collectionView
+    }()
+    
+    deinit {
+        print("CycleViewController deinit")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("DayOfTheWeekViewController viewDidLoad")
+        print("CycleViewController viewDidLoad")
         setNav()
         setToolBar()
         bindData()
     }
     
-    deinit {
-        print("DayOfTheWeekViewController deinit")
-    }
-    
     func bindData() {
-        viewModel.outputColor.bind { value in
-            self.navigationController?.toolbar.tintColor = value ? .systemBlue : .systemGray
-        }
-        
-        viewModel.outputIsEnabled.bind { value in
+        viewModel.outputIsSelected.bind { value in
+            self.navigationController?.toolbar.tintColor = value ? .systemOrange : .systemGray6
             self.navigationController?.toolbar.isUserInteractionEnabled = value
         }
         
@@ -56,7 +59,21 @@ class DayOfTheWeekViewController: BaseViewController {
         }
     }
     
+    override func configureHierarchy() {
+        view.addSubview(collectionView)
+    }
+    
+    override func configureConstraints() {
+        collectionView.snp.makeConstraints { make in
+            make.height.equalTo(100)
+            make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+extension CycleViewController {
     private func setNav() {
+        navigationController?.navigationBar.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     
@@ -76,26 +93,9 @@ class DayOfTheWeekViewController: BaseViewController {
         viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
         dismiss(animated: true)
     }
-    
-    override func configureHierarchy() {
-        view.addSubview(collectionView)
-    }
-    
-    override func configureView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(DayOfTheWeekCollectionViewCell.self, forCellWithReuseIdentifier: DayOfTheWeekCollectionViewCell.identifier)
-    }
-    
-    override func configureConstraints() {
-        collectionView.snp.makeConstraints { make in
-            make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(100)
-        }
-    }
 }
 
-extension DayOfTheWeekViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CycleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 16
@@ -112,20 +112,15 @@ extension DayOfTheWeekViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayOfTheWeekCollectionViewCell.identifier, for: indexPath) as! DayOfTheWeekCollectionViewCell
-        cell.dayLabel.text = DayOfTheWeek.allCases[indexPath.item].rawValue
-        
-        if viewModel.outputSelectDayOfTheWeekList.value.contains(where: {$0 == DayOfTheWeek.allCases[indexPath.item].rawValue}) {
-            cell.dayLabel.backgroundColor = .red
-        } else {
-            cell.dayLabel.backgroundColor = .blue
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CycleCollectionViewCell.identifier, for: indexPath) as! CycleCollectionViewCell
+        let week = viewModel.outputSelectDayOfTheWeekList.value
+        let day = DayOfTheWeek.allCases[indexPath.item].rawValue
+        cell.configureCell(week: week, day: day)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.inputSelectDayOfTheWeek.value = DayOfTheWeek.allCases[indexPath.item].rawValue
     }
-    
 }
 

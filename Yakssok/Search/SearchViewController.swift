@@ -10,10 +10,27 @@ import SnapKit
 import Kingfisher
 
 class SearchViewController: BaseViewController {
-    let searchTableView = UITableView()
+    var selectName: ((String) -> Void)?
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = "영양제를 검색해보세요..."
+        return searchBar
+    }()
+    
+    private lazy var searchTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
     let viewModel = SearchViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
@@ -24,32 +41,40 @@ class SearchViewController: BaseViewController {
         viewModel.outputSupplement.bind { _ in
             self.searchTableView.reloadData()
         }
-    }
-    
-    override func configureHierarchy() {
-        view.addSubview(searchTableView)
-    }
-    
-    override func configureView() {
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        searchTableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
-        searchTableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    override func configureConstraints() {
-        searchTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+        
+        viewModel.outputName.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.selectName?(value)
         }
     }
     
-    func setNav() {
-            let searchController = UISearchController()
-            searchController.searchResultsUpdater = self
-            searchController.searchBar.delegate = self
-            navigationItem.searchController = searchController
-            navigationItem.title = "Search"
-            navigationItem.backButtonTitle = ""
+    override func configureHierarchy() {
+        view.addSubview(searchBar)
+        view.addSubview(searchTableView)
+    }
+    
+    override func configureConstraints() {
+        searchBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(44)
+        }
+        
+        searchTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(8)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+extension SearchViewController {
+    private func setNav() {
+        navigationItem.title = "Search"
+        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        dismiss(animated: true)
     }
 }
 
@@ -68,18 +93,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = AddViewController()
-        vc.viewModel.inputSupplement.value = viewModel.outputSupplement.value[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.inputName.value = viewModel.outputSupplement.value[indexPath.row].prdlstNm
+        dismiss(animated: true)
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        viewModel.inputUpdateSearchResults.value = (searchController.searchBar.text)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.outputSupplement.value.removeAll()
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.inputUpdateSearchResults.value = (searchBar.text)
     }
 }

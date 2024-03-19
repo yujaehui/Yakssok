@@ -9,36 +9,52 @@ import UIKit
 import SnapKit
 
 class NameCollectionViewCell: BaseCollectionViewCell {
-    let nameTextField = UITextField()
-    
     var passName: ((String?) -> Void)?
+    var passMoment: (() -> Void)?
     
+    lazy var nameTextField: UITextField = {
+        let textField = BasicTextField()
+        textField.placeholder = "영양제 이름을 입력해주세요."
+        textField.addLeftPadding()
+        textField.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
+        return textField
+    }()
+    
+    lazy var searchButton: UIButton = {
+        let button = UIButton()
+        button.configuration = .basic(image: "magnifyingglass")
+        button.addTarget(self, action: #selector(searchButtonClicked), for: .touchUpInside)
+        return button
+    }()
+        
     override func configureHierarchy() {
         contentView.addSubview(nameTextField)
-    }
-    
-    override func configureView() {
-        backgroundColor = .systemGray6
-        nameTextField.clipsToBounds = true
-        nameTextField.layer.cornerRadius = 12
-        nameTextField.font = .boldSystemFont(ofSize: 18)
-        nameTextField.placeholder = "영양제 이름을 입력해주세요."
-        nameTextField.addLeftPadding()
-        //nameTextField.addRightStatus(true)
-        nameTextField.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
-    }
-    
-    @objc func nameTextFieldChanged() {
-        passName?(nameTextField.text)
+        contentView.addSubview(searchButton)
     }
     
     override func configureConstraints() {
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
-            make.height.equalTo(44)
             make.horizontalEdges.equalTo(contentView)
+            make.height.equalTo(44)
         }
+        
+        searchButton.snp.makeConstraints { make in
+            make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
+            make.trailing.equalTo(contentView).inset(16)
+            make.size.equalTo(44)
+        }
+        
+    }
+    
+    @objc func searchButtonClicked() {
+        passMoment?()
+    }
+    
+    @objc func nameTextFieldChanged() {
+        passName?(nameTextField.text)
     }
     
     func configureCell(_ itemIdentifier: SectionItem) {

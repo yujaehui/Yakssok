@@ -8,17 +8,26 @@
 import Foundation
 
 class SearchViewModel {
+    
     // input
     let inputUpdateSearchResults: Observable<String?> = Observable(nil)
+    let inputName: Observable<String?> = Observable(nil)
     
     // output
     var outputSupplement: Observable<[Row]> = Observable([])
+    var outputName: Observable<String?> = Observable(nil)
     
     init() {
         inputUpdateSearchResults.bind { value in
             guard let value = value else { return }
             let product = Helpers.shared.replaceSpacesWithUnderscore(value)
             self.callRequest(product)
+        }
+        
+        inputName.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.outputName.value = value
+            
         }
     }
     

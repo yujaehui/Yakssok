@@ -1,5 +1,5 @@
 //
-//  DayOfTheWeekViewModel.swift
+//  CycleViewModel.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/10/24.
@@ -8,15 +8,14 @@
 import Foundation
 import Foundation
 
-class DayOfTheWeekViewModel {
+class CycleViewModel {
     
     // input
     let inputSelectDayOfTheWeek: Observable<String?> = Observable(nil)
     let inputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
     
     // output
-    let outputColor: Observable<Bool> = Observable(false)
-    let outputIsEnabled: Observable<Bool> = Observable(false)
+    let outputIsSelected: Observable<Bool> = Observable(false)
     var outputSelectDayOfTheWeekList: Observable<[String]> = Observable([])
     let outputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
     
@@ -28,7 +27,6 @@ class DayOfTheWeekViewModel {
                 self.outputSelectDayOfTheWeekList.value.removeAll(where: {$0 == value})
             } else {
                 self.outputSelectDayOfTheWeekList.value.append(value)
-                // 정렬
                 self.outputSelectDayOfTheWeekList.value.sort { (day1, day2) -> Bool in
                     guard let index1 = DayOfTheWeek.allCases.firstIndex(of: DayOfTheWeek(rawValue: day1) ?? .sunday),
                           let index2 = DayOfTheWeek.allCases.firstIndex(of: DayOfTheWeek(rawValue: day2) ?? .sunday) else {
@@ -39,11 +37,9 @@ class DayOfTheWeekViewModel {
             }
             
             if self.outputSelectDayOfTheWeekList.value == [] {
-                self.outputColor.value = false
-                self.outputIsEnabled.value = false
+                self.outputIsSelected.value = false
             } else {
-                self.outputColor.value = true
-                self.outputIsEnabled.value = true
+                self.outputIsSelected.value = true
 
             }
         }

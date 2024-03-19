@@ -22,16 +22,31 @@ enum MyImageVersion: String, CaseIterable {
         }
     }
     
+    var color: UIColor {
+        switch self {
+        case .delete: return .systemRed
+        default: return .black
+        }
+    }
+    
     var isHidden: Bool {
         return self == .delete
     }
 }
 
-class ImageTypeSelectViewController: BaseViewController {
-    var selectImage: ((UIImage) -> Void)?
+final class ImageTypeSelectViewController: BaseViewController {
+    var passImage: ((UIImage) -> Void)?
+    
     let viewModel = ImageTypeSelectViewModel()
     
-    let tableView = UITableView()
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ImageTypeSelectTableViewCell.self, forCellReuseIdentifier: ImageTypeSelectTableViewCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +83,13 @@ class ImageTypeSelectViewController: BaseViewController {
         
         viewModel.selectDelete.bind { [weak self] value in
             guard let _ = value else { return }
-            self?.selectImage?(UIImage(systemName: "pill")!)
+            self?.passImage?(UIImage(systemName: "pill")!)
             self?.dismiss(animated: true)
         }
     }
     
     func showAlertGoToSetting() {
-        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > {앱 이름}탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > 약쏙!탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
         let cancelAlert = UIAlertAction(title: "취소", style: .cancel) { _ in
             alertController.dismiss(animated: true, completion: nil)
         }
@@ -88,15 +103,13 @@ class ImageTypeSelectViewController: BaseViewController {
         }
     }
     
+    private func setNav() {
+        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+    }
+
     override func configureHierarchy() {
         view.addSubview(tableView)
-    }
-    
-    override func configureView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ImageTypeSelectTableViewCell.self, forCellReuseIdentifier: ImageTypeSelectTableViewCell.identifier)
-        tableView.rowHeight = UITableView.automaticDimension
     }
     
     override func configureConstraints() {
@@ -105,9 +118,6 @@ class ImageTypeSelectViewController: BaseViewController {
         }
     }
     
-    private func setNav() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
-    }
     
     @objc private func rightBarButtonItemClikced() {
         dismiss(animated: true)
@@ -148,7 +158,7 @@ extension ImageTypeSelectViewController: UIImagePickerControllerDelegate, UINavi
             dismiss(animated: true)
             return
         }
-        selectImage?(image)
+        passImage?(image)
         self.dismiss(animated: true)
         dismiss(animated: true)
     }

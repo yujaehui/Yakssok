@@ -23,8 +23,6 @@ final class AddViewModel {
     let inputMySupplement: Observable<MySupplement?> = Observable(nil)
     let inputMySupplements: Observable<[MySupplements]> = Observable([])
     
-    let inputSupplement: Observable<Row?> = Observable(nil)
-    
     let inputImage: Observable<UIImage?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)
@@ -33,15 +31,9 @@ final class AddViewModel {
     let inputCycle: Observable<[String]> = Observable(["월"])
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
     
-    let inputCreateTrigger: Observable<Void?> = Observable(nil)
-    let inputUpdateTrigger: Observable<Void?> = Observable(nil)
-    let inputDeleteTrigger: Observable<Void?> = Observable(nil)
-    
     // output
     let outputType: Observable<AccessType> = Observable(.create)
-    
-    let outputSupplement: Observable<Row> = Observable(Row(prdtShapCDNm: "", lastUpdtDtm: "", prdlstNm: "", bsshNm: "", pogDaycnt: "", ntkMthd: ""))
-    
+        
     let outputImage: Observable<UIImage> = Observable(UIImage(systemName: "pill")!)
     let outputCurrentImage: Observable<Bool> = Observable(true)
     
@@ -62,8 +54,15 @@ final class AddViewModel {
     let outputTimeList: Observable<[Date]> = Observable([])
     let outputTimeListString: Observable<[String]> = Observable([])
     
+    // transition
+    let createTrigger: Observable<Void?> = Observable(nil)
+    let updateTrigger: Observable<Void?> = Observable(nil)
+    let deleteTrigger: Observable<Void?> = Observable(nil)
+    
+    var presentSearchVC: Observable<Void?> = Observable(nil)
+    
     init() {
-        inputCreateTrigger.bind { [weak self] value in
+        createTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
             
@@ -109,7 +108,7 @@ final class AddViewModel {
             }
         }
         
-        inputUpdateTrigger.bind { [weak self] value in
+        updateTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
             guard let mySupplement = inputMySupplement.value else { return }
@@ -138,7 +137,7 @@ final class AddViewModel {
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
         }
         
-        inputDeleteTrigger.bind { [weak self] value in
+        deleteTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
             
@@ -162,11 +161,6 @@ final class AddViewModel {
             inputStartDay.value = value.startDay
             inputCycle.value = value.cycleArray
             inputTimeList.value = value.timeArray
-        }
-        
-        inputSupplement.bind { [weak self] value in
-            guard let value = value else { return }
-            self?.outputSupplement.value = value
         }
         
         inputImage.bind { [weak self] value in

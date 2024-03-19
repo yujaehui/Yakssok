@@ -9,26 +9,25 @@ import UIKit
 import SnapKit
 
 class CommonCollectionViewCell: BaseCollectionViewCell {
-    let textLabel = UILabel()
+    let textLabel: UILabel = {
+        let label = UILabel()
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 12
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textAlignment = .center
+        return label
+    }()
     
     override func configureHierarchy() {
         contentView.addSubview(textLabel)
-    }
-    
-    override func configureView() {
-        backgroundColor = .systemGray6
-        textLabel.clipsToBounds = true
-        textLabel.layer.cornerRadius = 12
-        textLabel.font = .boldSystemFont(ofSize: 18)
-        textLabel.textAlignment = .center
     }
     
     override func configureConstraints() {
         textLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
-            make.height.equalTo(44)
             make.horizontalEdges.equalTo(contentView)
+            make.height.equalTo(44)
         }
     }
     

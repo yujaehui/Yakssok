@@ -8,13 +8,18 @@
 import UIKit
 import SnapKit
 
-class PeriodViewController: BaseViewController {    
+class PeriodViewController: BaseViewController {
     var selectPeriod: ((Int) -> Void)?
     
     let viewModel = PeriodViewModel()
     
-    let pickerView = UIPickerView()
-
+    private lazy var pickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        return pickerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
@@ -29,7 +34,20 @@ class PeriodViewController: BaseViewController {
         }
     }
     
+    override func configureHierarchy() {
+        view.addSubview(pickerView)
+    }
+    
+    override func configureConstraints() {
+        pickerView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
+
+extension PeriodViewController {
     private func setNav() {
+        navigationController?.navigationBar.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     
@@ -39,6 +57,7 @@ class PeriodViewController: BaseViewController {
     
     private func setToolBar() {
         navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.tintColor = .systemOrange
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
         let barItems = [flexibleSpace, registrationButton, flexibleSpace]
@@ -49,21 +68,6 @@ class PeriodViewController: BaseViewController {
         print(pickerView.selectedRow(inComponent: 0) + 1)
         viewModel.inputPeriod.value = pickerView.selectedRow(inComponent: 0) + 1
         dismiss(animated: true)
-    }
-    
-    override func configureHierarchy() {
-        view.addSubview(pickerView)
-    }
-    
-    override func configureView() {
-        pickerView.delegate = self
-        pickerView.dataSource = self
-    }
-    
-    override func configureConstraints() {
-        pickerView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
     }
 }
 

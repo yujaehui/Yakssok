@@ -51,24 +51,12 @@ final class AddViewController: BaseViewController {
         bindData()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
     private func bindData() {
         viewModel.outputType.bind { [weak self] _ in
             self?.updateSnapshot()
         }
         
-        viewModel.outputSupplement.bind { [weak self] _ in
-            self?.updateSnapshot()
-        }
-        
         viewModel.outputImage.bind { [weak self] value in
-            self?.updateSnapshot()
-        }
-        
-        viewModel.outputAmountString.bind { [weak self] value in
             self?.updateSnapshot()
         }
         
@@ -86,6 +74,17 @@ final class AddViewController: BaseViewController {
         
         viewModel.outputTimeListString.bind { [weak self] value in
             self?.updateSnapshot()
+        }
+        
+        viewModel.presentSearchVC.bind { [weak self] value in
+            guard let _ = value else { return }
+            let vc = SearchViewController()
+            vc.selectName = { value in
+                self?.viewModel.inputName.value = value
+                self?.updateSnapshot()
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            self?.present(nav, animated: true)
         }
     }
 
@@ -123,6 +122,7 @@ final class AddViewController: BaseViewController {
             }
             
         })
+        
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             if kind == UICollectionView.elementKindSectionHeader {
                 return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
@@ -144,6 +144,10 @@ final class AddViewController: BaseViewController {
         snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 extension AddViewController {
@@ -156,7 +160,7 @@ extension AddViewController {
     }
     
     @objc private func rightBarButtonItemClikced() {
-        viewModel.inputDeleteTrigger.value = ()
+        viewModel.deleteTrigger.value = ()
         navigationController?.popViewController(animated: true)
     }
     
@@ -171,10 +175,10 @@ extension AddViewController {
     @objc private func registrationButtonClicked() {
         switch viewModel.outputType.value {
         case .create:
-            viewModel.inputCreateTrigger.value = ()
+            viewModel.createTrigger.value = ()
             navigationController?.popViewController(animated: true)
         case .update:
-            viewModel.inputUpdateTrigger.value = ()
+            viewModel.updateTrigger.value = ()
             navigationController?.popViewController(animated: true)
         }
     }
@@ -206,6 +210,9 @@ extension AddViewController {
     private func nameCellRegistration() -> UICollectionView.CellRegistration<NameCollectionViewCell, SectionItem> {
         UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             cell.configureCell(itemIdentifier)
+            cell.passMoment = {
+                self.viewModel.presentSearchVC.value = ()
+            }
             cell.passName = { value in
                 self.viewModel.inputName.value = value
             }
@@ -240,7 +247,7 @@ extension AddViewController: UICollectionViewDelegate {
             case .image:
                 let vc = ImageTypeSelectViewController()
                 vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
-                vc.selectImage = { [weak self] value in
+                vc.passImage = { [weak self] value in
                     self?.viewModel.inputImage.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)
@@ -274,7 +281,7 @@ extension AddViewController: UICollectionViewDelegate {
                 }
                 present(nav, animated: true)
             case .cycle:
-                let vc = DayOfTheWeekViewController()
+                let vc = CycleViewController()
                 vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
                 vc.selectDayOfTheWeek = { [weak self] value in
                     self?.viewModel.inputCycle.value = value
@@ -301,7 +308,7 @@ extension AddViewController: UICollectionViewDelegate {
             case .image:
                 let vc = ImageTypeSelectViewController()
                 vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
-                vc.selectImage = { [weak self] value in
+                vc.passImage = { [weak self] value in
                     self?.viewModel.inputImage.value = value
                 }
                 let nav = UINavigationController(rootViewController: vc)

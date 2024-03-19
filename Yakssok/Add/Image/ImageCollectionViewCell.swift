@@ -9,25 +9,25 @@ import UIKit
 import SnapKit
 
 class ImageCollectionViewCell: BaseCollectionViewCell {
-    let imageView = UIImageView()
+    let imageView: UIImageView = {
+        let imageView = BasicImageView(frame: .zero)
+        return imageView
+    }()
     
     override func configureHierarchy() {
         contentView.addSubview(imageView)
     }
     
     override func configureView() {
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
-        
+        contentView.backgroundColor = .white
     }
     
     override func configureConstraints() {
         imageView.snp.makeConstraints { make in
-            //make.center.equalTo(contentView)
             make.top.equalTo(contentView).inset(8)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
-            make.centerX.equalTo(contentView)
             make.size.equalTo(100)
+            make.centerX.equalTo(contentView)
         }
     }
     

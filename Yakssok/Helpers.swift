@@ -19,7 +19,7 @@ class Helpers {
         let modifiedText = text.replacingOccurrences(of: "(전량수출용)", with: "")
         let attributedText = NSMutableAttributedString(string: modifiedText)
         let range = (text as NSString).range(of: changeText, options: .caseInsensitive)
-        attributedText.addAttribute(.foregroundColor, value: UIColor.systemRed, range: range)
+        attributedText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: range)
         return attributedText
     }
     

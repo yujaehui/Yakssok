@@ -8,8 +8,18 @@
 import UIKit
 
 class SearchResultTableViewCell: BaseTableViewCell {
-    let resultNameLabel = UILabel()
-    let resultBrandLabel = UILabel()
+    let resultNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
+    let resultBrandLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
     
     override func configureHierarchy() {
         contentView.addSubview(resultNameLabel)
@@ -27,7 +37,7 @@ class SearchResultTableViewCell: BaseTableViewCell {
             make.top.equalTo(resultNameLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(contentView).inset(16)
             make.height.equalTo(16)
-            make.bottom.lessThanOrEqualTo(contentView).inset(8) //⭐️
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
         }
     }
     
