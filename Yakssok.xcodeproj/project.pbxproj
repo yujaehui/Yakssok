@@ -41,7 +41,7 @@
 		09ABD43D2BA45E8500826A73 /* ImageTypeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD43C2BA45E8400826A73 /* ImageTypeSelectViewController.swift */; };
 		09ABD43F2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */; };
 		09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */; };
-		09ABD4452BA4A3AB00826A73 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4442BA4A3AB00826A73 /* CalendarTableViewCell.swift */; };
+		09ABD4452BA4A3AB00826A73 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */; };
 		09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4472BA5654C00826A73 /* MyViewController.swift */; };
 		09ABD44C2BA57D0500826A73 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44B2BA57D0500826A73 /* MyViewModel.swift */; };
 		09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */; };
@@ -52,6 +52,8 @@
 		09ABD46B2BA8845600826A73 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD46A2BA8845600826A73 /* UITextField+Extension.swift */; };
 		09ABD46D2BA8919400826A73 /* UIButton.Configuration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD46C2BA8919400826A73 /* UIButton.Configuration+Extension.swift */; };
 		09ABD46F2BA8937800826A73 /* CommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD46E2BA8937800826A73 /* CommonCollectionViewCell.swift */; };
+		09ABD4782BA997B400826A73 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4772BA997B400826A73 /* CalendarTableViewCell.swift */; };
+		09ABD47A2BA998E900826A73 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -107,7 +109,7 @@
 		09ABD43C2BA45E8400826A73 /* ImageTypeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectViewController.swift; sourceTree = "<group>"; };
 		09ABD43E2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectTableViewCell.swift; sourceTree = "<group>"; };
 		09ABD4402BA4715800826A73 /* ImageTypeSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeSelectViewModel.swift; sourceTree = "<group>"; };
-		09ABD4442BA4A3AB00826A73 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		09ABD4472BA5654C00826A73 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		09ABD44B2BA57D0500826A73 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 		09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,6 +120,8 @@
 		09ABD46A2BA8845600826A73 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		09ABD46C2BA8919400826A73 /* UIButton.Configuration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton.Configuration+Extension.swift"; sourceTree = "<group>"; };
 		09ABD46E2BA8937800826A73 /* CommonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCollectionViewCell.swift; sourceTree = "<group>"; };
+		09ABD4772BA997B400826A73 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -352,7 +356,9 @@
 			children = (
 				09ABD4342BA18E9700826A73 /* CalendarViewModel.swift */,
 				09C739E12B9ED52F00B200DE /* CalendarViewController.swift */,
-				09ABD4442BA4A3AB00826A73 /* CalendarTableViewCell.swift */,
+				09ABD4772BA997B400826A73 /* CalendarTableViewCell.swift */,
+				09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */,
+				09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -464,6 +470,7 @@
 				09C739D52B9DDE7400B200DE /* DayIntervalViewController.swift in Sources */,
 				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09ABD4692BA819A000826A73 /* PeriodViewModel.swift in Sources */,
+				09ABD47A2BA998E900826A73 /* ChartTableViewCell.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
 				09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */,
@@ -483,9 +490,10 @@
 				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
 				09ABD43F2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift in Sources */,
+				09ABD4782BA997B400826A73 /* CalendarTableViewCell.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
-				09ABD4452BA4A3AB00826A73 /* CalendarTableViewCell.swift in Sources */,
+				09ABD4452BA4A3AB00826A73 /* ScheduleTableViewCell.swift in Sources */,
 				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* DayOfTheWeekCollectionViewCell.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
