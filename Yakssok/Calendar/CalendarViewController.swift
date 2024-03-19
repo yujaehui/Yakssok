@@ -8,12 +8,19 @@
 import UIKit
 import SnapKit
 
+enum SectionType: CaseIterable {
+    case calendar
+    case chart
+    case schedule
+}
+
 final class CalendarViewController: BaseViewController {
     
     let viewModel = CalendarViewModel()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.identifier)
@@ -21,6 +28,7 @@ final class CalendarViewController: BaseViewController {
         tableView.register(ChartTableViewCell.self, forCellReuseIdentifier: ChartTableViewCell.identifier)
         tableView.register(ScheduleTableViewCell.self, forCellReuseIdentifier: ScheduleTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.sectionFooterHeight = 0
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -52,27 +60,29 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         return viewModel.outputGroupedDataDict.value.count + 2
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return nil
-        case 1: return nil
-        default:
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch SectionType.allCases[section] {
+        case .calendar: return nil
+        case .chart: return nil
+        case .schedule:
+            let view = ScheduleHeaderView()
             let date = viewModel.outputGroupedDataDict.value[section - 2].0
-            return DateFormatterManager.shared.makeHeaderDateFormatter2(date: date)
+            view.timeLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter2(date: date)
+            return view
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return 1
-        default: return viewModel.outputGroupedDataDict.value[section - 2].1.count
+        switch SectionType.allCases[section] {
+        case .calendar: return 1
+        case .chart: return 1
+        case .schedule: return viewModel.outputGroupedDataDict.value[section - 2].1.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
+        switch SectionType.allCases[indexPath.section] {
+        case .calendar:
             let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTableViewCell.identifier, for: indexPath) as! CalendarTableViewCell
             cell.passDate = { value in
                 self.viewModel.inputDidSelectTrigger.value = value
@@ -82,23 +92,20 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.endUpdates()
             }
             return cell
-        case 1:
+        case .chart:
             if self.viewModel.outputGroupedDataDict.value.flatMap({ $0.1 }).count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier, for: indexPath) as! EmptyTableViewCell
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChartTableViewCell.identifier, for: indexPath) as! ChartTableViewCell
-                cell.subLabel.text = "총 \(self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count)개 중에 \(self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)개 섭취 완료!"
-                cell.chartView.configureView(total: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count,
-                                             checked: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)
+                let data = self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }
+                cell.configureCell(data)
                 return cell
             }
-        default:
+        case .schedule:
             let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as! ScheduleTableViewCell
-            cell.nameLabel.text = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].name
-            cell.amountLabel.text = "\(viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].amount)개"
-            cell.backView.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].isChecked ? .systemOrange.withAlphaComponent(0.8) : .systemGray6
-            cell.checkButton.configuration = self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].isChecked ? .check(color: .orange) : .check(color: .lightGray)
+            let data = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row]
+            cell.configureCell(data)
             cell.buttonAction = {
                 self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].pk)
                 self.tableView.reloadData()

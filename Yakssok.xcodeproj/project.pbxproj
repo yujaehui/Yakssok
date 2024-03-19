@@ -56,6 +56,7 @@
 		09ABD47A2BA998E900826A73 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */; };
 		09ABD47C2BA9B56900826A73 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */; };
 		09ABD47E2BA9BEAA00826A73 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */; };
+		09ABD4802BA9C9D200826A73 /* ScheduleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -126,6 +127,7 @@
 		09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
+		09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHeaderView.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */,
 				09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */,
 				09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */,
+				09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
 				09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */,
+				09ABD4802BA9C9D200826A73 /* ScheduleHeaderView.swift in Sources */,
 				09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */,
 				09ABD46D2BA8919400826A73 /* UIButton.Configuration+Extension.swift in Sources */,
 				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,

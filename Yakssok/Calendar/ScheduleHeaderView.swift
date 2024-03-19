@@ -6,15 +6,25 @@
 //
 
 import UIKit
+import SnapKit
 
-class ScheduleHeaderView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class ScheduleHeaderView: BaseView {
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = .boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
+    override func configureHierarchy() {
+        addSubview(timeLabel)
     }
-    */
-
+    
+    override func configureConstraints() {
+        timeLabel.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(4)
+            make.leading.equalTo(safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(20)
+        }
+    }
 }

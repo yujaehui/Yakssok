@@ -45,14 +45,19 @@ class ChartTableViewCell: BaseTableViewCell {
     override func configureConstraints() {
         chartView.snp.makeConstraints { make in
             make.top.equalTo(contentView)
+            make.bottom.lessThanOrEqualTo(contentView)
             make.leading.equalToSuperview().inset(16)
             make.size.equalTo(130)
-            make.bottom.lessThanOrEqualTo(contentView)
         }
         
         stackView.snp.makeConstraints { make in
-            make.centerY.equalTo(chartView.snp.centerY)
             make.leading.equalTo(chartView.snp.trailing).offset(16)
+            make.centerY.equalTo(chartView.snp.centerY)
         }
+    }
+    
+    func configureCell(_ data: [MySupplements]) {
+        subLabel.text = "총 \(data.count)개 중에 \(data.filter { $0.isChecked }.count)개 섭취 완료!"
+        chartView.configureView(total: data.count, checked: data.filter { $0.isChecked }.count)
     }
 }

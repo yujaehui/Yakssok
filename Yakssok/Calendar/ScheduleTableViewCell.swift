@@ -73,13 +73,20 @@ class ScheduleTableViewCell: BaseTableViewCell {
         
         checkButton.snp.makeConstraints { make in
             make.top.equalTo(backView).inset(8)
-            make.trailing.equalTo(backView).inset(16)
             make.bottom.lessThanOrEqualTo(backView).inset(8)
+            make.trailing.equalTo(backView).inset(16)
             make.size.equalTo(60)
         }
     }
     
     @objc func checkButtonClicked() {
         buttonAction?()
+    }
+    
+    func configureCell(_ data: MySupplements) {
+        nameLabel.text = data.name
+        amountLabel.text = "\(data.amount)개"
+        backView.backgroundColor = data.isChecked ? .systemOrange.withAlphaComponent(0.8) : .systemGray6
+        checkButton.configuration = data.isChecked ? .check(color: .orange) : .check(color: .lightGray)
     }
 }

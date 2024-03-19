@@ -44,9 +44,9 @@ class CalendarTableViewCell: BaseTableViewCell {
     override func configureConstraints() {
         calendar.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
             make.horizontalEdges.equalTo(contentView).inset(16)
             make.height.equalTo(300)
-            make.bottom.lessThanOrEqualTo(contentView).inset(8)
         }
         
         headerLabel.snp.makeConstraints { make in

@@ -24,9 +24,9 @@ class EmptyTableViewCell: BaseTableViewCell {
     override func configureConstraints() {
         emptyLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView)
-            make.centerX.equalTo(contentView)
-            make.height.equalTo(130)
             make.bottom.lessThanOrEqualTo(contentView)
+            make.height.equalTo(130)
+            make.centerX.equalTo(contentView)
         }
     }
 }
