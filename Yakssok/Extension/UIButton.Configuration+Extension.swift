@@ -8,13 +8,35 @@
 import UIKit
 
 extension UIButton.Configuration {
-    static func calculate(image: String) -> UIButton.Configuration {
+    static func calculate(image: String) -> Self {
         var config = UIButton.Configuration.filled()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
         config.image = UIImage(systemName: image, withConfiguration: imageConfig)
         config.imagePadding = 8
         config.imagePlacement = .all
         config.baseForegroundColor = .orange
+        config.baseBackgroundColor = .clear
+        return config
+    }
+    
+    static func toggle(image: String) -> Self {
+        var config = UIButton.Configuration.filled()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold)
+        config.image = UIImage(systemName: image, withConfiguration: imageConfig)
+        config.imagePadding = 8
+        config.imagePlacement = .all
+        config.baseForegroundColor = .orange
+        config.baseBackgroundColor = .clear
+        return config
+    }
+    
+    static func check(color: UIColor) -> Self {
+        var config = UIButton.Configuration.filled()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold)
+        config.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
+        config.imagePadding = 8
+        config.imagePlacement = .all
+        config.baseForegroundColor = color
         config.baseBackgroundColor = .clear
         return config
     }

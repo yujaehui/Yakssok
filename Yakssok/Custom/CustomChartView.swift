@@ -31,7 +31,7 @@ class CustomChartView: PieChartView {
         dataSet.valueTextColor = .clear
         
         if checked != 0 {
-            dataSet.colors = [UIColor.systemGray6, UIColor.green]
+            dataSet.colors = [UIColor.systemGray6, UIColor.systemOrange]
         } else {
             dataSet.colors = [UIColor.systemGray6]
         }
@@ -43,7 +43,7 @@ class CustomChartView: PieChartView {
             centerText = ""
         }
         
-        holeRadiusPercent = 0.9
+        holeRadiusPercent = 0.8
         drawCenterTextEnabled = true
         legend.enabled = false
         isUserInteractionEnabled = false

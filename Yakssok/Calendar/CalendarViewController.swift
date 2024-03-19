@@ -17,9 +17,11 @@ final class CalendarViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.identifier)
+        tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.identifier)
         tableView.register(ChartTableViewCell.self, forCellReuseIdentifier: ChartTableViewCell.identifier)
         tableView.register(ScheduleTableViewCell.self, forCellReuseIdentifier: ScheduleTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -52,8 +54,8 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "calendar"
-        case 1: return "chart"
+        case 0: return nil
+        case 1: return nil
         default:
             let date = viewModel.outputGroupedDataDict.value[section - 2].0
             return DateFormatterManager.shared.makeHeaderDateFormatter2(date: date)
@@ -81,17 +83,24 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ChartTableViewCell.identifier, for: indexPath) as! ChartTableViewCell
-            cell.chartView.configureView(total: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count,
-                                         checked: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)
-            return cell
+            if self.viewModel.outputGroupedDataDict.value.flatMap({ $0.1 }).count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier, for: indexPath) as! EmptyTableViewCell
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChartTableViewCell.identifier, for: indexPath) as! ChartTableViewCell
+                cell.subLabel.text = "총 \(self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count)개 중에 \(self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)개 섭취 완료!"
+                cell.chartView.configureView(total: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.count,
+                                             checked: self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }.filter { $0.isChecked }.count)
+                return cell
+            }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as! ScheduleTableViewCell
-            cell.supplementLabel.text = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].name
-            cell.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].isChecked ? .green : .clear
+            cell.nameLabel.text = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].name
+            cell.amountLabel.text = "\(viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].amount)개"
+            cell.backView.backgroundColor = self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].isChecked ? .systemOrange.withAlphaComponent(0.8) : .systemGray6
+            cell.checkButton.configuration = self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].isChecked ? .check(color: .orange) : .check(color: .lightGray)
             cell.buttonAction = {
                 self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].pk)
-
                 self.tableView.reloadData()
             }
             return cell
