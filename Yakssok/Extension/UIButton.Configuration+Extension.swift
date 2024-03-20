@@ -59,4 +59,18 @@ extension UIButton.Configuration {
         config.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
         return config
     }
+    
+    static func registration(title: String) -> Self {
+        var config = UIButton.Configuration.filled()
+        
+        var titleAttr = AttributedString.init(title)
+        titleAttr.font = .boldSystemFont(ofSize: 18)
+        config.attributedTitle = titleAttr
+        config.titleAlignment = .center
+        
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemOrange
+        config.cornerStyle = .large
+        return config
+    }
 }

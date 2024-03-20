@@ -61,10 +61,10 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch SectionType.allCases[section] {
-        case .calendar: return nil
-        case .chart: return nil
-        case .schedule:
+        switch section {
+        case 0: return nil
+        case 1: return nil
+        default:
             let view = ScheduleHeaderView()
             let date = viewModel.outputGroupedDataDict.value[section - 2].0
             view.timeLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter2(date: date)
@@ -73,16 +73,16 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch SectionType.allCases[section] {
-        case .calendar: return 1
-        case .chart: return 1
-        case .schedule: return viewModel.outputGroupedDataDict.value[section - 2].1.count
+        switch section {
+        case 0: return 1
+        case 1: return 1
+        default: return viewModel.outputGroupedDataDict.value[section - 2].1.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch SectionType.allCases[indexPath.section] {
-        case .calendar:
+        switch indexPath.section {
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTableViewCell.identifier, for: indexPath) as! CalendarTableViewCell
             cell.passDate = { value in
                 self.viewModel.inputDidSelectTrigger.value = value
@@ -92,7 +92,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.endUpdates()
             }
             return cell
-        case .chart:
+        case 1:
             if self.viewModel.outputGroupedDataDict.value.flatMap({ $0.1 }).count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.identifier, for: indexPath) as! EmptyTableViewCell
                 return cell
@@ -102,7 +102,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configureCell(data)
                 return cell
             }
-        case .schedule:
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as! ScheduleTableViewCell
             let data = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row]
             cell.configureCell(data)

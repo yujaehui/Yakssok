@@ -17,7 +17,7 @@ class CalendarTableViewCell: BaseTableViewCell {
         let calendar = CustomCalendar()
         calendar.delegate = self
         calendar.dataSource = self
-        backgroundColor = .systemGray6
+        calendar.backgroundColor = .systemGray6
         calendar.appearance.headerTitleColor = .clear
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         return calendar

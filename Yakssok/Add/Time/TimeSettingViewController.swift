@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 
 class TimeSettingViewController: BaseViewController {
     var selectTimeList: (([Date]) -> Void)?
@@ -27,6 +28,14 @@ class TimeSettingViewController: BaseViewController {
         return button
     }()
     
+    private let noticeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "영양제별 권장 용법을 참고하여 복용시간을 설정해주세요."
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
     private lazy var timeTableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -37,12 +46,11 @@ class TimeSettingViewController: BaseViewController {
         return tableView
     }()
     
-    private let noticeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "영양제별 권장 용법을 참고하여 복용시간을 설정해주세요."
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 14)
-        return label
+    private lazy var registrationButton: UIButton = {
+       let button = UIButton()
+        button.configuration = .registration(title: "등록")
+        button.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
+        return button
     }()
     
     deinit {
@@ -54,7 +62,6 @@ class TimeSettingViewController: BaseViewController {
         print("TimeSettingViewController viewDidLoad")
         bindData()
         setNav()
-        setToolBar()
     }
     
     func bindData() {
@@ -86,6 +93,7 @@ class TimeSettingViewController: BaseViewController {
         view.addSubview(editButton)
         view.addSubview(noticeLabel)
         view.addSubview(timeTableView)
+        view.addSubview(registrationButton)
     }
     
     override func configureConstraints() {
@@ -109,7 +117,14 @@ class TimeSettingViewController: BaseViewController {
         
         timeTableView.snp.makeConstraints { make in
             make.top.equalTo(noticeLabel.snp.bottom).offset(16)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(registrationButton.snp.top)
+        }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(44)
         }
     }
     
@@ -122,6 +137,11 @@ class TimeSettingViewController: BaseViewController {
         timeTableView.setEditing(shouldBeEdited, animated: true)
         editButton.isSelected = shouldBeEdited
     }
+    
+    @objc func registrationButtonClicked() {
+        viewModel.inputTimeList.value = viewModel.outputSelectTimeList.value
+        dismiss(animated: true)
+    }
 }
 
 extension TimeSettingViewController {
@@ -131,20 +151,6 @@ extension TimeSettingViewController {
     }
     
     @objc func rightBarButtonItemClikced() {
-        dismiss(animated: true)
-    }
-    
-    func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        navigationController?.toolbar.tintColor = .systemOrange
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc func registrationButtonClicked() {
-        viewModel.inputTimeList.value = viewModel.outputSelectTimeList.value
         dismiss(animated: true)
     }
 }
@@ -167,7 +173,12 @@ extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource 
             viewModel.outputSelectTimeStringList.value.remove(at: indexPath.row)
             viewModel.outputSelectTimeList.value.remove(at: indexPath.row)
         } else {
-            return // 나중에 알럿? 토스트? 처리 할 예정
+            var style = ToastStyle()
+            style.backgroundColor = .systemOrange
+            style.messageAlignment = .center
+            style.messageFont = .boldSystemFont(ofSize: 18)
+            self.view.makeToast("최소한 하나의 항목은 있어야 합니다.", duration: 2, position: .bottom, style: style)
+            return
         }
     }
 }

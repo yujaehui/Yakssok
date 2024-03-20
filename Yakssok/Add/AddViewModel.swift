@@ -14,6 +14,12 @@ enum AccessType: String {
     case update
 }
 
+enum NameStatus: String {
+    case possibleName
+    case sameName = "같은 이름의 영양제가 이미 존재합니다."
+    case emptyName = "영양제 이름을 입력해주세요."
+}
+
 final class AddViewModel {
     let repository = SupplementRepository()
     
@@ -53,11 +59,12 @@ final class AddViewModel {
     
     let outputTimeList: Observable<[Date]> = Observable([])
     let outputTimeListString: Observable<[String]> = Observable([])
-    
-    // transition
+
     let createTrigger: Observable<Void?> = Observable(nil)
     let updateTrigger: Observable<Void?> = Observable(nil)
     let deleteTrigger: Observable<Void?> = Observable(nil)
+    
+    let outputNameStatus: Observable<NameStatus?> = Observable(nil)
     
     var presentSearchVC: Observable<Void?> = Observable(nil)
     
@@ -68,15 +75,17 @@ final class AddViewModel {
             
             for i in repository.fetchAllItem() {
                 if i.name == outputName.value {
-                    print("같은 이름이 이미 존재함. 저장 ㄴㄴ") // 토스트
+                    outputNameStatus.value = .sameName
                     return
                 }
             }
             
             if outputName.value.isEmpty {
-                print("빈 이름. 저장 ㄴㄴ") // 토스트
+                outputNameStatus.value = .emptyName
                 return
             }
+            
+            outputNameStatus.value = .possibleName
             
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
@@ -115,15 +124,17 @@ final class AddViewModel {
             
             for i in repository.fetchAllItem() {
                 if i.name !=  mySupplement.name && i.name == outputName.value {
-                    print("같은 이름이 이미 존재함. 변경 ㄴㄴ") // 토스트
+                    outputNameStatus.value = .sameName
                     return
                 }
             }
             
             if outputName.value.isEmpty {
-                print("빈 이름. 변경 ㄴㄴ") // 토스트
+                outputNameStatus.value = .emptyName
                 return
             }
+            
+            outputNameStatus.value = .possibleName
             
             if Helpers.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
                 Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
@@ -131,7 +142,7 @@ final class AddViewModel {
             
             if outputImage.value != UIImage(systemName: "pill") {
                 Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
-
+                
             }
             repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value)
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)

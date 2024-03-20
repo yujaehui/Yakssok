@@ -31,6 +31,13 @@ class CycleViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var registrationButton: UIButton = {
+       let button = UIButton()
+        button.configuration = .registration(title: "등록")
+        button.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
     deinit {
         print("CycleViewController deinit")
     }
@@ -39,14 +46,13 @@ class CycleViewController: BaseViewController {
         super.viewDidLoad()
         print("CycleViewController viewDidLoad")
         setNav()
-        setToolBar()
         bindData()
     }
     
     func bindData() {
         viewModel.outputIsSelected.bind { value in
-            self.navigationController?.toolbar.tintColor = value ? .systemOrange : .systemGray6
-            self.navigationController?.toolbar.isUserInteractionEnabled = value
+            self.registrationButton.configuration?.baseBackgroundColor = value ? .systemOrange : .systemGray6
+            self.registrationButton.isUserInteractionEnabled = value
         }
         
         viewModel.outputSelectDayOfTheWeekList.bind { [weak self] value in
@@ -61,6 +67,7 @@ class CycleViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(registrationButton)
     }
     
     override func configureConstraints() {
@@ -68,6 +75,17 @@ class CycleViewController: BaseViewController {
             make.height.equalTo(100)
             make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(44)
+        }
+    }
+    
+    @objc private func registrationButtonClicked() {
+        viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
+        dismiss(animated: true)
     }
 }
 
@@ -78,19 +96,6 @@ extension CycleViewController {
     }
     
     @objc private func rightBarButtonItemClikced() {
-        dismiss(animated: true)
-    }
-    
-    private func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc private func registrationButtonClicked() {
-        viewModel.inputDayOfTheWeekList.value = viewModel.outputSelectDayOfTheWeekList.value
         dismiss(animated: true)
     }
 }

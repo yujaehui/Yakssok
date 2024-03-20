@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import Toast
 
 enum Section: String, CaseIterable {
     case image = "영양제 이미지"
@@ -35,6 +36,13 @@ final class AddViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var registrationButton: UIButton = {
+       let button = UIButton()
+        button.configuration = .registration(title: viewModel.outputType.value.rawValue)
+        button.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, SectionItem>!
     
     deinit {
@@ -45,7 +53,6 @@ final class AddViewController: BaseViewController {
         super.viewDidLoad()
         print("AddViewController viewDidLoad")
         setNav()
-        setToolBar()
         configureDataSource()
         updateSnapshot()
         bindData()
@@ -86,15 +93,36 @@ final class AddViewController: BaseViewController {
             let nav = UINavigationController(rootViewController: vc)
             self?.present(nav, animated: true)
         }
+        
+        viewModel.outputNameStatus.bind { [weak self] value in
+            guard let value = value else { return }
+            if value == .possibleName {
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                var style = ToastStyle()
+                style.backgroundColor = .systemOrange
+                style.messageAlignment = .center
+                style.messageFont = .boldSystemFont(ofSize: 18)
+                self?.view.makeToast(value.rawValue, duration: 2, position: .bottom, style: style)
+            }
+        }
     }
 
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(registrationButton)
     }
     
     override func configureConstraints() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(registrationButton.snp.top)
+        }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(44)
         }
     }
     
@@ -148,6 +176,15 @@ final class AddViewController: BaseViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    @objc private func registrationButtonClicked() {
+        switch viewModel.outputType.value {
+        case .create:
+            viewModel.createTrigger.value = ()
+        case .update:
+            viewModel.updateTrigger.value = ()
+        }
+    }
 }
 
 extension AddViewController {
@@ -162,25 +199,6 @@ extension AddViewController {
     @objc private func rightBarButtonItemClikced() {
         viewModel.deleteTrigger.value = ()
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: viewModel.outputType.value.rawValue, style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc private func registrationButtonClicked() {
-        switch viewModel.outputType.value {
-        case .create:
-            viewModel.createTrigger.value = ()
-            navigationController?.popViewController(animated: true)
-        case .update:
-            viewModel.updateTrigger.value = ()
-            navigationController?.popViewController(animated: true)
-        }
     }
 }
 

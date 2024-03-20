@@ -22,6 +22,13 @@ final class StartDaySettingViewController: BaseViewController {
         return calendar
     }()
     
+    private lazy var registrationButton: UIButton = {
+       let button = UIButton()
+        button.configuration = .registration(title: "등록")
+        button.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
     deinit {
         print("StartDaySettingViewController deinit")
     }
@@ -30,7 +37,6 @@ final class StartDaySettingViewController: BaseViewController {
         super.viewDidLoad()
         print("StartDaySettingViewController viewDidLoad")
         setNav()
-        setToolBar()
         bindData()
     }
     
@@ -44,12 +50,25 @@ final class StartDaySettingViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(startDayPicker)
+        view.addSubview(registrationButton)
     }
     
     override func configureConstraints() {
         startDayPicker.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(registrationButton.snp.top)
         }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(44)
+        }
+    }
+    
+    @objc private func registrationButtonClicked() {
+        viewModel.inputDate.value = startDayPicker.selectedDate
+        dismiss(animated: true)
     }
 }
 
@@ -60,20 +79,6 @@ extension StartDaySettingViewController {
     }
     
     @objc private func rightBarButtonItemClikced() {
-        dismiss(animated: true)
-    }
-    
-    private func setToolBar() {
-        navigationController?.isToolbarHidden = false
-        navigationController?.toolbar.tintColor = .systemOrange
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let registrationButton = UIBarButtonItem(title: "등록", style: .plain, target: self, action: #selector(registrationButtonClicked))
-        let barItems = [flexibleSpace, registrationButton, flexibleSpace]
-        self.toolbarItems = barItems
-    }
-    
-    @objc private func registrationButtonClicked() {
-        viewModel.inputDate.value = startDayPicker.selectedDate
         dismiss(animated: true)
     }
 }

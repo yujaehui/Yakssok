@@ -17,6 +17,7 @@ class NameCollectionViewCell: BaseCollectionViewCell {
         textField.placeholder = "영양제 이름을 입력해주세요."
         textField.addLeftPadding()
         textField.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
+        textField.delegate = self
         return textField
     }()
     
@@ -36,7 +37,8 @@ class NameCollectionViewCell: BaseCollectionViewCell {
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
-            make.horizontalEdges.equalTo(contentView)
+            make.leading.equalTo(contentView)
+            make.trailing.equalTo(searchButton.snp.leading).offset(-16)
             make.height.equalTo(44)
         }
         
@@ -59,5 +61,11 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     
     func configureCell(_ itemIdentifier: SectionItem) {
         nameTextField.text = itemIdentifier.item
+    }
+}
+
+extension NameCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }

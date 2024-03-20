@@ -36,7 +36,6 @@ class MyViewController: BaseViewController {
     }
     
     func setNav() {
-        let searchController = UISearchController()
         navigationItem.title = "My"
         navigationItem.backButtonTitle = ""
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
