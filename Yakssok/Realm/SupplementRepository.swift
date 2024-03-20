@@ -12,6 +12,7 @@ class SupplementRepository {
     let realm = try! Realm()
     
     func createItem(_ data: MySupplement) {
+        print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(data)
