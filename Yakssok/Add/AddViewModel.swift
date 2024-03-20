@@ -214,16 +214,15 @@ final class AddViewModel {
         while startDay <= endDate {
             for dayOfWeek in cycle {
                 let dayComponents = DateComponents(weekday: DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
-                if let nextDay = Calendar.current.nextDate(after: startDay, matching: dayComponents, matchingPolicy: .nextTime) {
+                if Calendar.current.component(.weekday, from: startDay) == dayComponents.weekday {
                     for time in timeList {
-                        let scheduledSupplement = MySupplements(date: nextDay, time: time, name: outputName.value, amount: outputAmount.value, isChecked: false)
+                        let scheduledSupplement = MySupplements(date: startDay, time: time, name: outputName.value, amount: outputAmount.value, isChecked: false)
                         self.repository.createItems(scheduledSupplement)
                     }
-                    startDay = Calendar.current.date(byAdding: .day, value: 0, to: nextDay)!
-                } else {
-                    break
                 }
             }
+            startDay = Calendar.current.date(byAdding: .day, value: 1, to: startDay)!
         }
     }
+
 }
