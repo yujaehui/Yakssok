@@ -259,23 +259,23 @@ extension AddViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch viewModel.outputType.value {
-        case .create:
-            switch Section.allCases[indexPath.section] {
-            case .image:
-                let vc = ImageTypeSelectViewController()
-                vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
-                vc.passImage = { [weak self] value in
-                    self?.viewModel.inputImage.value = value
-                }
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
-            case .name: return
-            case .amount: return
-            case .startDay:
+        switch Section.allCases[indexPath.section] {
+        case .image:
+            let vc = ImageTypeSelectViewController()
+            vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
+            vc.passImage = { [weak self] value in
+                self?.viewModel.inputImage.value = value
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
+        case .name: return
+        case .amount: return
+        case .startDay:
+            switch viewModel.outputType.value {
+            case .create:
                 let vc = StartDaySettingViewController()
                 vc.viewModel.outputDate.value = viewModel.inputStartDay.value
                 vc.selectDate = { [weak self] value in
@@ -287,59 +287,46 @@ extension AddViewController: UICollectionViewDelegate {
                     sheet.detents = [.medium()]
                 }
                 present(nav, animated: true)
-            case .period:
-                let vc = PeriodViewController()
-                vc.viewModel.outputPeriod.value = viewModel.inputPeriod.value
-                vc.selectPeriod = { [weak self] value in
-                    self?.viewModel.inputPeriod.value = value
-                }
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
-            case .cycle:
-                let vc = CycleViewController()
-                vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
-                vc.selectDayOfTheWeek = { [weak self] value in
-                    self?.viewModel.inputCycle.value = value
-                }
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
-            case .time:
-                let vc = TimeSettingViewController()
-                vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
-                vc.selectTimeList = { [weak self] value in
-                    self?.viewModel.inputTimeList.value = value
-                }
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
+            case .update:
+                var style = ToastStyle()
+                style.backgroundColor = .systemOrange
+                style.messageAlignment = .center
+                style.messageFont = .boldSystemFont(ofSize: 18)
+                self.view.makeToast("시작일은 수정하실 수 없습니다.", duration: 2, position: .bottom, style: style)
             }
-        case .update:
-            switch Section.allCases[indexPath.section] {
-            case .image:
-                let vc = ImageTypeSelectViewController()
-                vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
-                vc.passImage = { [weak self] value in
-                    self?.viewModel.inputImage.value = value
-                }
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
-            case .name: return
-            case .amount: return
-            default:
-                print("수정 불가능한 항목") // 토스트
-                return
+        case .period:
+            let vc = PeriodViewController()
+            vc.viewModel.outputPeriod.value = viewModel.inputPeriod.value
+            vc.selectPeriod = { [weak self] value in
+                self?.viewModel.inputPeriod.value = value
             }
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
+        case .cycle:
+            let vc = CycleViewController()
+            vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+            vc.selectDayOfTheWeek = { [weak self] value in
+                self?.viewModel.inputCycle.value = value
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
+        case .time:
+            let vc = TimeSettingViewController()
+            vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
+            vc.selectTimeList = { [weak self] value in
+                self?.viewModel.inputTimeList.value = value
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+            present(nav, animated: true)
         }
         collectionView.deselectItem(at: indexPath, animated: false)
     }

@@ -57,9 +57,13 @@ class SupplementRepository {
         }
     }
     
-    func updateItem(data: MySupplement, name: String, amount: Int) {
+    func updateItem(data: MySupplement, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date], name: String, amount: Int) {
         do {
             try realm.write {
+                data.period = period
+                data.endDay = endDay
+                data.cycleArray = cycleArray
+                data.timeArray = timeArray
                 data.name = name
                 data.amout = amount
             }
@@ -96,6 +100,16 @@ class SupplementRepository {
         do {
             try realm.write {
                 realm.delete(data)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteFutureItems(data: [MySupplements], date: Date) {
+        do {
+            try realm.write {
+                realm.delete(data.filter {$0.date > date})
             }
         } catch {
             print(error)
