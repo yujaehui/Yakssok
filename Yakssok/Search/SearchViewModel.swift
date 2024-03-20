@@ -23,10 +23,14 @@ class SearchViewModel {
     var outputStartString: Observable<String> = Observable("1")
     var outputEnd: Observable<Int> = Observable(30)
     var outputEndString: Observable<String> = Observable("5")
+    var outputEmpty: Observable<Bool> = Observable(false)
+    var outputShowToast: Observable<Bool> = Observable(false)
+    var outputError: Observable<String?> = Observable(nil)
     
     init() {
         inputUpdateSearchResults.bind { value in
             guard let value = value else { return }
+            print(value)
             let product = Helpers.shared.replaceSpacesWithUnderscore(value)
             self.callRequest(product)
         }
@@ -37,7 +41,6 @@ class SearchViewModel {
         }
         
         inputStart.bind { [weak self] value in
-            print("inputStartString...Bind", value)
             self?.outputStart.value = value
             self?.outputStartString.value = String(value)
             self?.outputEnd.value = value + 30
@@ -46,18 +49,25 @@ class SearchViewModel {
     }
     
     private func callRequest(_ product: String) {
-        print(#function, outputStartString.value, outputEndString.value)
-        APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: outputStartString.value, endIdx: outputEndString.value, PRDLST_NM: product)) { success in
-            if self.outputStart.value == 1 {
-                self.outputRow.value = success.row
-                self.outputTotalCount.value = success.totalCount
-                print(self.outputTotalCount.value, "#1")
+        print(outputStartString.value, outputEndString.value)
+        outputShowToast.value = true
+        APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: outputStartString.value, endIdx: outputEndString.value, PRDLST_NM: product)) { success, error in
+            if error == nil {
+                guard let success = success else { return }
+                self.outputShowToast.value = false
+                if self.outputStart.value == 1 {
+                    self.outputRow.value = success.row
+                    self.outputTotalCount.value = success.totalCount
+                    self.outputEmpty.value = self.outputTotalCount.value == "0" ? true : false
+                    print(self.outputTotalCount.value, "#1")
+                } else {
+                    self.outputRow.value.append(contentsOf: success.row)
+                    self.outputTotalCount.value = success.totalCount
+                    print(self.outputTotalCount.value, "#2")
+                }
             } else {
-                self.outputRow.value.append(contentsOf: success.row)
-                self.outputTotalCount.value = success.totalCount
-                print(self.outputTotalCount.value, "#2")
+                self.outputError.value = "현재 네트워크 통신이 원할하지 않습니다.\n잠시후 다시 시도해주세요."
             }
-            
         }
     }
 }

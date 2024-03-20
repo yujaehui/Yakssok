@@ -16,9 +16,10 @@ class Helpers {
     }
     
     func changeSearchResultText(_ text: String, changeText: String) -> NSMutableAttributedString {
-        let modifiedText = text.replacingOccurrences(of: "(전량수출용)", with: "")
+        let regex = try! NSRegularExpression(pattern: "<[^>]+>|\\([^\\)]+\\)", options: [])
+        let modifiedText = regex.stringByReplacingMatches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count), withTemplate: "")
         let attributedText = NSMutableAttributedString(string: modifiedText)
-        let range = (text as NSString).range(of: changeText, options: .caseInsensitive)
+        let range = (modifiedText as NSString).range(of: changeText, options: .caseInsensitive)
         attributedText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: range)
         return attributedText
     }

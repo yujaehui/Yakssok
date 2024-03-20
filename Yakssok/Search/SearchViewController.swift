@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import Toast
 
 class SearchViewController: BaseViewController {
     var selectName: ((String) -> Void)?
@@ -30,6 +31,14 @@ class SearchViewController: BaseViewController {
         return tableView
     }()
     
+    private let EmptyLabel: UILabel = {
+       let label = UILabel()
+        label.text = "검색하신 영양제를 찾지 못했어요."
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
     let viewModel = SearchViewModel()
     
     override func viewDidLoad() {
@@ -39,8 +48,12 @@ class SearchViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputRow.bind { _ in
+        viewModel.outputRow.bind { value in
+            print("!!!")
             self.searchTableView.reloadData()
+            if !value.isEmpty && self.viewModel.inputStart.value == 1 {
+                self.searchTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
         
         viewModel.outputName.bind { [weak self] value in
@@ -48,15 +61,30 @@ class SearchViewController: BaseViewController {
             self?.selectName?(value)
         }
         
-//        viewModel.outputEndString.bind { [weak self] value in
-//            print("outputEndString...Bind", value)
-//
-//        }
+        viewModel.outputEmpty.bind { [weak self] value in
+            self?.searchTableView.isHidden = value
+            self?.EmptyLabel.isHidden = !value
+        }
+        
+        viewModel.outputShowToast.bind { [weak self] value in
+            value ? self?.view.makeToastActivity(.center) : self?.view.hideToastActivity()
+        }
+        
+        viewModel.outputError.bind { [weak self] value in
+            guard let value = value else { return }
+            var style = ToastStyle()
+            style.backgroundColor = .systemOrange
+            style.messageAlignment = .center
+            style.messageFont = .boldSystemFont(ofSize: 18)
+            self?.view.makeToast(value, duration: 5, position: .center, style: style)
+        
+        }
     }
     
     override func configureHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(searchTableView)
+        view.addSubview(EmptyLabel)
     }
     
     override func configureConstraints() {
@@ -66,6 +94,11 @@ class SearchViewController: BaseViewController {
         }
         
         searchTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(8)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        EmptyLabel.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(8)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -118,13 +151,22 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        print("cancel prefetch \(indexPaths)")
+        //print("cancel prefetch \(indexPaths)")
     }
     
 }
 
 extension SearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if searchText.isEmpty {
+//            EmptyLabel.isHidden = true
+//            searchTableView.isHidden = true
+//        }
+//    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.inputStart.value = 1
         viewModel.inputUpdateSearchResults.value = (searchBar.text)
+        searchBar.resignFirstResponder()
     }
 }
