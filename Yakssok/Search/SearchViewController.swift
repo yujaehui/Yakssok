@@ -24,6 +24,7 @@ class SearchViewController: BaseViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
@@ -38,7 +39,7 @@ class SearchViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputSupplement.bind { _ in
+        viewModel.outputRow.bind { _ in
             self.searchTableView.reloadData()
         }
         
@@ -46,6 +47,11 @@ class SearchViewController: BaseViewController {
             guard let value = value else { return }
             self?.selectName?(value)
         }
+        
+//        viewModel.outputEndString.bind { [weak self] value in
+//            print("outputEndString...Bind", value)
+//
+//        }
     }
     
     override func configureHierarchy() {
@@ -78,24 +84,43 @@ extension SearchViewController {
     }
 }
 
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.outputSupplement.value.count
+        return viewModel.outputRow.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
         let row = indexPath.row
-        let data = viewModel.outputSupplement.value[row]
+        let data = viewModel.outputRow.value[row]
         let searchText = viewModel.inputUpdateSearchResults.value ?? ""
         cell.configureCell(data, searchText: searchText)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.inputName.value = viewModel.outputSupplement.value[indexPath.row].prdlstNm
+        viewModel.inputName.value = viewModel.outputRow.value[indexPath.row].prdlstNm
         dismiss(animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for item in indexPaths {
+            if viewModel.outputRow.value.count - 3 == item.row && viewModel.outputEnd.value != item.row {
+                print("지금!")
+                viewModel.inputStart.value += 30
+                if viewModel.outputTotalCount.value != "0" {
+                    self.viewModel.inputUpdateSearchResults.value = self.searchBar.text
+                } else {
+                    print("페이지네이션 종료")
+                }
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        print("cancel prefetch \(indexPaths)")
+    }
+    
 }
 
 extension SearchViewController: UISearchBarDelegate {

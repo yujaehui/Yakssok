@@ -12,10 +12,17 @@ class SearchViewModel {
     // input
     let inputUpdateSearchResults: Observable<String?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
+    let inputStart: Observable<Int> = Observable(1)
+    let inputEnd: Observable<Int> = Observable(30)
     
     // output
-    var outputSupplement: Observable<[Row]> = Observable([])
+    var outputRow: Observable<[Row]> = Observable([])
+    var outputTotalCount: Observable<String> = Observable("")
     var outputName: Observable<String?> = Observable(nil)
+    var outputStart: Observable<Int> = Observable(1)
+    var outputStartString: Observable<String> = Observable("1")
+    var outputEnd: Observable<Int> = Observable(30)
+    var outputEndString: Observable<String> = Observable("5")
     
     init() {
         inputUpdateSearchResults.bind { value in
@@ -27,13 +34,30 @@ class SearchViewModel {
         inputName.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputName.value = value
-            
+        }
+        
+        inputStart.bind { [weak self] value in
+            print("inputStartString...Bind", value)
+            self?.outputStart.value = value
+            self?.outputStartString.value = String(value)
+            self?.outputEnd.value = value + 30
+            self?.outputEndString.value = String(value + 30)
         }
     }
     
     private func callRequest(_ product: String) {
-        APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: "1", endIdx: "1000", PRDLST_NM: product)) { success in
-            self.outputSupplement.value = success
+        print(#function, outputStartString.value, outputEndString.value)
+        APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: outputStartString.value, endIdx: outputEndString.value, PRDLST_NM: product)) { success in
+            if self.outputStart.value == 1 {
+                self.outputRow.value = success.row
+                self.outputTotalCount.value = success.totalCount
+                print(self.outputTotalCount.value, "#1")
+            } else {
+                self.outputRow.value.append(contentsOf: success.row)
+                self.outputTotalCount.value = success.totalCount
+                print(self.outputTotalCount.value, "#2")
+            }
+            
         }
     }
 }
