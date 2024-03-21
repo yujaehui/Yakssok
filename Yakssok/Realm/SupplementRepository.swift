@@ -65,7 +65,7 @@ class SupplementRepository {
                 data.cycleArray = cycleArray
                 data.timeArray = timeArray
                 data.name = name
-                data.amout = amount
+                data.amount = amount
             }
         } catch {
             print(error)

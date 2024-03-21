@@ -87,7 +87,7 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         }
         
         nameLabel.text = itemIdentifier.name
-        countInfoLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amout)개씩 복용"
+        countInfoLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amount)개씩 복용"
     }
 }
 

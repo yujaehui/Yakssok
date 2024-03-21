@@ -160,7 +160,7 @@ final class AddViewModel {
             guard let value = value else { return }
             inputImage.value = Helpers.shared.loadImageToDocument(fileName: "\(value.pk)")
             inputName.value = value.name
-            inputAmount.value = value.amout
+            inputAmount.value = value.amount
             inputStartDay.value = value.startDay
             inputPeriod.value = value.period
             inputCycle.value = value.cycleArray

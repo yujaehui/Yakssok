@@ -11,7 +11,7 @@ import RealmSwift
 class MySupplement: Object {
     @Persisted(primaryKey: true) var pk: ObjectId
     @Persisted var name: String
-    @Persisted var amout: Int
+    @Persisted var amount: Int
     @Persisted var startDay: Date
     @Persisted var period: Int
     @Persisted var endDay: Date
@@ -38,7 +38,7 @@ class MySupplement: Object {
     convenience init(name: String, amout: Int, startDay: Date, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date]) {
         self.init()
         self.name = name
-        self.amout = amout
+        self.amount = amout
         self.startDay = startDay
         self.period = period
         self.endDay = endDay
