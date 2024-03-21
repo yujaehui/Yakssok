@@ -66,6 +66,7 @@ class SearchViewModel {
                     print(self.outputTotalCount.value, "#2")
                 }
             } else {
+                self.outputShowToast.value = false
                 self.outputError.value = "현재 네트워크 통신이 원할하지 않습니다.\n잠시후 다시 시도해주세요."
             }
         }
