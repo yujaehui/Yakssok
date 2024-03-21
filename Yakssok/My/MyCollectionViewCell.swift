@@ -41,7 +41,7 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
-        dateInfoLabel.textColor = .systemGray
+        dateInfoLabel.textColor = .gray
         dateInfoLabel.font = .systemFont(ofSize: 14)
         nameLabel.font = .boldSystemFont(ofSize: 18)
         nameLabel.numberOfLines = 1

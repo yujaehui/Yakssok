@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0906E9232BAC60630098DF1A /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9222BAC60630098DF1A /* ColorStyle.swift */; };
+		0906E9252BAC606A0098DF1A /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9242BAC606A0098DF1A /* FontStyle.swift */; };
+		0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */; };
+		0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9282BAC611C0098DF1A /* CustomLabel.swift */; };
 		09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB32B9983AC0081E37E /* AppDelegate.swift */; };
 		09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB52B9983AC0081E37E /* SceneDelegate.swift */; };
 		09833BB82B9983AC0081E37E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB72B9983AC0081E37E /* ViewController.swift */; };
@@ -82,6 +86,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0906E9222BAC60630098DF1A /* ColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
+		0906E9242BAC606A0098DF1A /* FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyle.swift; sourceTree = "<group>"; };
+		0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		0906E9282BAC611C0098DF1A /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		09833BB02B9983AC0081E37E /* Yakssok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yakssok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09833BB32B9983AC0081E37E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09833BB52B9983AC0081E37E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +177,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0906E9212BAC604B0098DF1A /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				0906E9222BAC60630098DF1A /* ColorStyle.swift */,
+				0906E9242BAC606A0098DF1A /* FontStyle.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
 		09833BA72B9983AC0081E37E = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +206,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				0906E9212BAC604B0098DF1A /* DesignSystem */,
 				09ABD45C2BA71A6300826A73 /* Custom */,
 				09ABD4462BA5653400826A73 /* My */,
 				09C739F62BA049D900B200DE /* Realm */,
@@ -240,6 +258,7 @@
 				09833C052B99AAA80081E37E /* UIView+Extension.swift */,
 				09ABD46A2BA8845600826A73 /* UITextField+Extension.swift */,
 				09ABD46C2BA8919400826A73 /* UIButton.Configuration+Extension.swift */,
+				0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -279,6 +298,7 @@
 		09ABD45C2BA71A6300826A73 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				0906E9282BAC611C0098DF1A /* CustomLabel.swift */,
 				09ABD45D2BA71A7400826A73 /* CustomChartView.swift */,
 				09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */,
 				09ABD4812BA9D09000826A73 /* BasicTextField.swift */,
@@ -464,12 +484,14 @@
 				09833C132B99C3080081E37E /* Observable.swift in Sources */,
 				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09ABD4692BA819A000826A73 /* PeriodViewModel.swift in Sources */,
+				0906E9232BAC60630098DF1A /* ColorStyle.swift in Sources */,
 				09ABD47A2BA998E900826A73 /* ChartTableViewCell.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
 				09C739E22B9ED52F00B200DE /* CalendarViewController.swift in Sources */,
 				09ABD4802BA9C9D200826A73 /* ScheduleHeaderView.swift in Sources */,
 				09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */,
+				0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */,
 				09ABD46D2BA8919400826A73 /* UIButton.Configuration+Extension.swift in Sources */,
 				09ABD4842BA9D1B300826A73 /* BasicImageView.swift in Sources */,
 				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,
@@ -496,8 +518,10 @@
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09ABD46B2BA8845600826A73 /* UITextField+Extension.swift in Sources */,
 				09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */,
+				0906E9252BAC606A0098DF1A /* FontStyle.swift in Sources */,
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */,
+				0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */,
 				09ABD43A2BA45CAB00826A73 /* ImageCollectionViewCell.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */,
