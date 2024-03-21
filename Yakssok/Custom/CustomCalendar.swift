@@ -22,7 +22,6 @@ class CustomCalendar: FSCalendar {
         clipsToBounds = true
         layer.cornerRadius = 12
         
-        select(Date())
         locale = Locale(identifier: "ko_KR")
         
         placeholderType = .none
