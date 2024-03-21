@@ -100,9 +100,9 @@ final class AddViewController: BaseViewController {
                 self?.navigationController?.popViewController(animated: true)
             } else {
                 var style = ToastStyle()
-                style.backgroundColor = .systemOrange
+                style.backgroundColor = ColorStyle.point
                 style.messageAlignment = .center
-                style.messageFont = .boldSystemFont(ofSize: 18)
+                style.messageFont = FontStyle.titleBold
                 self?.view.makeToast(value.rawValue, duration: 2, position: .bottom, style: style)
             }
         }
@@ -111,6 +111,10 @@ final class AddViewController: BaseViewController {
     override func configureHierarchy() {
         view.addSubview(collectionView)
         view.addSubview(registrationButton)
+    }
+    
+    override func configureView() {
+        view.backgroundColor = ColorStyle.grayBackground
     }
     
     override func configureConstraints() {
@@ -205,7 +209,7 @@ extension AddViewController {
 extension AddViewController {
     private func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        config.backgroundColor = .white
+        config.backgroundColor = ColorStyle.grayBackground
         config.headerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
@@ -214,7 +218,7 @@ extension AddViewController {
         UICollectionView.SupplementaryRegistration(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, string, indexPath in
             var headerConfig = UIListContentConfiguration.groupedHeader()
             headerConfig.text = Section.allCases[indexPath.section].rawValue
-            headerConfig.textProperties.font = .boldSystemFont(ofSize: 18)
+            headerConfig.textProperties.font = FontStyle.titleBold
             supplementaryView.contentConfiguration = headerConfig
         }
     }
@@ -289,9 +293,9 @@ extension AddViewController: UICollectionViewDelegate {
                 present(nav, animated: true)
             case .update:
                 var style = ToastStyle()
-                style.backgroundColor = .systemOrange
+                style.backgroundColor = ColorStyle.point
                 style.messageAlignment = .center
-                style.messageFont = .boldSystemFont(ofSize: 18)
+                style.messageFont = FontStyle.titleBold
                 self.view.makeToast("시작일은 수정하실 수 없습니다.", duration: 2, position: .bottom, style: style)
             }
         case .period:

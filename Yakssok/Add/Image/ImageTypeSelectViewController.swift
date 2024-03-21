@@ -24,8 +24,8 @@ enum MyImageVersion: String, CaseIterable {
     
     var color: UIColor {
         switch self {
-        case .delete: return .systemRed
-        default: return .black
+        case .delete: return ColorStyle.caution
+        default: return ColorStyle.text
         }
     }
     
@@ -104,7 +104,7 @@ final class ImageTypeSelectViewController: BaseViewController {
     }
     
     private func setNav() {
-        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
 

@@ -26,15 +26,12 @@ class ScheduleTableViewCell: BaseTableViewCell {
     }()
     
     let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        let label = CustomLabel(type: .titleBold)
         return label
     }()
     
     let amountLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 14)
+        let label = CustomLabel(type: .description)
         return label
     }()
     
@@ -86,7 +83,7 @@ class ScheduleTableViewCell: BaseTableViewCell {
     func configureCell(_ data: MySupplements) {
         nameLabel.text = data.name
         amountLabel.text = "\(data.amount)개"
-        backView.backgroundColor = data.isChecked ? .systemOrange.withAlphaComponent(0.8) : .systemGray6
-        checkButton.configuration = data.isChecked ? .check(color: .orange) : .check(color: .lightGray)
+        backView.backgroundColor = data.isChecked ? ColorStyle.point.withAlphaComponent(0.8) : ColorStyle.grayBackground
+        checkButton.configuration = data.isChecked ? .check(color: ColorStyle.point) : .check(color: .lightGray)
     }
 }

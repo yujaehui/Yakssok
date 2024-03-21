@@ -15,8 +15,7 @@ class ImageTypeSelectTableViewCell: BaseTableViewCell {
     }()
     
     let typeLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        let label = CustomLabel(type: .titleBold)
         return label
     }()
     

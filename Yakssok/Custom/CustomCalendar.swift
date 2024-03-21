@@ -26,13 +26,13 @@ class CustomCalendar: FSCalendar {
         
         placeholderType = .none
         
-        appearance.headerTitleFont = .boldSystemFont(ofSize: 18)
-        appearance.headerTitleColor = .orange
+        appearance.headerTitleFont = FontStyle.titleBold
+        appearance.headerTitleColor = ColorStyle.point
         
         appearance.todayColor = .clear
         appearance.titleTodayColor = .black
         
-        appearance.weekdayTextColor = .systemOrange
-        appearance.selectionColor = .systemOrange
+        appearance.weekdayTextColor = ColorStyle.point
+        appearance.selectionColor = ColorStyle.point
     }
 }

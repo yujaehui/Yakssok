@@ -20,6 +20,6 @@ class BasicTextField: UITextField {
     func configureView() {
         clipsToBounds = true
         layer.cornerRadius = 12
-        font = .boldSystemFont(ofSize: 18)
+        font = FontStyle.titleBold
     }
 }

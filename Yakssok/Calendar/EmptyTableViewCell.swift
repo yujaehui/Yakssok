@@ -10,10 +10,9 @@ import SnapKit
 
 class EmptyTableViewCell: BaseTableViewCell {
     let emptyLabel: UILabel = {
-       let label = UILabel()
+        let label = CustomLabel(type: .titleBold)
         label.text = "오늘은 복용할 영양제가 없어요!"
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
     

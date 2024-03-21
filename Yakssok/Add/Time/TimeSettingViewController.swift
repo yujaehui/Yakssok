@@ -29,10 +29,8 @@ class TimeSettingViewController: BaseViewController {
     }()
     
     private let noticeLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(type: .description)
         label.text = "영양제별 권장 용법을 참고하여 복용시간을 설정해주세요."
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
@@ -146,7 +144,7 @@ class TimeSettingViewController: BaseViewController {
 
 extension TimeSettingViewController {
     func setNav() {
-        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     
@@ -174,9 +172,9 @@ extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource 
             viewModel.outputSelectTimeList.value.remove(at: indexPath.row)
         } else {
             var style = ToastStyle()
-            style.backgroundColor = .systemOrange
+            style.backgroundColor = ColorStyle.point
             style.messageAlignment = .center
-            style.messageFont = .boldSystemFont(ofSize: 18)
+            style.messageFont = FontStyle.titleBold
             self.view.makeToast("최소한 하나의 항목은 있어야 합니다.", duration: 2, position: .bottom, style: style)
             return
         }

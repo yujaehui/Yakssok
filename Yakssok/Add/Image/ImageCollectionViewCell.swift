@@ -19,7 +19,7 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = ColorStyle.grayBackground
     }
     
     override func configureConstraints() {

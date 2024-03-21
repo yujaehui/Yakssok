@@ -14,7 +14,7 @@ extension UIButton.Configuration {
         config.image = UIImage(systemName: image, withConfiguration: imageConfig)
         config.imagePadding = 8
         config.imagePlacement = .all
-        config.baseForegroundColor = .orange
+        config.baseForegroundColor = ColorStyle.point
         config.baseBackgroundColor = .clear
         return config
     }
@@ -25,7 +25,7 @@ extension UIButton.Configuration {
         config.image = UIImage(systemName: image, withConfiguration: imageConfig)
         config.imagePadding = 8
         config.imagePlacement = .all
-        config.baseForegroundColor = .orange
+        config.baseForegroundColor = ColorStyle.point
         config.baseBackgroundColor = .clear
         return config
     }
@@ -45,7 +45,7 @@ extension UIButton.Configuration {
         var config = UIButton.Configuration.filled()
         
         var titleAttr = AttributedString.init(title)
-        titleAttr.font = .boldSystemFont(ofSize: 18)
+        titleAttr.font = FontStyle.titleBold
         config.attributedTitle = titleAttr
         config.titleAlignment = .center
         
@@ -54,7 +54,7 @@ extension UIButton.Configuration {
         config.imagePadding = 8
         config.imagePlacement = .leading
         
-        config.baseForegroundColor = .orange
+        config.baseForegroundColor = ColorStyle.point
         config.baseBackgroundColor = .clear
         config.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
         return config
@@ -64,12 +64,12 @@ extension UIButton.Configuration {
         var config = UIButton.Configuration.filled()
         
         var titleAttr = AttributedString.init(title)
-        titleAttr.font = .boldSystemFont(ofSize: 18)
+        titleAttr.font = FontStyle.titleBold
         config.attributedTitle = titleAttr
         config.titleAlignment = .center
         
-        config.baseForegroundColor = .white
-        config.baseBackgroundColor = .systemOrange
+        config.baseForegroundColor = ColorStyle.background
+        config.baseBackgroundColor = ColorStyle.point
         config.cornerStyle = .large
         return config
     }

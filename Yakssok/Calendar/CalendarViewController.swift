@@ -20,7 +20,7 @@ final class CalendarViewController: BaseViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = ColorStyle.background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.identifier)

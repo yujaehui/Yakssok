@@ -10,9 +10,7 @@ import SnapKit
 
 class ScheduleHeaderView: BaseView {
     let timeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray
-        label.font = .boldSystemFont(ofSize: 18)
+        let label = CustomLabel(type: .titleBold)
         return label
     }()
     

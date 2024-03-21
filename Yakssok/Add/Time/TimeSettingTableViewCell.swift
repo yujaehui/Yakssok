@@ -12,8 +12,7 @@ class TimeSettingTableViewCell: BaseTableViewCell {
     var passMoment: (() -> Void)?
     
     private let timeLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        let label = CustomLabel(type: .titleBold)
         return label
     }()
     

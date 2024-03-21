@@ -22,16 +22,13 @@ class ChartTableViewCell: BaseTableViewCell {
     }()
     
     let mainLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(type: .titleBold)
         label.text = "오늘의 영양제 섭취 완료율"
-        label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
     
     let subLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 14)
+        let label = CustomLabel(type: .description)
         return label
     }()
     

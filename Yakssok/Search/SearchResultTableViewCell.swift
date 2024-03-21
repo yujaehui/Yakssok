@@ -9,15 +9,12 @@ import UIKit
 
 class SearchResultTableViewCell: BaseTableViewCell {
     let resultNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        let label = CustomLabel(type: .titleBold)
         return label
     }()
     
     let resultBrandLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray
-        label.font = .systemFont(ofSize: 14)
+        let label = CustomLabel(type: .description)
         return label
     }()
     

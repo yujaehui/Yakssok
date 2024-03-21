@@ -9,13 +9,54 @@ import UIKit
 import SnapKit
 
 class MyCollectionViewCell: BaseCollectionViewCell {
-    let imageView = UIImageView()
-    let stackView = UIStackView()
-    let dateInfoLabel = UILabel()
-    let nameLabel = UILabel()
-    let countStackView = UIStackView()
-    let countImageView = UIImageView()
-    let countInfoLabel = UILabel()
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 12
+        return imageView
+    }()
+    
+    let stackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    let dateInfoLabel: UILabel = {
+        let label = CustomLabel(type: .description)
+        return label
+    }()
+    
+    let nameLabel: UILabel = {
+        let label = CustomLabel(type: .titleBold)
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    
+    let countStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    let countImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "clock.badge.checkmark")
+        imageView.tintColor = .black
+        return imageView
+    }()
+    
+    let countInfoLabel: UILabel = {
+        let label = CustomLabel(type: .description)
+        return label
+    }()
     
     override func configureHierarchy() {
         contentView.addSubview(imageView)
@@ -27,37 +68,12 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         countStackView.addArrangedSubview(countInfoLabel)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
-    }
-    
     override func configureView() {
         layer.cornerRadius = 12
         layer.shadowColor = UIColor.lightGray.cgColor
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 2
         layer.shadowOffset = CGSize(width: 0, height: 0)
-        
-        
-        dateInfoLabel.textColor = .gray
-        dateInfoLabel.font = .systemFont(ofSize: 14)
-        nameLabel.font = .boldSystemFont(ofSize: 18)
-        nameLabel.numberOfLines = 1
-        countImageView.image = UIImage(systemName: "clock.badge.checkmark")
-        countImageView.tintColor = .black
-        countInfoLabel.font = .systemFont(ofSize: 14)
-        
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fill
-        stackView.spacing = 8
-        
-        countStackView.axis = .horizontal
-        countStackView.alignment = .center
-        countStackView.distribution = .fill
-        countStackView.spacing = 8
     }
     
     override func configureConstraints() {

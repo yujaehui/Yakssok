@@ -51,7 +51,7 @@ class CycleViewController: BaseViewController {
     
     func bindData() {
         viewModel.outputIsSelected.bind { value in
-            self.registrationButton.configuration?.baseBackgroundColor = value ? .systemOrange : .systemGray6
+            self.registrationButton.configuration?.baseBackgroundColor = value ? ColorStyle.point : ColorStyle.grayBackground
             self.registrationButton.isUserInteractionEnabled = value
         }
         
@@ -91,7 +91,7 @@ class CycleViewController: BaseViewController {
 
 extension CycleViewController {
     private func setNav() {
-        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     

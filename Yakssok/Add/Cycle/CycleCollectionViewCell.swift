@@ -10,7 +10,7 @@ import SnapKit
 
 class CycleCollectionViewCell: BaseCollectionViewCell {
     let dayLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(type: .contentBold)
         label.textAlignment = .center
         label.clipsToBounds = true
         label.layer.cornerRadius = 12
@@ -29,6 +29,6 @@ class CycleCollectionViewCell: BaseCollectionViewCell {
     
     func configureCell(week: [String], day: String) {
         dayLabel.text = day
-        dayLabel.backgroundColor = week.contains(where: {$0 == day}) ? .systemOrange : .systemGray6
+        dayLabel.backgroundColor = week.contains(where: {$0 == day}) ? ColorStyle.point : ColorStyle.grayBackground
     }
 }

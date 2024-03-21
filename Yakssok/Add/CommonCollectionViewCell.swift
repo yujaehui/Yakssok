@@ -10,10 +10,9 @@ import SnapKit
 
 class CommonCollectionViewCell: BaseCollectionViewCell {
     let textLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(type: .titleBold)
         label.clipsToBounds = true
         label.layer.cornerRadius = 12
-        label.font = .boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }()

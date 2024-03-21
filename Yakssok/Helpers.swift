@@ -20,7 +20,7 @@ class Helpers {
         let modifiedText = regex.stringByReplacingMatches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count), withTemplate: "")
         let attributedText = NSMutableAttributedString(string: modifiedText)
         let range = (modifiedText as NSString).range(of: changeText, options: .caseInsensitive)
-        attributedText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: range)
+        attributedText.addAttribute(.foregroundColor, value: ColorStyle.point, range: range)
         return attributedText
     }
     

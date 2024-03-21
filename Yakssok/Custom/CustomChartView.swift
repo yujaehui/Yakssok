@@ -31,9 +31,9 @@ class CustomChartView: PieChartView {
         dataSet.valueTextColor = .clear
         
         if checked != 0 {
-            dataSet.colors = [UIColor.systemGray6, UIColor.systemOrange]
+            dataSet.colors = [ColorStyle.grayBackground, ColorStyle.point]
         } else {
-            dataSet.colors = [UIColor.systemGray6]
+            dataSet.colors = [ColorStyle.grayBackground]
         }
         
         if totalItems != 0 {

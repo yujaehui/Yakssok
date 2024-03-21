@@ -32,10 +32,9 @@ class SearchViewController: BaseViewController {
     }()
     
     private let EmptyLabel: UILabel = {
-       let label = UILabel()
+        let label = CustomLabel(type: .titleBold)
         label.text = "검색하신 영양제를 찾지 못했어요."
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -73,9 +72,9 @@ class SearchViewController: BaseViewController {
         viewModel.outputError.bind { [weak self] value in
             guard let value = value else { return }
             var style = ToastStyle()
-            style.backgroundColor = .systemOrange
+            style.backgroundColor = ColorStyle.point
             style.messageAlignment = .center
-            style.messageFont = .boldSystemFont(ofSize: 18)
+            style.messageFont = FontStyle.titleBold
             self?.view.makeToast(value, duration: 5, position: .center, style: style)
         
         }
@@ -108,7 +107,7 @@ class SearchViewController: BaseViewController {
 extension SearchViewController {
     private func setNav() {
         navigationItem.title = "Search"
-        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     

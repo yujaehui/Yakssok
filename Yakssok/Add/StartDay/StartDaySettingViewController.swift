@@ -74,7 +74,7 @@ final class StartDaySettingViewController: BaseViewController {
 
 extension StartDaySettingViewController {
     private func setNav() {
-        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     

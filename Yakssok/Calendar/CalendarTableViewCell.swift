@@ -17,7 +17,7 @@ class CalendarTableViewCell: BaseTableViewCell {
         let calendar = CustomCalendar()
         calendar.delegate = self
         calendar.dataSource = self
-        calendar.backgroundColor = .systemGray6
+        calendar.backgroundColor = ColorStyle.grayBackground
         calendar.select(Date())
         calendar.appearance.headerTitleColor = .clear
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -27,8 +27,8 @@ class CalendarTableViewCell: BaseTableViewCell {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: Date())
-        label.textColor = .orange
-        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = ColorStyle.point
+        label.font = FontStyle.titleBold
         return label
     }()
     
