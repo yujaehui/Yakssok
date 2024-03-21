@@ -70,7 +70,7 @@ class MyCollectionViewCell: BaseCollectionViewCell {
     
     override func configureView() {
         layer.cornerRadius = 12
-        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowColor = ColorStyle.grayImage.cgColor
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 2
         layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -94,7 +94,7 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         if let image = Helpers.shared.loadImageToDocument(fileName: "\(itemIdentifier.pk)") {
             imageView.image = image
         } else {
-            imageView.image = UIImage(systemName: "pill")
+            imageView.image = ImageStyle.supplement
         }
         if itemIdentifier.cycleArray.count == DayOfTheWeek.allCases.count {
             dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + "매일"

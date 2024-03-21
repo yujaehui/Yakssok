@@ -13,11 +13,11 @@ import Toast
 enum Section: String, CaseIterable {
     case image = "영양제 이미지"
     case name = "영양제 이름"
-    case amount = "복용량"
-    case startDay = "복용시작일"
-    case period = "복용기간"
-    case cycle = "복용요일"
-    case time = "복용시간"
+    case amount = "1회 복용량"
+    case startDay = "복용 시작일"
+    case period = "복용 기간"
+    case cycle = "복용 요일"
+    case time = "복용 시간"
 }
 
 struct SectionItem: Hashable {

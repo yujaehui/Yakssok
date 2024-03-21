@@ -29,7 +29,7 @@ class TimeSettingViewController: BaseViewController {
     }()
     
     private let noticeLabel: UILabel = {
-        let label = CustomLabel(type: .description)
+        let label = CustomLabel(type: .descriptionGray)
         label.text = "영양제별 권장 용법을 참고하여 복용시간을 설정해주세요."
         return label
     }()

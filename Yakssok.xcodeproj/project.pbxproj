@@ -11,6 +11,7 @@
 		0906E9252BAC606A0098DF1A /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9242BAC606A0098DF1A /* FontStyle.swift */; };
 		0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */; };
 		0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9282BAC611C0098DF1A /* CustomLabel.swift */; };
+		0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E92A2BAC88970098DF1A /* ImageStyle.swift */; };
 		09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB32B9983AC0081E37E /* AppDelegate.swift */; };
 		09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB52B9983AC0081E37E /* SceneDelegate.swift */; };
 		09833BB82B9983AC0081E37E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB72B9983AC0081E37E /* ViewController.swift */; };
@@ -90,6 +91,7 @@
 		0906E9242BAC606A0098DF1A /* FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyle.swift; sourceTree = "<group>"; };
 		0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		0906E9282BAC611C0098DF1A /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		0906E92A2BAC88970098DF1A /* ImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStyle.swift; sourceTree = "<group>"; };
 		09833BB02B9983AC0081E37E /* Yakssok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yakssok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09833BB32B9983AC0081E37E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09833BB52B9983AC0081E37E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				0906E9222BAC60630098DF1A /* ColorStyle.swift */,
 				0906E9242BAC606A0098DF1A /* FontStyle.swift */,
+				0906E92A2BAC88970098DF1A /* ImageStyle.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
 				09833C112B99C2740081E37E /* SearchViewModel.swift in Sources */,
 				09ABD4452BA4A3AB00826A73 /* ScheduleTableViewCell.swift in Sources */,
+				0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */,
 				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */,
 				09ABD4822BA9D09000826A73 /* BasicTextField.swift in Sources */,

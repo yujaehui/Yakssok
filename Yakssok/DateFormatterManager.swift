@@ -65,13 +65,6 @@ class DateFormatterManager {
         return formatter.string(from: date)
     }
     
-    func dayOfWeek(from date: Date) -> String {
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "E"
-        let dayOfWeekString = formatter.string(from: date)
-        return dayOfWeekString
-    }
-    
     func makeHeaderDateFormatter2(date: Date) -> String {
         formatter.dateFormat = "a hh:mm"
         formatter.locale = Locale(identifier: "ko_kr")
@@ -79,8 +72,12 @@ class DateFormatterManager {
         return formatter.string(from: date)
     }
     
-    
-    
+    func dayOfWeek(from date: Date) -> String {
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "E"
+        let dayOfWeekString = formatter.string(from: date)
+        return dayOfWeekString
+    }
     
     func dayOfWeekToNumber(_ dayOfWeek: String) -> Int {
         let daysOfWeek: [String: Int] = [

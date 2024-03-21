@@ -37,8 +37,10 @@ class MyViewController: BaseViewController {
     
     func setNav() {
         navigationItem.title = "My"
+        navigationController?.navigationBar.tintColor = ColorStyle.point
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
         navigationItem.backButtonTitle = ""
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+
     }
     
     @objc private func rightBarButtonItemClikced() {

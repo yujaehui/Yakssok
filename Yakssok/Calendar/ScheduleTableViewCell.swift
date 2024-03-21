@@ -21,7 +21,6 @@ class ScheduleTableViewCell: BaseTableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
-        stackView.spacing = 4
         return stackView
     }()
     
@@ -31,7 +30,7 @@ class ScheduleTableViewCell: BaseTableViewCell {
     }()
     
     let amountLabel: UILabel = {
-        let label = CustomLabel(type: .description)
+        let label = CustomLabel(type: .descriptionGray)
         return label
     }()
     
@@ -83,7 +82,7 @@ class ScheduleTableViewCell: BaseTableViewCell {
     func configureCell(_ data: MySupplements) {
         nameLabel.text = data.name
         amountLabel.text = "\(data.amount)개"
-        backView.backgroundColor = data.isChecked ? ColorStyle.point.withAlphaComponent(0.8) : ColorStyle.grayBackground
-        checkButton.configuration = data.isChecked ? .check(color: ColorStyle.point) : .check(color: .lightGray)
+        backView.backgroundColor = data.isChecked ? ColorStyle.point.withAlphaComponent(0.4) : ColorStyle.grayBackground
+        checkButton.configuration = data.isChecked ? .check(color: ColorStyle.point) : .check(color: ColorStyle.grayImage)
     }
 }

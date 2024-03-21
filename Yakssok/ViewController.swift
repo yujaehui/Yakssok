@@ -16,10 +16,10 @@ class ViewController: UITabBarController {
     }
 
     private func addVC() {
-        let calenderVC = CalendarViewController()
+        let calenderVC = UINavigationController(rootViewController: CalendarViewController())
         calenderVC.tabBarItem = UITabBarItem(title: "calendar", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"))
         
-        let myVC = MyViewController()
+        let myVC = UINavigationController(rootViewController: MyViewController())
         myVC.tabBarItem = UITabBarItem(title: "my", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
         
         self.viewControllers = [calenderVC, myVC]

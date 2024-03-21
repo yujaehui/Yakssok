@@ -28,7 +28,7 @@ class ChartTableViewCell: BaseTableViewCell {
     }()
     
     let subLabel: UILabel = {
-        let label = CustomLabel(type: .description)
+        let label = CustomLabel(type: .contentGray)
         return label
     }()
     

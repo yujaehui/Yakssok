@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import FSCalendar
 
 enum AccessType: String {
     case create
@@ -32,7 +33,7 @@ final class AddViewModel {
     let inputImage: Observable<UIImage?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)
-    let inputStartDay: Observable<Date> = Observable(Date())
+    let inputStartDay: Observable<Date> = Observable(FSCalendar().today!)
     let inputPeriod: Observable<Int> = Observable(1)
     let inputCycle: Observable<[String]> = Observable(["월"])
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
@@ -40,7 +41,7 @@ final class AddViewModel {
     // output
     let outputType: Observable<AccessType> = Observable(.create)
         
-    let outputImage: Observable<UIImage> = Observable(UIImage(systemName: "pill")!)
+    let outputImage: Observable<UIImage> = Observable(ImageStyle.supplement)
     let outputCurrentImage: Observable<Bool> = Observable(true)
     
     let outputName: Observable<String> = Observable("")
@@ -91,7 +92,7 @@ final class AddViewModel {
             
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
-            if outputImage.value != UIImage(systemName: "pill") {
+            if outputImage.value != ImageStyle.supplement {
                 Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             }
             
@@ -125,7 +126,7 @@ final class AddViewModel {
                 Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             }
             // 2. 현재 이미지가 기본 이미지가 아니라면 저장
-            if outputImage.value != UIImage(systemName: "pill") {
+            if outputImage.value != ImageStyle.supplement {
                 Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
             }
             
@@ -170,7 +171,7 @@ final class AddViewModel {
         inputImage.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputImage.value = value
-            self?.outputCurrentImage.value = value == UIImage(systemName: "pill") ? true : false // 현재 사진 삭제 cell 여부를 확인하기 위함
+            self?.outputCurrentImage.value = value == ImageStyle.supplement ? true : false // 현재 사진 삭제 cell 여부를 확인하기 위함
         }
         
         inputName.bind { [weak self] value in
@@ -184,6 +185,7 @@ final class AddViewModel {
         }
         
         inputStartDay.bind { [weak self] value in
+            print(value)
             self?.outputStartDay.value = value
             self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
             self?.outputEndDay.value = Calendar.current.date(byAdding: .month, value: (self?.outputPeriod.value)!, to: value)! //⭐️

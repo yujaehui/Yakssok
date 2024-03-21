@@ -14,8 +14,15 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
         return imageView
     }()
     
+    let imageAddLabel: UILabel = {
+        let label = CustomLabel(type: .descriptionGray)
+        label.text = "이미지 변경하기"
+        return label
+    }()
+    
     override func configureHierarchy() {
         contentView.addSubview(imageView)
+        contentView.addSubview(imageAddLabel)
     }
     
     override func configureView() {
@@ -25,9 +32,14 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
     override func configureConstraints() {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
-            make.bottom.lessThanOrEqualTo(contentView).inset(8)
             make.size.equalTo(100)
             make.centerX.equalTo(contentView)
+        }
+        
+        imageAddLabel.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(16)
+            make.centerX.equalTo(contentView)
+            make.bottom.lessThanOrEqualTo(contentView).inset(8)
         }
     }
     

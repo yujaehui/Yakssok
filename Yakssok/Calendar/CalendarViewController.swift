@@ -35,6 +35,7 @@ final class CalendarViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNav()
         bindData()
     }
     
@@ -52,6 +53,20 @@ final class CalendarViewController: BaseViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+extension CalendarViewController {
+    private func setNav() {
+        navigationItem.title = "Calendar"
+        navigationController?.navigationBar.tintColor = ColorStyle.point
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+        navigationItem.backButtonTitle = ""
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        let vc = AddViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

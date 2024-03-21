@@ -83,7 +83,7 @@ final class ImageTypeSelectViewController: BaseViewController {
         
         viewModel.selectDelete.bind { [weak self] value in
             guard let _ = value else { return }
-            self?.passImage?(UIImage(systemName: "pill")!)
+            self?.passImage?(ImageStyle.supplement)
             self?.dismiss(animated: true)
         }
     }

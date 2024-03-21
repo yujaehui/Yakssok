@@ -10,37 +10,45 @@ import UIKit
 class CustomLabel: UILabel {
     enum labelType {
         case title
-        case titleColor
+        case titlePoint
         case titleBold
-        case titleBoldColor
+        case titleBoldPoint
+        
         case content
-        case contentColor
+        case contentPoint
+        case contentGray
         case contentBold
-        case contentBoldColor
+        case contentBoldPoint
+        case contentBoldGray
+        
         case description
-        case descriptionColor
+        case descriptionPoint
+        case descriptionGray
         case descriptionBold
-        case descriptionBoldColor
+        case descriptionBoldPoint
+        case descriptionBoldGray
         
         var font: UIFont {
             switch self {
-            case .title, .titleColor: FontStyle.title
-            case .titleBold, .titleBoldColor: FontStyle.titleBold
-            case .content, .contentColor: FontStyle.content
-            case .contentBold, .contentBoldColor: FontStyle.contentBold
-            case .description, .descriptionColor: FontStyle.description
-            case .descriptionBold, .descriptionBoldColor: FontStyle.descriptionBold
+            case .title, .titlePoint: FontStyle.title
+            case .titleBold, .titleBoldPoint: FontStyle.titleBold
+            case .content, .contentPoint, .contentGray: FontStyle.content
+            case .contentBold, .contentBoldPoint, .contentBoldGray: FontStyle.contentBold
+            case .description, .descriptionPoint, .descriptionGray: FontStyle.description
+            case .descriptionBold, .descriptionBoldPoint, .descriptionBoldGray: FontStyle.descriptionBold
             }
         }
         
         var textColor: UIColor {
             switch self {
             case .title, .titleBold: ColorStyle.text
-            case .titleColor, .titleBoldColor: ColorStyle.point
+            case .titlePoint, .titleBoldPoint: ColorStyle.point
             case .content, .contentBold: ColorStyle.text
-            case .contentColor, .contentBoldColor: ColorStyle.point
-            case .description, .descriptionBold: ColorStyle.grayText
-            case .descriptionColor, .descriptionBoldColor: ColorStyle.point
+            case .contentPoint, .contentBoldPoint: ColorStyle.point
+            case .contentGray, .contentBoldGray: ColorStyle.grayText
+            case .description, .descriptionBold: ColorStyle.text
+            case .descriptionPoint, .descriptionBoldPoint: ColorStyle.point
+            case .descriptionGray, .descriptionBoldGray: ColorStyle.grayText
             }
         }
     }
