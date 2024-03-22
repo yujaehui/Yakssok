@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EmptyTableViewCell: BaseTableViewCell {
+final class EmptyTableViewCell: BaseTableViewCell {
     let emptyLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         label.text = "오늘은 복용할 영양제가 없어요!"

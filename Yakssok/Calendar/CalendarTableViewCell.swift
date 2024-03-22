@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-class CalendarTableViewCell: BaseTableViewCell {
+final class CalendarTableViewCell: BaseTableViewCell {
     var passDate: ((Date) -> Void)?
     var passMoment: (() -> Void)?
     
@@ -47,20 +47,20 @@ class CalendarTableViewCell: BaseTableViewCell {
     
     override func configureConstraints() {
         calendar.snp.makeConstraints { make in
-            make.top.equalTo(contentView).inset(8)
+            make.top.equalTo(contentView)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
             make.horizontalEdges.equalTo(contentView).inset(16)
             make.height.equalTo(300)
         }
         
         headerLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView).inset(16)
+            make.top.equalTo(contentView).inset(8)
             make.leading.equalTo(contentView).inset(32)
             make.height.equalTo(32)
         }
         
         toggleButton.snp.makeConstraints { make in
-            make.top.equalTo(contentView).inset(16)
+            make.top.equalTo(contentView).inset(8)
             make.trailing.equalTo(contentView).inset(32)
             make.height.equalTo(32)
         }

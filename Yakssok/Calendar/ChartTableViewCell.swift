@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import DGCharts
 
-class ChartTableViewCell: BaseTableViewCell {
+final class ChartTableViewCell: BaseTableViewCell {
     let chartView = CustomChartView()
     
     let stackView: UIStackView = {

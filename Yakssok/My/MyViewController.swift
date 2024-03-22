@@ -12,21 +12,30 @@ enum MySection: CaseIterable {
     case main
 }
 
-class MyViewController: BaseViewController {
+final class MyViewController: BaseViewController {
     
     let viewModel = MyViewModel()
     
+    private let emptyLabel: UILabel = {
+        let label = CustomLabel(type: .titleBold)
+        label.text = "복용 중인 영양제가 없습니다.\n오른쪽 상단에 + 버튼을 눌러 추가해주세요."
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.delegate = self
         return collectionView
     }()
-    
-    var dataSource: UICollectionViewDiffableDataSource<MySection, MySupplement>!
+        
+    private var dataSource: UICollectionViewDiffableDataSource<MySection, MySupplement>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
+        setTabBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,25 +44,17 @@ class MyViewController: BaseViewController {
         updateSnapshot()
     }
     
-    func setNav() {
-        navigationItem.title = "My"
-        navigationController?.navigationBar.tintColor = ColorStyle.point
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
-        navigationItem.backButtonTitle = ""
-
-    }
-    
-    @objc private func rightBarButtonItemClikced() {
-        let vc = AddViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(emptyLabel)
     }
     
     override func configureConstraints() {
         collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyLabel.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -68,10 +69,37 @@ class MyViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
-        snapshot.appendSections(MySection.allCases)
-        snapshot.appendItems(viewModel.repository.fetchAllItem(), toSection: .main)
-        dataSource.apply(snapshot)
+        let items = viewModel.repository.fetchAllItem()
+        if items.isEmpty {
+            collectionView.isHidden = true
+            emptyLabel.isHidden = false
+        } else {
+            collectionView.isHidden = false
+            emptyLabel.isHidden = true
+            
+            var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
+            snapshot.appendSections(MySection.allCases)
+            snapshot.appendItems(items, toSection: .main)
+            dataSource.apply(snapshot)
+        }
+    }
+}
+
+extension MyViewController {
+    func setNav() {
+        navigationController?.navigationBar.tintColor = ColorStyle.point
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: LogoView())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+        navigationItem.backButtonTitle = ""
+    }
+    
+    @objc private func rightBarButtonItemClikced() {
+        let vc = AddViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setTabBar() {
+        tabBarController?.tabBar.isHidden = false
     }
 }
 

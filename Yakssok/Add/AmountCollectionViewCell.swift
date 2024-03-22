@@ -10,7 +10,7 @@ import SnapKit
 
 class AmountCollectionViewCell: BaseCollectionViewCell {
     let amountTextField: UITextField = {
-        let textField = BasicTextField()
+        let textField = CustomTextField()
         textField.textAlignment = .center
         textField.isUserInteractionEnabled = false
         return textField

@@ -29,8 +29,8 @@ class CustomCalendar: FSCalendar {
         appearance.headerTitleFont = FontStyle.titleBold
         appearance.headerTitleColor = ColorStyle.point
         
-        appearance.todayColor = .clear
-        appearance.titleTodayColor = .black
+        appearance.todayColor = ColorStyle.clear
+        appearance.titleTodayColor = ColorStyle.text
         
         appearance.weekdayTextColor = ColorStyle.point
         appearance.selectionColor = ColorStyle.point

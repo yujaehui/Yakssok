@@ -58,4 +58,13 @@ class Helpers {
             print("file not exist, remove error")
         }
     }
+    
+    func showDestructiveAlert(title: String, message: String, hadler: ((UIAlertAction) -> Void)? ) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "취소", style: .cancel)
+        let deleteButton = UIAlertAction(title: "삭제", style: .destructive, handler: hadler)
+        alert.addAction(cancelButton)
+        alert.addAction(deleteButton)
+        return alert
+    }
 }

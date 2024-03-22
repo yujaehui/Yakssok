@@ -8,15 +8,13 @@
 import UIKit
 import SnapKit
 
-class MyCollectionViewCell: BaseCollectionViewCell {
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
+final class MyCollectionViewCell: BaseCollectionViewCell {
+    private let imageView: CustomImageView = {
+        let imageView = CustomImageView(frame: .zero)
         return imageView
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -25,19 +23,18 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         return stackView
     }()
     
-    let dateInfoLabel: UILabel = {
-        let label = CustomLabel(type: .description)
+    private let dateInfoLabel: UILabel = {
+        let label = CustomLabel(type: .descriptionGray)
         return label
     }()
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         label.numberOfLines = 1
         return label
     }()
     
-    
-    let countStackView: UIStackView = {
+    private let countStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -46,15 +43,15 @@ class MyCollectionViewCell: BaseCollectionViewCell {
         return stackView
     }()
     
-    let countImageView: UIImageView = {
+    private let countImageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "clock.badge.checkmark")
-        imageView.tintColor = .black
+        imageView.image = ImageStyle.clock
+        imageView.tintColor = ColorStyle.point
         return imageView
     }()
     
-    let countInfoLabel: UILabel = {
-        let label = CustomLabel(type: .description)
+    private let countInfoLabel: UILabel = {
+        let label = CustomLabel(type: .content)
         return label
     }()
     

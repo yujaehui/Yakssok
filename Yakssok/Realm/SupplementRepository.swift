@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-class SupplementRepository {
-    let realm = try! Realm()
+final class SupplementRepository {
+    private let realm = try! Realm()
     
     func createItem(_ data: MySupplement) {
         print(realm.configuration.fileURL)

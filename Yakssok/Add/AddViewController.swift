@@ -53,6 +53,7 @@ final class AddViewController: BaseViewController {
         super.viewDidLoad()
         print("AddViewController viewDidLoad")
         setNav()
+        setTabBar()
         configureDataSource()
         updateSnapshot()
         bindData()
@@ -105,6 +106,15 @@ final class AddViewController: BaseViewController {
                 style.messageFont = FontStyle.titleBold
                 self?.view.makeToast(value.rawValue, duration: 2, position: .bottom, style: style)
             }
+        }
+        
+        viewModel.deleteTrigger.bind { [weak self] value in
+            guard let _ = value else { return }
+            let alert = Helpers.shared.showDestructiveAlert(title: "영양제를 삭제하시겠습니까?", message: "과거 복용 기록도 함께 삭제되며,\n이 작업은 되돌릴 수 없습니다.") { _ in
+                self?.viewModel.deleteButtonClicked.value = ()
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.present(alert, animated: true)
         }
     }
 
@@ -202,7 +212,10 @@ extension AddViewController {
     
     @objc private func rightBarButtonItemClikced() {
         viewModel.deleteTrigger.value = ()
-        navigationController?.popViewController(animated: true)
+    }
+    
+    private func setTabBar() {
+        tabBarController?.tabBar.isHidden = true
     }
 }
 
@@ -272,7 +285,7 @@ extension AddViewController: UICollectionViewDelegate {
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.customDetent {return 300}]
             }
             present(nav, animated: true)
         case .name: return
@@ -306,7 +319,7 @@ extension AddViewController: UICollectionViewDelegate {
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.customDetent {return 300}]
             }
             present(nav, animated: true)
         case .cycle:
@@ -317,7 +330,7 @@ extension AddViewController: UICollectionViewDelegate {
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.customDetent {return 300}]
             }
             present(nav, animated: true)
         case .time:

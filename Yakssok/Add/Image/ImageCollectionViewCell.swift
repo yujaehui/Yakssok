@@ -10,7 +10,7 @@ import SnapKit
 
 class ImageCollectionViewCell: BaseCollectionViewCell {
     let imageView: UIImageView = {
-        let imageView = BasicImageView(frame: .zero)
+        let imageView = CustomImageView(frame: .zero)
         return imageView
     }()
     

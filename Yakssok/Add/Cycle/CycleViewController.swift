@@ -103,7 +103,7 @@ extension CycleViewController {
 extension CycleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 16
+        let spacing: CGFloat = 12
         let cellWidth = UIScreen.main.bounds.width - (spacing * 8)
         layout.itemSize = CGSize(width: cellWidth / 7, height: cellWidth / 7)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)

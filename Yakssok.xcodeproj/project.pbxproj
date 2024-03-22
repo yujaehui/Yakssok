@@ -12,6 +12,12 @@
 		0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */; };
 		0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9282BAC611C0098DF1A /* CustomLabel.swift */; };
 		0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E92A2BAC88970098DF1A /* ImageStyle.swift */; };
+		0906E9312BAD6D020098DF1A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0906E9302BAD6D020098DF1A /* Lottie */; };
+		0906E9382BAD7D220098DF1A /* congratulation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0906E9372BAD7D220098DF1A /* congratulation.json */; };
+		0906E9402BADADA80098DF1A /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E93F2BADADA80098DF1A /* LogoView.swift */; };
+		0906E9442BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */; };
+		0906E9562BADCA490098DF1A /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 0906E9552BADCA490098DF1A /* splash.json */; };
+		0906E9582BADCF280098DF1A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9572BADCF280098DF1A /* SplashView.swift */; };
 		09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB32B9983AC0081E37E /* AppDelegate.swift */; };
 		09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB52B9983AC0081E37E /* SceneDelegate.swift */; };
 		09833BB82B9983AC0081E37E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB72B9983AC0081E37E /* ViewController.swift */; };
@@ -62,8 +68,8 @@
 		09ABD47C2BA9B56900826A73 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */; };
 		09ABD47E2BA9BEAA00826A73 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */; };
 		09ABD4802BA9C9D200826A73 /* ScheduleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */; };
-		09ABD4822BA9D09000826A73 /* BasicTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4812BA9D09000826A73 /* BasicTextField.swift */; };
-		09ABD4842BA9D1B300826A73 /* BasicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4832BA9D1B300826A73 /* BasicImageView.swift */; };
+		09ABD4822BA9D09000826A73 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4812BA9D09000826A73 /* CustomTextField.swift */; };
+		09ABD4842BA9D1B300826A73 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABD4832BA9D1B300826A73 /* CustomImageView.swift */; };
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
@@ -73,7 +79,6 @@
 		09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */; };
 		09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157022B9C584A0008F86E /* DateFormatterManager.swift */; };
 		09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */; };
-		09C1570A2B9C87510008F86E /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 09C157092B9C87510008F86E /* Tabman */; };
 		09C739CF2B9DD1F800B200DE /* CycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739CE2B9DD1F800B200DE /* CycleViewController.swift */; };
 		09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D02B9DD3D600B200DE /* CycleCollectionViewCell.swift */; };
 		09C739D32B9DD5FA00B200DE /* CycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D22B9DD5FA00B200DE /* CycleViewModel.swift */; };
@@ -92,6 +97,11 @@
 		0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		0906E9282BAC611C0098DF1A /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		0906E92A2BAC88970098DF1A /* ImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStyle.swift; sourceTree = "<group>"; };
+		0906E9372BAD7D220098DF1A /* congratulation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = congratulation.json; sourceTree = "<group>"; };
+		0906E93F2BADADA80098DF1A /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController.Detent+Extension.swift"; sourceTree = "<group>"; };
+		0906E9552BADCA490098DF1A /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		0906E9572BADCF280098DF1A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		09833BB02B9983AC0081E37E /* Yakssok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yakssok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09833BB32B9983AC0081E37E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09833BB52B9983AC0081E37E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,8 +146,8 @@
 		09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHeaderView.swift; sourceTree = "<group>"; };
-		09ABD4812BA9D09000826A73 /* BasicTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTextField.swift; sourceTree = "<group>"; };
-		09ABD4832BA9D1B300826A73 /* BasicImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImageView.swift; sourceTree = "<group>"; };
+		09ABD4812BA9D09000826A73 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		09ABD4832BA9D1B300826A73 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
@@ -166,10 +176,10 @@
 			files = (
 				09833BE52B99A09D0081E37E /* Realm in Frameworks */,
 				09833BE22B99A05D0081E37E /* Alamofire in Frameworks */,
+				0906E9312BAD6D020098DF1A /* Lottie in Frameworks */,
 				09833BE72B99A09D0081E37E /* RealmSwift in Frameworks */,
 				09833BDF2B99A0520081E37E /* Toast in Frameworks */,
 				09833BDC2B99A04A0081E37E /* Kingfisher in Frameworks */,
-				09C1570A2B9C87510008F86E /* Tabman in Frameworks */,
 				09833BEA2B99A0A90081E37E /* FSCalendar in Frameworks */,
 				09833BD62B99A0390081E37E /* DGCharts in Frameworks */,
 				09833BD92B99A0420081E37E /* SnapKit in Frameworks */,
@@ -187,6 +197,15 @@
 				0906E92A2BAC88970098DF1A /* ImageStyle.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		0906E9322BAD6D220098DF1A /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				0906E9552BADCA490098DF1A /* splash.json */,
+				0906E9372BAD7D220098DF1A /* congratulation.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		09833BA72B9983AC0081E37E = {
@@ -209,6 +228,7 @@
 		09833BB22B9983AC0081E37E /* Yakssok */ = {
 			isa = PBXGroup;
 			children = (
+				0906E9322BAD6D220098DF1A /* Lottie */,
 				0906E9212BAC604B0098DF1A /* DesignSystem */,
 				09ABD45C2BA71A6300826A73 /* Custom */,
 				09ABD4462BA5653400826A73 /* My */,
@@ -262,6 +282,7 @@
 				09ABD46A2BA8845600826A73 /* UITextField+Extension.swift */,
 				09ABD46C2BA8919400826A73 /* UIButton.Configuration+Extension.swift */,
 				0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */,
+				0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -304,8 +325,10 @@
 				0906E9282BAC611C0098DF1A /* CustomLabel.swift */,
 				09ABD45D2BA71A7400826A73 /* CustomChartView.swift */,
 				09ABD47D2BA9BEAA00826A73 /* CustomCalendar.swift */,
-				09ABD4812BA9D09000826A73 /* BasicTextField.swift */,
-				09ABD4832BA9D1B300826A73 /* BasicImageView.swift */,
+				09ABD4812BA9D09000826A73 /* CustomTextField.swift */,
+				09ABD4832BA9D1B300826A73 /* CustomImageView.swift */,
+				0906E93F2BADADA80098DF1A /* LogoView.swift */,
+				0906E9572BADCF280098DF1A /* SplashView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -416,7 +439,7 @@
 				09833BE42B99A09D0081E37E /* Realm */,
 				09833BE62B99A09D0081E37E /* RealmSwift */,
 				09833BE92B99A0A90081E37E /* FSCalendar */,
-				09C157092B9C87510008F86E /* Tabman */,
+				0906E9302BAD6D020098DF1A /* Lottie */,
 			);
 			productName = Yakssok;
 			productReference = 09833BB02B9983AC0081E37E /* Yakssok.app */;
@@ -454,7 +477,7 @@
 				09833BE02B99A05D0081E37E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				09833BE32B99A09D0081E37E /* XCRemoteSwiftPackageReference "realm-swift" */,
 				09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */,
+				0906E92F2BAD6D020098DF1A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 09833BB12B9983AC0081E37E /* Products */;
 			projectDirPath = "";
@@ -470,6 +493,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0906E9382BAD7D220098DF1A /* congratulation.json in Resources */,
+				0906E9562BADCA490098DF1A /* splash.json in Resources */,
 				09833BC82B9986020081E37E /* .gitignore in Resources */,
 				09833BC02B9983AE0081E37E /* LaunchScreen.storyboard in Resources */,
 				09833BBD2B9983AE0081E37E /* Assets.xcassets in Resources */,
@@ -496,15 +521,17 @@
 				09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */,
 				0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */,
 				09ABD46D2BA8919400826A73 /* UIButton.Configuration+Extension.swift in Sources */,
-				09ABD4842BA9D1B300826A73 /* BasicImageView.swift in Sources */,
+				09ABD4842BA9D1B300826A73 /* CustomImageView.swift in Sources */,
 				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,
 				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
+				0906E9582BADCF280098DF1A /* SplashView.swift in Sources */,
 				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */,
 				09ABD47C2BA9B56900826A73 /* EmptyTableViewCell.swift in Sources */,
+				0906E9442BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift in Sources */,
 				09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */,
 				09ABD46F2BA8937800826A73 /* CommonCollectionViewCell.swift in Sources */,
 				09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */,
@@ -518,7 +545,7 @@
 				0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */,
 				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */,
-				09ABD4822BA9D09000826A73 /* BasicTextField.swift in Sources */,
+				09ABD4822BA9D09000826A73 /* CustomTextField.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09ABD46B2BA8845600826A73 /* UITextField+Extension.swift in Sources */,
 				09ABD4502BA587D900826A73 /* MyCollectionViewCell.swift in Sources */,
@@ -534,6 +561,7 @@
 				09833BF82B99A31D0081E37E /* BaseTableViewCell.swift in Sources */,
 				09C739CF2B9DD1F800B200DE /* CycleViewController.swift in Sources */,
 				09ABD47E2BA9BEAA00826A73 /* CustomCalendar.swift in Sources */,
+				0906E9402BADADA80098DF1A /* LogoView.swift in Sources */,
 				09ABD4652BA816BB00826A73 /* PeriodViewController.swift in Sources */,
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
 				09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */,
@@ -780,6 +808,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0906E92F2BAD6D020098DF1A /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.1;
+			};
+		};
 		09833BD42B99A0390081E37E /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts.git";
@@ -836,17 +872,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
-		09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/uias/Tabman.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0906E9302BAD6D020098DF1A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0906E92F2BAD6D020098DF1A /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		09833BD52B99A0390081E37E /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 09833BD42B99A0390081E37E /* XCRemoteSwiftPackageReference "Charts" */;
@@ -886,11 +919,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		09C157092B9C87510008F86E /* Tabman */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09C157082B9C87510008F86E /* XCRemoteSwiftPackageReference "Tabman" */;
-			productName = Tabman;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

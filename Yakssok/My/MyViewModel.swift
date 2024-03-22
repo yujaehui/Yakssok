@@ -7,6 +7,6 @@
 
 import Foundation
 
-class MyViewModel {
+final class MyViewModel {
     let repository = SupplementRepository()
 }

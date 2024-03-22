@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class MySupplement: Object {
+final class MySupplement: Object {
     @Persisted(primaryKey: true) var pk: ObjectId
     @Persisted var name: String
     @Persisted var amount: Int

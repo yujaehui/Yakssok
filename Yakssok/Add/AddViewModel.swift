@@ -65,6 +65,7 @@ final class AddViewModel {
     let createTrigger: Observable<Void?> = Observable(nil)
     let updateTrigger: Observable<Void?> = Observable(nil)
     let deleteTrigger: Observable<Void?> = Observable(nil)
+    let deleteButtonClicked: Observable<Void?> = Observable(nil)
     
     let outputNameStatus: Observable<NameStatus?> = Observable(nil)
     
@@ -141,7 +142,7 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: Date())
         }
         
-        deleteTrigger.bind { [weak self] value in
+        deleteButtonClicked.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
             

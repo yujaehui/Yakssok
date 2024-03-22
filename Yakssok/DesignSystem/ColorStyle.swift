@@ -15,4 +15,5 @@ enum ColorStyle {
     static let grayBackground = UIColor.systemGray6
     static let grayImage = UIColor.systemGray
     static let caution = UIColor.systemPink
+    static let clear = UIColor.clear
 }

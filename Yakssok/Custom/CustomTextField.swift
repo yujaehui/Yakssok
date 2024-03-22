@@ -1,5 +1,5 @@
 //
-//  BasicImageView.swift
+//  CustomTextField.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/19/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BasicImageView: UIImageView {
+class CustomTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
@@ -20,5 +20,6 @@ class BasicImageView: UIImageView {
     func configureView() {
         clipsToBounds = true
         layer.cornerRadius = 12
+        font = FontStyle.titleBold
     }
 }

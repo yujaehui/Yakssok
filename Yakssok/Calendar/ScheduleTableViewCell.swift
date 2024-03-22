@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 
-class ScheduleTableViewCell: BaseTableViewCell {
-    let backView: UIView = {
+final class ScheduleTableViewCell: BaseTableViewCell {
+    private let backView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
         return view
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -24,17 +24,17 @@ class ScheduleTableViewCell: BaseTableViewCell {
         return stackView
     }()
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         return label
     }()
     
-    let amountLabel: UILabel = {
+    private let amountLabel: UILabel = {
         let label = CustomLabel(type: .descriptionGray)
         return label
     }()
     
-    lazy var checkButton: UIButton = {
+    private lazy var checkButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(checkButtonClicked), for: .touchUpInside)
         return button
@@ -57,7 +57,8 @@ class ScheduleTableViewCell: BaseTableViewCell {
     
     override func configureConstraints() {
         backView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(contentView).inset(8)
+            make.top.equalTo(contentView)
+            make.bottom.equalTo(contentView).inset(8)
             make.horizontalEdges.equalTo(contentView).inset(16)
         }
         

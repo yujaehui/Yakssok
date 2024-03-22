@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class MySupplements: Object {
+final class MySupplements: Object {
     @Persisted(primaryKey: true) var pk: ObjectId
     @Persisted var date: Date
     @Persisted var time: Date

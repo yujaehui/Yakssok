@@ -37,12 +37,12 @@
       }
     },
     {
-      "identity" : "pageboy",
+      "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/uias/Pageboy",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
       "state" : {
-        "revision" : "5522aa6ae88633f6c23cf504e9cd684e963822f1",
-        "version" : "4.0.2"
+        "revision" : "7fe8b6f697ae7db4bf0df270119592cb5d502848",
+        "version" : "4.4.1"
       }
     },
     {
@@ -70,15 +70,6 @@
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
-      }
-    },
-    {
-      "identity" : "tabman",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/uias/Tabman.git",
-      "state" : {
-        "revision" : "e32c0d821b03566ed966753f941113883f268da0",
-        "version" : "3.0.2"
       }
     },
     {

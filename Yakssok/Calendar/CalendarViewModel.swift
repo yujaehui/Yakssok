@@ -7,11 +7,12 @@
 
 import Foundation
 
-class CalendarViewModel {
+final class CalendarViewModel {
     let repository = SupplementRepository()
     
     //input
     let inputDidSelectTrigger: Observable<Date?> = Observable(nil)
+    //let inputRefresh: Observable<[(Date, [MySupplements])]?> = Observable(nil)
     
     //output
     let outputGroupedDataDict: Observable<[(Date, [MySupplements])]> = Observable([])
@@ -34,3 +35,5 @@ class CalendarViewModel {
         }
     }
 }
+
+// 🌱

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 enum SectionType: CaseIterable {
     case calendar
@@ -33,13 +34,23 @@ final class CalendarViewController: BaseViewController {
         return tableView
     }()
     
+    private let animationView: LottieAnimationView = {
+        let lottieAnimationView = LottieAnimationView(name: "congratulation")
+        lottieAnimationView.backgroundColor = ColorStyle.background.withAlphaComponent(0.3)
+        lottieAnimationView.animationSpeed = 1.5
+        lottieAnimationView.contentMode = .scaleAspectFill
+        return lottieAnimationView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
+        setTabBar()
         bindData()
+        animationView.isHidden = true
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputGroupedDataDict.bind { value in
             self.tableView.reloadData()
         }
@@ -47,26 +58,51 @@ final class CalendarViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(tableView)
+        view.addSubview(animationView)
+    }
+    
+    override func configureView() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
     override func configureConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        animationView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        animationView.stop()
+    }
+    
+    @objc private func refresh() {
+        DispatchQueue.main.async {
+            self.viewModel.inputDidSelectTrigger.value = self.viewModel.inputDidSelectTrigger.value
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
 extension CalendarViewController {
     private func setNav() {
-        navigationItem.title = "Calendar"
         navigationController?.navigationBar.tintColor = ColorStyle.point
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: LogoView())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
         navigationItem.backButtonTitle = ""
     }
     
     @objc private func rightBarButtonItemClikced() {
         let vc = AddViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setTabBar() {
+        tabBarController?.tabBar.isHidden = false
     }
 }
 
@@ -119,15 +155,27 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as! ScheduleTableViewCell
+            let alldata = self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }
             let data = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row]
             cell.configureCell(data)
             cell.buttonAction = {
                 self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].pk)
                 self.tableView.reloadData()
+                if alldata.count == alldata.filter({ $0.isChecked }).count {
+                    self.animationView.alpha = 1
+                    self.animationView.isHidden = false
+                    self.animationView.play { _ in
+                        UIView.animate(withDuration: 0.1, animations: {
+                            self.animationView.alpha = 0
+                        }, completion: { _ in
+                            self.animationView.isHidden = true
+                        })
+                    }
+                }
             }
             return cell
         }
     }
 }
 
-
+// 🌱

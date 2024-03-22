@@ -13,7 +13,7 @@ class NameCollectionViewCell: BaseCollectionViewCell {
     var passMoment: (() -> Void)?
     
     lazy var nameTextField: UITextField = {
-        let textField = BasicTextField()
+        let textField = CustomTextField()
         textField.placeholder = "영양제 이름을 입력해주세요."
         textField.addLeftPadding()
         textField.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
