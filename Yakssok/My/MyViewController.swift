@@ -35,11 +35,11 @@ final class MyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
-        setTabBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setTabBar()
         configureDataSource()
         updateSnapshot()
     }

@@ -45,9 +45,13 @@ final class CalendarViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
-        setTabBar()
         bindData()
         animationView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setTabBar()
     }
     
     private func bindData() {
