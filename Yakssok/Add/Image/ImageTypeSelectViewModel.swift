@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ImageTypeSelectViewModel {
+final class ImageTypeSelectViewModel {
     
     // input
     var inputCurrentImage: Observable<Bool?> = Observable(nil)

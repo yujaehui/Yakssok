@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class CommonCollectionViewCell: BaseCollectionViewCell {
-    let textLabel: UILabel = {
+final class CommonCollectionViewCell: BaseCollectionViewCell {
+    private let textLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         label.clipsToBounds = true
         label.layer.cornerRadius = 12

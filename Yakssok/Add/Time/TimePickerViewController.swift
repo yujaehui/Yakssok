@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class TimePickerViewController: BaseViewController {
+final class TimePickerViewController: BaseViewController {
     var selectTime: ((Date) -> Void)?
     
     let viewModel = TimePickerViewModel()
     
-    let timePicker = UIDatePicker()
+    private let timePicker = UIDatePicker()
     
     deinit {
         print("TimePickerViewController deinit")
@@ -26,23 +26,23 @@ class TimePickerViewController: BaseViewController {
         setNav()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputTime.bind { [weak self] value in
             guard let value = value else { return }
             self?.selectTime?(value)
         }
     }
     
-    func setNav() {
+    private func setNav() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(leftBarButtonItemClicked))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
     }
     
-    @objc func leftBarButtonItemClicked() {
+    @objc private func leftBarButtonItemClicked() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func rightBarButtonItemClicked() {
+    @objc private func rightBarButtonItemClicked() {
         viewModel.inputTime.value = timePicker.date
         navigationController?.popViewController(animated: true)
     }

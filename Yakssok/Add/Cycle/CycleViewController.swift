@@ -18,12 +18,12 @@ enum DayOfTheWeek: String, CaseIterable {
     case saturday = "토"
 }
 
-class CycleViewController: BaseViewController {
+final class CycleViewController: BaseViewController {
     var selectDayOfTheWeek: (([String]) -> Void)?
     
     let viewModel = CycleViewModel()
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -49,7 +49,7 @@ class CycleViewController: BaseViewController {
         bindData()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputIsSelected.bind { value in
             self.registrationButton.configuration?.baseBackgroundColor = value ? ColorStyle.point : ColorStyle.grayBackground
             self.registrationButton.isUserInteractionEnabled = value

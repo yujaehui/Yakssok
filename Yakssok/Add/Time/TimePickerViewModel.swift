@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TimePickerViewModel {
+final class TimePickerViewModel {
     let inputTime: Observable<Date?> = Observable(nil)
     
     let outputTime: Observable<Date?> = Observable(nil)

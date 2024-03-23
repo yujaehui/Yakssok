@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import AVFoundation
+import PhotosUI
 
 enum MyImageVersion: String, CaseIterable {
     case image = "라이브러리에서 선택"
@@ -39,7 +40,7 @@ final class ImageTypeSelectViewController: BaseViewController {
     
     let viewModel = ImageTypeSelectViewModel()
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -54,13 +55,16 @@ final class ImageTypeSelectViewController: BaseViewController {
         bindData()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.selectImage.bind { [weak self] value in
             guard let _ = value else { return }
-            let vc = UIImagePickerController()
-            vc.allowsEditing = true
-            vc.delegate = self
-            self?.present(vc, animated: true)
+            
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .images
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self?.present(picker, animated: true)
         }
         
         viewModel.selectCamera.bind { [weak self] value in
@@ -88,8 +92,8 @@ final class ImageTypeSelectViewController: BaseViewController {
         }
     }
     
-    func showAlertGoToSetting() {
-        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > 약쏙!탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
+    private func showAlertGoToSetting() {
+        let alertController = UIAlertController(title: "현재 카메라 사용에 대한 접근 권한이 없습니다.", message: "설정 > 약쏙 탭에서 접근을 활성화 할 수 있습니다.", preferredStyle: .alert)
         let cancelAlert = UIAlertAction(title: "취소", style: .cancel) { _ in
             alertController.dismiss(animated: true, completion: nil)
         }
@@ -117,7 +121,6 @@ final class ImageTypeSelectViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
     
     @objc private func rightBarButtonItemClikced() {
         dismiss(animated: true)
@@ -160,6 +163,19 @@ extension ImageTypeSelectViewController: UIImagePickerControllerDelegate, UINavi
         }
         passImage?(image)
         self.dismiss(animated: true)
+        dismiss(animated: true)
+    }
+}
+
+extension ImageTypeSelectViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                self.passImage?((image as? UIImage)!)
+            }
+        }
+        picker.dismiss(animated: true)
         dismiss(animated: true)
     }
 }

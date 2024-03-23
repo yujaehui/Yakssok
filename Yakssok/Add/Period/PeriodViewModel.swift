@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PeriodViewModel {
+final class PeriodViewModel {
     
     // input
     let inputPeriod: Observable<Int?> = Observable(nil)

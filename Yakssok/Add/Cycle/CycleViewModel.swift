@@ -8,7 +8,7 @@
 import Foundation
 import Foundation
 
-class CycleViewModel {
+final class CycleViewModel {
     
     // input
     let inputSelectDayOfTheWeek: Observable<String?> = Observable(nil)

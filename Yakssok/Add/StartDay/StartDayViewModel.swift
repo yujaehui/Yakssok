@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StartDayViewModel {
+final class StartDayViewModel {
     
     // input
     let inputDate: Observable<Date?> = Observable(nil)

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Toast
 
-class TimeSettingViewController: BaseViewController {
+final class TimeSettingViewController: BaseViewController {
     var selectTimeList: (([Date]) -> Void)?
     
     let viewModel = TimeSettingViewModel()
@@ -62,7 +62,7 @@ class TimeSettingViewController: BaseViewController {
         setNav()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.addTimeButtonClicked.bind { [weak self] value in
             guard value != nil else { return }
             let vc = TimePickerViewController()
@@ -126,29 +126,29 @@ class TimeSettingViewController: BaseViewController {
         }
     }
     
-    @objc func addTimeButtonClicked() {
+    @objc private func addTimeButtonClicked() {
         viewModel.addTimeButtonClicked.value = ()
     }
     
-    @objc func editButtonClicked() {
+    @objc private func editButtonClicked() {
         let shouldBeEdited = !timeTableView.isEditing
         timeTableView.setEditing(shouldBeEdited, animated: true)
         editButton.isSelected = shouldBeEdited
     }
     
-    @objc func registrationButtonClicked() {
+    @objc private func registrationButtonClicked() {
         viewModel.inputTimeList.value = viewModel.outputSelectTimeList.value
         dismiss(animated: true)
     }
 }
 
 extension TimeSettingViewController {
-    func setNav() {
+    private func setNav() {
         navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
     
-    @objc func rightBarButtonItemClikced() {
+    @objc private func rightBarButtonItemClikced() {
         dismiss(animated: true)
     }
 }

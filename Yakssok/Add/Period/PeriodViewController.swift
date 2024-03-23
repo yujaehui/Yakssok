@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PeriodViewController: BaseViewController {
+final class PeriodViewController: BaseViewController {
     var selectPeriod: ((Int) -> Void)?
     
     let viewModel = PeriodViewModel()

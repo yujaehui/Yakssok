@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class NameCollectionViewCell: BaseCollectionViewCell {
+final class NameCollectionViewCell: BaseCollectionViewCell {
     var passName: ((String?) -> Void)?
     var passMoment: (() -> Void)?
     
-    lazy var nameTextField: UITextField = {
+    private lazy var nameTextField: UITextField = {
         let textField = CustomTextField()
         textField.placeholder = "영양제 이름을 입력해주세요."
         textField.addLeftPadding()
@@ -21,7 +21,7 @@ class NameCollectionViewCell: BaseCollectionViewCell {
         return textField
     }()
     
-    lazy var searchButton: UIButton = {
+    private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.configuration = .basic(image: "magnifyingglass")
         button.addTarget(self, action: #selector(searchButtonClicked), for: .touchUpInside)
@@ -51,11 +51,11 @@ class NameCollectionViewCell: BaseCollectionViewCell {
         
     }
     
-    @objc func searchButtonClicked() {
+    @objc private func searchButtonClicked() {
         passMoment?()
     }
     
-    @objc func nameTextFieldChanged() {
+    @objc private func nameTextFieldChanged() {
         passName?(nameTextField.text)
     }
     

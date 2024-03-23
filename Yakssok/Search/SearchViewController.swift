@@ -10,7 +10,7 @@ import SnapKit
 import Kingfisher
 import Toast
 
-class SearchViewController: BaseViewController {
+final class SearchViewController: BaseViewController {
     var selectName: ((String) -> Void)?
     
     private lazy var searchBar: UISearchBar = {
@@ -46,7 +46,7 @@ class SearchViewController: BaseViewController {
         bindData()
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputRow.bind { value in
             print("!!!")
             self.searchTableView.reloadData()
@@ -156,13 +156,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource, UITa
 }
 
 extension SearchViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.isEmpty {
-//            EmptyLabel.isHidden = true
-//            searchTableView.isHidden = true
-//        }
-//    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.inputStart.value = 1
         viewModel.inputUpdateSearchResults.value = (searchBar.text)

@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 
-class ImageCollectionViewCell: BaseCollectionViewCell {
-    let imageView: UIImageView = {
+final class ImageCollectionViewCell: BaseCollectionViewCell {
+    private let imageView: UIImageView = {
         let imageView = CustomImageView(frame: .zero)
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    let imageAddLabel: UILabel = {
+    private let imageAddLabel: UILabel = {
         let label = CustomLabel(type: .descriptionGray)
         label.text = "이미지 변경하기"
         return label

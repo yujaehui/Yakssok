@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TimeSettingTableViewCell: BaseTableViewCell {
+final class TimeSettingTableViewCell: BaseTableViewCell {
     var passMoment: (() -> Void)?
     
     private let timeLabel: UILabel = {

@@ -66,11 +66,6 @@ final class CalendarViewController: BaseViewController {
         view.addSubview(animationView)
     }
     
-    override func configureView() {
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-    }
-    
     override func configureConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -84,13 +79,6 @@ final class CalendarViewController: BaseViewController {
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        animationView.stop()
 //    }
-    
-    @objc private func refresh() {
-        DispatchQueue.main.async {
-            self.viewModel.inputDidSelectTrigger.value = self.viewModel.inputDidSelectTrigger.value
-            self.tableView.refreshControl?.endRefreshing()
-        }
-    }
 }
 
 extension CalendarViewController {

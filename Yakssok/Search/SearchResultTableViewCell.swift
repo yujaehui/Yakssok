@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SearchResultTableViewCell: BaseTableViewCell {
-    let resultNameLabel: UILabel = {
+final class SearchResultTableViewCell: BaseTableViewCell {
+    private let resultNameLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         return label
     }()
     
-    let resultBrandLabel: UILabel = {
+    private let resultBrandLabel: UILabel = {
         let label = CustomLabel(type: .description)
         return label
     }()

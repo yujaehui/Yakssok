@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TimeSettingViewModel {
+final class TimeSettingViewModel {
     
     //input
     let inputSelectTime: Observable<Date?> = Observable(nil)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Helpers {
+final class Helpers {
     static let shared = Helpers()
     private init() {}
     

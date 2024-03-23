@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class CycleCollectionViewCell: BaseCollectionViewCell {
-    let dayLabel: UILabel = {
+final class CycleCollectionViewCell: BaseCollectionViewCell {
+    private let dayLabel: UILabel = {
         let label = CustomLabel(type: .contentBold)
         label.textAlignment = .center
         label.clipsToBounds = true

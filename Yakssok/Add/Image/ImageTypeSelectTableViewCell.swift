@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 
-class ImageTypeSelectTableViewCell: BaseTableViewCell {
-    let typeImageView: UIImageView = {
+final class ImageTypeSelectTableViewCell: BaseTableViewCell {
+    private let typeImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let typeLabel: UILabel = {
+    private let typeLabel: UILabel = {
         let label = CustomLabel(type: .titleBold)
         return label
     }()

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AmountCollectionViewCell: BaseCollectionViewCell {
+final class AmountCollectionViewCell: BaseCollectionViewCell {
     let amountTextField: UITextField = {
         let textField = CustomTextField()
         textField.textAlignment = .center
