@@ -11,8 +11,8 @@ import RealmSwift
 import FSCalendar
 
 enum AccessType: String {
-    case create
-    case update
+    case create = "등록"
+    case update = "수정"
 }
 
 enum NameStatus: String {
@@ -137,9 +137,9 @@ final class AddViewModel {
             // 1. 이름 변경
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
             // 2. 오늘 날짜 이후의 항목 제거
-            repository.deleteFutureItems(data: inputMySupplements.value, date: Date())
+            repository.deleteFutureItems(data: inputMySupplements.value, date: FSCalendar().today!)
             // 3. 새롭게 변화된 항목 추가
-            generateScheduledSupplements(startDay: Date())
+            generateScheduledSupplements(startDay: FSCalendar().today!)
         }
         
         deleteButtonClicked.bind { [weak self] value in

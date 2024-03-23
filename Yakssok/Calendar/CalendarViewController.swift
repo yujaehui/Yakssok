@@ -51,6 +51,7 @@ final class CalendarViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.viewModel.inputDidSelectTrigger.value = self.viewModel.inputDidSelectTrigger.value
         setTabBar()
     }
     
@@ -80,9 +81,9 @@ final class CalendarViewController: BaseViewController {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        animationView.stop()
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        animationView.stop()
+//    }
     
     @objc private func refresh() {
         DispatchQueue.main.async {
