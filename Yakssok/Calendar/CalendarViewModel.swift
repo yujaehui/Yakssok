@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import FSCalendar
 
 final class CalendarViewModel {
     let repository = SupplementRepository()
     
     //input
-    let inputDidSelectTrigger: Observable<Date?> = Observable(nil)
+    let inputDidSelectTrigger: Observable<Date> = Observable(FSCalendar().today!)
     //let inputRefresh: Observable<[(Date, [MySupplements])]?> = Observable(nil)
     
     //output
@@ -20,7 +21,7 @@ final class CalendarViewModel {
     init() {
         inputDidSelectTrigger.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
+            //guard let value = value else { return }
             let supplements = self.repository.fetchByDate(date: value)
             var groupedDataDict: [Date : [MySupplements]] = [:]
             for supplement in supplements {
