@@ -109,7 +109,7 @@ final class SupplementRepository {
     func deleteFutureItems(data: [MySupplements], date: Date) {
         do {
             try realm.write {
-                realm.delete(data.filter {$0.date > date})
+                realm.delete(data.filter {$0.date >= date})
             }
         } catch {
             print(error)
