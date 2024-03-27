@@ -7,15 +7,28 @@
 
 import Foundation
 
+enum TimeAccessType: String {
+    case add = "추가"
+    case modify = "수정"
+}
+
 final class TimePickerViewModel {
-    let inputTime: Observable<Date?> = Observable(nil)
+    let inputType: Observable<TimeAccessType?> = Observable(nil)
+    let inputAddTime: Observable<Date?> = Observable(nil)
     
-    let outputTime: Observable<Date?> = Observable(nil)
+    let outputType: Observable<TimeAccessType> = Observable(.add)
+    let outputAddTime: Observable<Date?> = Observable(nil)
     
     init() {
-        inputTime.bind { [weak self] value in
+        inputType.bind { [weak self] value in
+            guard let self = self else { return }
             guard let value = value else { return }
-            self?.outputTime.value = value
+            self.outputType.value = value
+        }
+        
+        inputAddTime.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.outputAddTime.value = value
         }
     }
 }

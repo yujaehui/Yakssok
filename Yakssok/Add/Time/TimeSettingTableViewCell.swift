@@ -16,16 +16,31 @@ final class TimeSettingTableViewCell: BaseTableViewCell {
         return label
     }()
     
+    private let modifyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = ColorStyle.grayImage
+        return imageView
+    }()
+    
     override func configureHierarchy() {
         contentView.addSubview(timeLabel)
+        contentView.addSubview(modifyImageView)
     }
     
     override func configureConstraints() {
         timeLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8)
             make.bottom.lessThanOrEqualTo(contentView).inset(8)
-            make.horizontalEdges.equalTo(contentView).inset(16)
+            make.leading.equalTo(contentView).inset(16)
             make.height.equalTo(44)
+        }
+        
+        modifyImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.trailing.equalTo(contentView).inset(16)
+            make.size.equalTo(25)
         }
     }
     

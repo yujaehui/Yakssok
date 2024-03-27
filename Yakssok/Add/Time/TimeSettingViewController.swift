@@ -72,6 +72,27 @@ final class TimeSettingViewController: BaseViewController {
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
+        viewModel.didSelectRowAt.bind { [weak self] row in
+            guard let self = self else { return }
+            guard let row = row else { return }
+            let vc = TimePickerViewController()
+            vc.viewModel.inputType.value = .modify
+            vc.timePicker.date = self.viewModel.outputSelectTimeList.value[row]
+            vc.selectTime = { [weak self] value in
+                guard let self = self else { return }
+                self.viewModel.inputSelectTime.value =  value
+            }
+            vc.passUpdateMoment = { [weak self] value in
+                guard let self = self else { return }
+                if value {
+                    self.viewModel.outputSelectTimeList.value.remove(at: row)
+                } else {
+                    return
+                }
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
         viewModel.outputSelectTimeList.bind { [weak self] value in
             self?.viewModel.inputSelectTimeList.value = value
         }
@@ -163,6 +184,11 @@ extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource 
         let data = viewModel.outputSelectTimeStringList.value[indexPath.row]
         cell.configureCell(data)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        self.viewModel.didSelectRowAt.value = row
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

@@ -21,6 +21,7 @@ final class TimeSettingViewModel {
     
     // transition
     let addTimeButtonClicked: Observable<Void?> = Observable(nil)
+    let didSelectRowAt: Observable<Int?> = Observable(nil)
     
     init() {
         inputSelectTime.bind { value in

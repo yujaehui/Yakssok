@@ -10,10 +10,11 @@ import SnapKit
 
 final class TimePickerViewController: BaseViewController {
     var selectTime: ((Date) -> Void)?
+    var passUpdateMoment: ((Bool) -> Void)?
     
     let viewModel = TimePickerViewModel()
     
-    private let timePicker = UIDatePicker()
+    let timePicker = UIDatePicker()
     
     deinit {
         print("TimePickerViewController deinit")
@@ -27,7 +28,7 @@ final class TimePickerViewController: BaseViewController {
     }
     
     private func bindData() {
-        viewModel.outputTime.bind { [weak self] value in
+        viewModel.outputAddTime.bind { [weak self] value in
             guard let value = value else { return }
             self?.selectTime?(value)
         }
@@ -43,7 +44,13 @@ final class TimePickerViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonItemClicked() {
-        viewModel.inputTime.value = timePicker.date
+        switch viewModel.outputType.value {
+        case .add: 
+            viewModel.inputAddTime.value = timePicker.date
+        case .modify:
+            viewModel.inputAddTime.value = timePicker.date
+            passUpdateMoment?(true)
+        }
         navigationController?.popViewController(animated: true)
     }
 
