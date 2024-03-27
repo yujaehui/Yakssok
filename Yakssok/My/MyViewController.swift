@@ -87,6 +87,7 @@ final class MyViewController: BaseViewController {
 
 extension MyViewController {
     func setNav() {
+        navigationItem.title = "내 영양제"
         navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: LogoView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(rightBarButtonItemClikced))

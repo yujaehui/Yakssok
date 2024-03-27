@@ -34,10 +34,10 @@ class ViewController: UITabBarController {
     
     private func addVC() {
         let calenderVC = UINavigationController(rootViewController: CalendarViewController())
-        calenderVC.tabBarItem = UITabBarItem(title: "calendar", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"))
+        calenderVC.tabBarItem = UITabBarItem(title: "복용 달력", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"))
         
         let myVC = UINavigationController(rootViewController: MyViewController())
-        myVC.tabBarItem = UITabBarItem(title: "my", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
+        myVC.tabBarItem = UITabBarItem(title: "내 영양제", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
         
         self.viewControllers = [calenderVC, myVC]
     }
