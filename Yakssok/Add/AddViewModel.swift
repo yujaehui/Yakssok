@@ -91,6 +91,8 @@ final class AddViewModel {
             
             outputNameStatus.value = .possibleName
             
+            
+            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             if outputImage.value != ImageStyle.supplement {
@@ -142,6 +144,7 @@ final class AddViewModel {
             // 2. 오늘 날짜 이후의 항목 제거
             repository.deleteFutureItems(data: inputMySupplements.value, date: FSCalendar().today!)
             // 3. 새롭게 변화된 항목 추가
+            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
             generateScheduledSupplements(startDay: FSCalendar().today!)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
@@ -198,7 +201,6 @@ final class AddViewModel {
             print(value)
             self?.outputStartDay.value = value
             self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
-            self?.outputEndDay.value = Calendar.current.date(byAdding: .month, value: (self?.outputPeriod.value)!, to: value)! //⭐️
         }
         
         inputPeriod.bind { [weak self] value in
