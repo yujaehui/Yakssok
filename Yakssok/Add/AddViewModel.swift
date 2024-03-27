@@ -203,7 +203,11 @@ final class AddViewModel {
         
         inputPeriod.bind { [weak self] value in
             self?.outputPeriod.value = value
-            self?.outputPeriodString.value = String(value) + "개월"
+            if value == 12 {
+                self?.outputPeriodString.value = "1년"
+            } else {
+                self?.outputPeriodString.value = String(value) + "개월"
+            }
         }
         
         inputCycle.bind { [weak self] value in

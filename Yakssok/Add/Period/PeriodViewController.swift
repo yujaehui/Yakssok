@@ -36,7 +36,6 @@ final class PeriodViewController: BaseViewController {
     func bindData() {
         viewModel.outputPeriod.bind { [weak self] value in
             guard let value = value else { return }
-            print("@@@", value)
             self?.pickerView.selectRow(value-1, inComponent: 0, animated: true)
             self?.selectPeriod?(value)
         }
