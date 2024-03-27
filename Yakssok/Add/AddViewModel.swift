@@ -100,6 +100,9 @@ final class AddViewModel {
             repository.createItem(data)
             
             generateScheduledSupplements(startDay: outputStartDay.value)
+            
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         updateTrigger.bind { [weak self] value in
@@ -140,6 +143,9 @@ final class AddViewModel {
             repository.deleteFutureItems(data: inputMySupplements.value, date: FSCalendar().today!)
             // 3. 새롭게 변화된 항목 추가
             generateScheduledSupplements(startDay: FSCalendar().today!)
+            
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         deleteButtonClicked.bind { [weak self] value in
@@ -150,6 +156,9 @@ final class AddViewModel {
             Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             repository.deleteItem(mySupplement)
             repository.deleteItems(inputMySupplements.value)
+            
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         inputType.bind { [weak self] value in
@@ -226,6 +235,31 @@ final class AddViewModel {
             }
             startDay = Calendar.current.date(byAdding: .day, value: 1, to: startDay)!
         }
+    }
+    
+    func createGroupDataDict() -> [(Date, [Date])] {
+        let supplements = self.repository.fetchAllItems()
+        var groupedDataDict: [Date : [Date]] = [:]
+        for supplement in supplements {
+            if var supplementsForTime = groupedDataDict[supplement.date] {
+                supplementsForTime.append(supplement.time)
+                groupedDataDict[supplement.date] = supplementsForTime
+            } else {
+                groupedDataDict[supplement.date] = [supplement.time]
+            }
+            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
+        }
+        return groupedDataDict.sorted{$0.key < $1.key}
+    }
+    
+    func getUniqueTimes(from times: [Date]) -> [Date] {
+        var uniqueTimesSet = Set<Date>()
+        
+        for time in times {
+            uniqueTimesSet.insert(time)
+        }
+        
+        return Array(uniqueTimesSet).sorted()
     }
 
 }

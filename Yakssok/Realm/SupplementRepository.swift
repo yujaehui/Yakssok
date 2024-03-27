@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import FSCalendar
 
 final class SupplementRepository {
     private let realm = try! Realm()
@@ -34,6 +35,11 @@ final class SupplementRepository {
     
     func fetchAllItem() -> [MySupplement] {
         let result = realm.objects(MySupplement.self)
+        return Array(result)
+    }
+    
+    func fetchAllItems() -> [MySupplements] {
+        let result = realm.objects(MySupplements.self).where { $0.date >= FSCalendar().today! }
         return Array(result)
     }
     

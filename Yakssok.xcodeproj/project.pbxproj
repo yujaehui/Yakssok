@@ -18,6 +18,7 @@
 		0906E9442BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */; };
 		0906E9562BADCA490098DF1A /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 0906E9552BADCA490098DF1A /* splash.json */; };
 		0906E9582BADCF280098DF1A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9572BADCF280098DF1A /* SplashView.swift */; };
+		094BE9D02BB40D1400342DC3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */; };
 		09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB32B9983AC0081E37E /* AppDelegate.swift */; };
 		09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB52B9983AC0081E37E /* SceneDelegate.swift */; };
 		09833BB82B9983AC0081E37E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB72B9983AC0081E37E /* ViewController.swift */; };
@@ -102,6 +103,7 @@
 		0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController.Detent+Extension.swift"; sourceTree = "<group>"; };
 		0906E9552BADCA490098DF1A /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		0906E9572BADCF280098DF1A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		09833BB02B9983AC0081E37E /* Yakssok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yakssok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09833BB32B9983AC0081E37E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09833BB52B9983AC0081E37E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				09833C122B99C3080081E37E /* Observable.swift */,
 				09911F652B9A0D190093009D /* Helpers.swift */,
 				09C157022B9C584A0008F86E /* DateFormatterManager.swift */,
+				094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */,
 			);
 			path = Yakssok;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */,
 				09C739E42B9F0DC900B200DE /* NameCollectionViewCell.swift in Sources */,
 				0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */,
+				094BE9D02BB40D1400342DC3 /* NotificationManager.swift in Sources */,
 				09ABD43A2BA45CAB00826A73 /* ImageCollectionViewCell.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */,
