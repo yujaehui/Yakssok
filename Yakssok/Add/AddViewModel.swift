@@ -35,7 +35,7 @@ final class AddViewModel {
     let inputAmount: Observable<Int> = Observable(1)
     let inputStartDay: Observable<Date> = Observable(FSCalendar().today!)
     let inputPeriod: Observable<Int> = Observable(1)
-    let inputCycle: Observable<[String]> = Observable(["월"])
+    let inputCycle: Observable<[String]> = Observable(DayOfTheWeek.allCases.map { $0.rawValue })
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
     
     // output

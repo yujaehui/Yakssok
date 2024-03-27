@@ -31,6 +31,13 @@ final class CycleViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var everyDayButton: UIButton = {
+       let button = UIButton()
+        button.configuration = .everyDay()
+        button.addTarget(self, action: #selector(everyDayButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var registrationButton: UIButton = {
        let button = UIButton()
         button.configuration = .registration(title: "등록")
@@ -45,11 +52,16 @@ final class CycleViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CycleViewController viewDidLoad")
+        viewModel.inputViewDidLoadTrigger.value = ()
         setNav()
         bindData()
     }
     
     private func bindData() {
+        viewModel.outputEveryDayIsSelected.bind { value in
+            self.everyDayButton.configuration?.baseForegroundColor = value ? ColorStyle.point : ColorStyle.grayBackground
+        }
+        
         viewModel.outputIsSelected.bind { value in
             self.registrationButton.configuration?.baseBackgroundColor = value ? ColorStyle.point : ColorStyle.grayBackground
             self.registrationButton.isUserInteractionEnabled = value
@@ -67,13 +79,20 @@ final class CycleViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(everyDayButton)
         view.addSubview(registrationButton)
     }
     
     override func configureConstraints() {
         collectionView.snp.makeConstraints { make in
-            make.height.equalTo(100)
-            make.center.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(60)
+            make.centerX.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        everyDayButton.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).offset(16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         registrationButton.snp.makeConstraints { make in
@@ -81,6 +100,10 @@ final class CycleViewController: BaseViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(44)
         }
+    }
+    
+    @objc private func everyDayButtonClicked() {
+        viewModel.inputEveryDayOfTheWeek.value = DayOfTheWeek.allCases.map { $0.rawValue }
     }
     
     @objc private func registrationButtonClicked() {

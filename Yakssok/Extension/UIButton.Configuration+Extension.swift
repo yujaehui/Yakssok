@@ -73,4 +73,24 @@ extension UIButton.Configuration {
         config.cornerStyle = .large
         return config
     }
+    
+    static func everyDay() -> Self {
+        var config = UIButton.Configuration.filled()
+        
+        var titleAttr = AttributedString.init("매일 복용")
+        titleAttr.font = FontStyle.content
+        titleAttr.foregroundColor = ColorStyle.text
+        config.attributedTitle = titleAttr
+        config.titleAlignment = .center
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+        config.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
+        config.imagePadding = 8
+        config.imagePlacement = .leading
+        
+        config.baseForegroundColor = ColorStyle.point
+        config.baseBackgroundColor = .clear
+        config.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+        return config
+    }
 }

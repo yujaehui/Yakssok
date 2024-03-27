@@ -11,16 +11,34 @@ import Foundation
 final class CycleViewModel {
     
     // input
+    let inputViewDidLoadTrigger: Observable<Void?> = Observable(nil)
     let inputSelectDayOfTheWeek: Observable<String?> = Observable(nil)
+    let inputEveryDayOfTheWeek: Observable<[String]?> = Observable(nil)
     let inputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
     
     // output
+    let outputEveryDayIsSelected: Observable<Bool> = Observable(true)
     let outputIsSelected: Observable<Bool> = Observable(false)
     var outputSelectDayOfTheWeekList: Observable<[String]> = Observable([])
     let outputDayOfTheWeekList: Observable<[String]?> = Observable(nil)
     
     
     init() {
+        inputViewDidLoadTrigger.bind { [weak self] _ in
+            guard let self = self else { return }
+            if self.outputSelectDayOfTheWeekList.value == [] {
+                self.outputIsSelected.value = false
+            } else {
+                self.outputIsSelected.value = true
+            }
+            
+            if self.outputSelectDayOfTheWeekList.value.count != DayOfTheWeek.allCases.count {
+                self.outputEveryDayIsSelected.value = false
+            } else {
+                self.outputEveryDayIsSelected.value = true
+            }
+        }
+        
         inputSelectDayOfTheWeek.bind { value in
             guard let value = value else { return }
             if self.outputSelectDayOfTheWeekList.value.contains(where: {$0 == value}) {
@@ -40,7 +58,34 @@ final class CycleViewModel {
                 self.outputIsSelected.value = false
             } else {
                 self.outputIsSelected.value = true
-
+            }
+            
+            if self.outputSelectDayOfTheWeekList.value.count != DayOfTheWeek.allCases.count {
+                self.outputEveryDayIsSelected.value = false
+            } else {
+                self.outputEveryDayIsSelected.value = true
+            }
+        }
+        
+        inputEveryDayOfTheWeek.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            if self.outputSelectDayOfTheWeekList.value == value {
+                self.outputSelectDayOfTheWeekList.value.removeAll()
+            } else {
+                self.outputSelectDayOfTheWeekList.value = value
+            }
+            
+            if self.outputSelectDayOfTheWeekList.value == [] {
+                self.outputIsSelected.value = false
+            } else {
+                self.outputIsSelected.value = true
+            }
+            
+            if self.outputSelectDayOfTheWeekList.value.count != DayOfTheWeek.allCases.count {
+                self.outputEveryDayIsSelected.value = false
+            } else {
+                self.outputEveryDayIsSelected.value = true
             }
         }
         
