@@ -51,13 +51,27 @@ final class CalendarViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.inputDidSelectTrigger.value = self.viewModel.inputDidSelectTrigger.value
+        self.viewModel.inputDidSelectDate.value = self.viewModel.inputDidSelectDate.value
         setTabBar()
     }
     
     private func bindData() {
         viewModel.outputGroupedDataDict.bind { value in
             self.tableView.reloadData()
+        }
+        
+        viewModel.outputShowAlert.bind { value in
+            guard let (showAlert, supplement) = value else { return }
+            if showAlert {
+                let alert = Helpers.shared.showAlert(title: "체크하기 전 확인!", message: "아직 오지 않은 날짜의 일정입니다.\n그럼에도 체크하시겠습니까?", btnTitle: "체크") { _ in
+                    self.viewModel.repository.updateIsCompleted(pk: supplement.pk)
+                    self.tableView.reloadData()
+                }
+                self.present(alert, animated: true)
+            } else {
+                self.viewModel.repository.updateIsCompleted(pk: supplement.pk)
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -129,7 +143,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTableViewCell.identifier, for: indexPath) as! CalendarTableViewCell
             cell.passDate = { value in
-                self.viewModel.inputDidSelectTrigger.value = value
+                self.viewModel.inputDidSelectDate.value = value
             }
             cell.passMoment = {
                 tableView.beginUpdates()
@@ -152,8 +166,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             let data = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row]
             cell.configureCell(data)
             cell.buttonAction = {
-                self.viewModel.repository.updateIsCompleted(pk: self.viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row].pk)
-                self.tableView.reloadData()
+                self.viewModel.inputDidCheckTime.value = data
                 if alldata.count == alldata.filter({ $0.isChecked }).count {
                     self.animationView.alpha = 1
                     self.animationView.isHidden = false

@@ -12,14 +12,16 @@ final class CalendarViewModel {
     let repository = SupplementRepository()
     
     //input
-    let inputDidSelectTrigger: Observable<Date> = Observable(FSCalendar().today!)
+    let inputDidSelectDate: Observable<Date> = Observable(FSCalendar().today!)
+    let inputDidCheckTime: Observable<MySupplements?> = Observable(nil)
     //let inputRefresh: Observable<[(Date, [MySupplements])]?> = Observable(nil)
     
     //output
     let outputGroupedDataDict: Observable<[(Date, [MySupplements])]> = Observable([])
+    let outputShowAlert: Observable<(Bool, MySupplements)?> = Observable(nil)
     
     init() {
-        inputDidSelectTrigger.bind { [weak self] value in
+        inputDidSelectDate.bind { [weak self] value in
             guard let self = self else { return }
             //guard let value = value else { return }
             let supplements = self.repository.fetchByDate(date: value)
@@ -33,6 +35,16 @@ final class CalendarViewModel {
                 }
             }
             self.outputGroupedDataDict.value = groupedDataDict.sorted{$0.key < $1.key}
+        }
+        
+        inputDidCheckTime.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            if value.date > FSCalendar().today! && value.isChecked == false {
+                outputShowAlert.value = (true, value)
+            } else {
+                outputShowAlert.value = (false, value)
+            }
         }
     }
 }
