@@ -91,7 +91,7 @@ final class CycleViewController: BaseViewController {
         }
         
         everyDayButton.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(16)
+            make.top.equalTo(collectionView.snp.bottom).offset(8)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
