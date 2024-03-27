@@ -10,7 +10,7 @@ import SnapKit
 
 final class TimePickerViewController: BaseViewController {
     var selectTime: ((Date) -> Void)?
-    var passUpdateMoment: ((Bool) -> Void)?
+    var passUpdateMoment: (((Bool, Date)?) -> Void)?
     
     let viewModel = TimePickerViewModel()
     
@@ -48,8 +48,9 @@ final class TimePickerViewController: BaseViewController {
         case .add: 
             viewModel.inputAddTime.value = timePicker.date
         case .modify:
+            passUpdateMoment?((true, timePicker.date))
+            print(timePicker.date)
             viewModel.inputAddTime.value = timePicker.date
-            passUpdateMoment?(true)
         }
         navigationController?.popViewController(animated: true)
     }

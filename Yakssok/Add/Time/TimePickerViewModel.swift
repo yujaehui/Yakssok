@@ -15,9 +15,11 @@ enum TimeAccessType: String {
 final class TimePickerViewModel {
     let inputType: Observable<TimeAccessType?> = Observable(nil)
     let inputAddTime: Observable<Date?> = Observable(nil)
+    let inputModifyTime: Observable<Date?> = Observable(nil)
     
     let outputType: Observable<TimeAccessType> = Observable(.add)
     let outputAddTime: Observable<Date?> = Observable(nil)
+    let outputAsBefore: Observable<Bool> = Observable(true)
     
     init() {
         inputType.bind { [weak self] value in
@@ -27,6 +29,11 @@ final class TimePickerViewModel {
         }
         
         inputAddTime.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.outputAddTime.value = value
+        }
+        
+        inputModifyTime.bind { [weak self] value in
             guard let value = value else { return }
             self?.outputAddTime.value = value
         }

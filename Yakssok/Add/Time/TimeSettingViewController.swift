@@ -84,7 +84,8 @@ final class TimeSettingViewController: BaseViewController {
             }
             vc.passUpdateMoment = { [weak self] value in
                 guard let self = self else { return }
-                if value {
+                guard let (value, date) = value else { return }
+                if value && !self.viewModel.outputSelectTimeList.value.contains(where: { $0 == date }) {
                     self.viewModel.outputSelectTimeList.value.remove(at: row)
                 } else {
                     return
