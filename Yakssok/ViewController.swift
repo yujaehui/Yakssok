@@ -25,7 +25,7 @@ class ViewController: UITabBarController {
     private func setSplash() {
         view.addSubview(splashView)
         splashView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view)
         }
         splashView.animationCompletionHandler = {
             self.splashView.isHidden = true
