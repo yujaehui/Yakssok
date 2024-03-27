@@ -35,8 +35,8 @@ class NotificationManager {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
         let content = UNMutableNotificationContent()
-        content.title = "Daily Notification"
-        content.body = "This is your daily notification"
+        content.title = "영양제 드시기로 약쏙한 시간입니다💜"
+        content.body = "영양제 챙겨 드시고, 약쏙에서 기록하세요!"
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
