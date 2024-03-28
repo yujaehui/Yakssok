@@ -19,9 +19,9 @@ class ViewController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = ColorStyle.background
         tabBar.tintColor = ColorStyle.point
-        
         setSplash()
         addVC()
+        viewModel.inputViewDidLoadTrigger.value = ()
     }
     
     private func setSplash() {
