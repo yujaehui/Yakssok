@@ -48,7 +48,6 @@ final class SearchViewController: BaseViewController {
     
     private func bindData() {
         viewModel.outputRow.bind { value in
-            print("!!!")
             self.searchTableView.reloadData()
             if !value.isEmpty && self.viewModel.inputStart.value == 1 {
                 self.searchTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -106,7 +105,7 @@ final class SearchViewController: BaseViewController {
 
 extension SearchViewController {
     private func setNav() {
-        navigationItem.title = "Search"
+        navigationItem.title = "영양제 검색"
         navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
     }
@@ -138,7 +137,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for item in indexPaths {
             if viewModel.outputRow.value.count - 3 == item.row && viewModel.outputEnd.value != item.row {
-                print("지금!")
                 viewModel.inputStart.value += 30
                 if viewModel.outputTotalCount.value != "0" {
                     self.viewModel.inputUpdateSearchResults.value = self.searchBar.text

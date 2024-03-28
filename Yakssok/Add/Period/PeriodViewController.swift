@@ -60,7 +60,6 @@ final class PeriodViewController: BaseViewController {
     }
     
     @objc private func registrationButtonClicked() {
-        print(pickerView.selectedRow(inComponent: 0) + 1)
         viewModel.inputPeriod.value = pickerView.selectedRow(inComponent: 0) + 1
         dismiss(animated: true)
     }

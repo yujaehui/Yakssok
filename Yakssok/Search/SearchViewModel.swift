@@ -30,7 +30,6 @@ final class SearchViewModel {
     init() {
         inputUpdateSearchResults.bind { value in
             guard let value = value else { return }
-            print(value)
             let product = Helpers.shared.replaceSpacesWithUnderscore(value)
             self.callRequest(product)
         }
@@ -50,7 +49,9 @@ final class SearchViewModel {
     
     private func callRequest(_ product: String) {
         print(outputStartString.value, outputEndString.value)
-        outputShowToast.value = true
+        if outputStartString.value == "1" {
+            outputShowToast.value = true
+        }
         APIService.shared.fetchSupplementAPI(api: SupplementAPI.supplement(startIdx: outputStartString.value, endIdx: outputEndString.value, PRDLST_NM: product)) { success, error in
             if error == nil {
                 guard let success = success else { return }

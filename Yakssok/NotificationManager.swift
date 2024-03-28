@@ -12,9 +12,18 @@ class NotificationManager {
     private init() {}
     
     func scheduleNotificationsFromSchedule(_ schedule: [(Date, [Date])]) {
+        let maxNotifications = 64 // 최대 예약 가능한 알림 수
+        var scheduledNotifications = 0 // 예약된 알림 수
+        
         for (date, times) in schedule {
             for time in times {
+                guard scheduledNotifications < maxNotifications else {
+                    print("Maximum notification limit reached.")
+                    return
+                }
+                
                 scheduleLocalNotification(date: date, time: timeComponents(from: time))
+                scheduledNotifications += 1
             }
         }
     }

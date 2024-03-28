@@ -198,7 +198,6 @@ final class AddViewModel {
         }
         
         inputStartDay.bind { [weak self] value in
-            print(value)
             self?.outputStartDay.value = value
             self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
         }

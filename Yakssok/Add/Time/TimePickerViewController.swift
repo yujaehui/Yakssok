@@ -49,7 +49,6 @@ final class TimePickerViewController: BaseViewController {
             viewModel.inputAddTime.value = timePicker.date
         case .modify:
             passUpdateMoment?((true, timePicker.date))
-            print(timePicker.date)
             viewModel.inputAddTime.value = timePicker.date
         }
         navigationController?.popViewController(animated: true)

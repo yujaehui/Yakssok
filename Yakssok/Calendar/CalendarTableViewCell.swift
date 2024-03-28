@@ -82,7 +82,6 @@ final class CalendarTableViewCell: BaseTableViewCell {
 
 extension CalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        print(bounds.height)
         calendar.snp.updateConstraints {
             $0.height.equalTo(bounds.height)
         }

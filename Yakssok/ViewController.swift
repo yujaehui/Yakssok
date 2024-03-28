@@ -11,6 +11,8 @@ import SnapKit
 
 class ViewController: UITabBarController {
     
+    let viewModel = ViewModel()
+    
     let splashView = SplashView()
     
     override func viewDidLoad() {
