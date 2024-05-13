@@ -17,10 +17,10 @@ final class CalendarTableViewCell: BaseTableViewCell {
         let calendar = CustomCalendar()
         calendar.delegate = self
         calendar.dataSource = self
-        calendar.backgroundColor = ColorStyle.grayBackground
         calendar.select(Date())
         calendar.appearance.headerTitleColor = .clear
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        calendar.backgroundColor = ColorStyle.grayBackground
         return calendar
     }()
     
@@ -38,6 +38,19 @@ final class CalendarTableViewCell: BaseTableViewCell {
         button.addTarget(self, action: #selector(tapToggleButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func tapToggleButton() {
+        if self.calendar.scope == .month { // 월 -> 주
+            self.calendar.setScope(.week, animated: true)
+            self.toggleButton.configuration = .toggle(image: "chevron.down")
+            self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.selectedDate ?? calendar.currentPage)
+        } else { // 주 -> 월
+            self.calendar.setScope(.month, animated: true)
+            self.toggleButton.configuration = .toggle(image: "chevron.up")
+            self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.currentPage)
+        }
+        passMoment?()
+    }
     
     override func configureHierarchy() {
         contentView.addSubview(calendar)
@@ -64,19 +77,6 @@ final class CalendarTableViewCell: BaseTableViewCell {
             make.trailing.equalTo(contentView).inset(32)
             make.height.equalTo(32)
         }
-    }
-    
-    @objc private func tapToggleButton() {
-        if self.calendar.scope == .month {
-            self.calendar.setScope(.week, animated: true)
-            self.toggleButton.configuration = .toggle(image: "chevron.down")
-            self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.selectedDate ?? calendar.currentPage)
-        } else {
-            self.calendar.setScope(.month, animated: true)
-            self.toggleButton.configuration = .toggle(image: "chevron.up")
-            self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.currentPage)
-        }
-        passMoment?()
     }
 }
 

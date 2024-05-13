@@ -63,7 +63,7 @@ final class CalendarViewController: BaseViewController {
         viewModel.outputShowAlert.bind { value in
             guard let (showAlert, supplement) = value else { return }
             if showAlert {
-                let alert = Helpers.shared.showAlert(title: "체크하기 전 확인!", message: "아직 오지 않은 날짜의 일정입니다.\n그럼에도 체크하시겠습니까?", btnTitle: "체크") { _ in
+                let alert = AlertManager.shared.showAlert(title: "체크하기 전 확인!", message: "아직 오지 않은 날짜의 일정입니다.\n그럼에도 체크하시겠습니까?", btnTitle: "체크") { _ in
                     self.viewModel.repository.updateIsCompleted(pk: supplement.pk)
                     self.tableView.reloadData()
                 }
@@ -89,10 +89,6 @@ final class CalendarViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        animationView.stop()
-//    }
 }
 
 extension CalendarViewController {
@@ -162,26 +158,28 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as! ScheduleTableViewCell
-            let alldata = self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }
+            let allData = self.viewModel.outputGroupedDataDict.value.flatMap { $0.1 }
             let data = viewModel.outputGroupedDataDict.value[indexPath.section - 2].1[indexPath.row]
             cell.configureCell(data)
             cell.buttonAction = {
                 self.viewModel.inputDidCheckTime.value = data
-                if alldata.count == alldata.filter({ $0.isChecked }).count {
-                    self.animationView.alpha = 1
-                    self.animationView.isHidden = false
-                    self.animationView.play { _ in
-                        UIView.animate(withDuration: 0.1, animations: {
-                            self.animationView.alpha = 0
-                        }, completion: { _ in
-                            self.animationView.isHidden = true
-                        })
-                    }
-                }
+                self.showAnimation(allData)
             }
             return cell
         }
     }
+    
+    private func showAnimation(_ allData: [MySupplements]) {
+        if allData.count == allData.filter({ $0.isChecked }).count {
+            self.animationView.alpha = 1
+            self.animationView.isHidden = false
+            self.animationView.play { _ in
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.animationView.alpha = 0
+                }, completion: { _ in
+                    self.animationView.isHidden = true
+                })
+            }
+        }
+    }
 }
-
-// 🌱

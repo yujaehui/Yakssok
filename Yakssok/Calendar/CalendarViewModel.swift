@@ -14,7 +14,6 @@ final class CalendarViewModel {
     //input
     let inputDidSelectDate: Observable<Date> = Observable(FSCalendar().today!)
     let inputDidCheckTime: Observable<MySupplements?> = Observable(nil)
-    //let inputRefresh: Observable<[(Date, [MySupplements])]?> = Observable(nil)
     
     //output
     let outputGroupedDataDict: Observable<[(Date, [MySupplements])]> = Observable([])
@@ -23,7 +22,6 @@ final class CalendarViewModel {
     init() {
         inputDidSelectDate.bind { [weak self] value in
             guard let self = self else { return }
-            //guard let value = value else { return }
             let supplements = self.repository.fetchByDate(date: value)
             var groupedDataDict: [Date : [MySupplements]] = [:]
             for supplement in supplements {
@@ -48,5 +46,3 @@ final class CalendarViewModel {
         }
     }
 }
-
-// 🌱

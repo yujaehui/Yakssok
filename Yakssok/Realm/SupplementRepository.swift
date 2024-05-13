@@ -11,9 +11,10 @@ import FSCalendar
 
 final class SupplementRepository {
     private let realm = try! Realm()
+//    print(realm.configuration.fileURL)
     
+    // MARK: - Create
     func createItem(_ data: MySupplement) {
-        print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(data)
@@ -33,6 +34,7 @@ final class SupplementRepository {
         }
     }
     
+    // MARK: - Fetch
     func fetchAllItem() -> [MySupplement] {
         let result = realm.objects(MySupplement.self)
         return Array(result)
@@ -43,7 +45,7 @@ final class SupplementRepository {
         return Array(result)
     }
     
-    func fetchItmes(name: String) -> [MySupplements] {
+    func fetchByName(name: String) -> [MySupplements] {
         let result = realm.objects(MySupplements.self).where { $0.name == name }
         return Array(result)
     }
@@ -53,6 +55,7 @@ final class SupplementRepository {
         return Array(result)
     }
     
+    // MARK: - Update
     func updateIsCompleted(pk: ObjectId) {
         do {
             try realm.write {
@@ -91,7 +94,7 @@ final class SupplementRepository {
         }
     }
 
-    
+    // MARK: - Delete
     func deleteItem(_ data: MySupplement) {
         do {
             try realm.write{
@@ -121,5 +124,4 @@ final class SupplementRepository {
             print(error)
         }
     }
-    
 }

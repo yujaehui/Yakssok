@@ -18,6 +18,8 @@
 		0906E9442BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */; };
 		0906E9562BADCA490098DF1A /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 0906E9552BADCA490098DF1A /* splash.json */; };
 		0906E9582BADCF280098DF1A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9572BADCF280098DF1A /* SplashView.swift */; };
+		093289662BF22BB900C8F52E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093289652BF22BB900C8F52E /* AlertManager.swift */; };
+		093289682BF22C5300C8F52E /* ImageDocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093289672BF22C5300C8F52E /* ImageDocumentManager.swift */; };
 		094BE9D02BB40D1400342DC3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */; };
 		094BE9E92BB5275B00342DC3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 094BE9E82BB5275B00342DC3 /* GoogleService-Info.plist */; };
 		094BE9EC2BB5281800342DC3 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 094BE9EB2BB5281800342DC3 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -114,6 +116,8 @@
 		0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController.Detent+Extension.swift"; sourceTree = "<group>"; };
 		0906E9552BADCA490098DF1A /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		0906E9572BADCF280098DF1A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		093289652BF22BB900C8F52E /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		093289672BF22C5300C8F52E /* ImageDocumentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDocumentManager.swift; sourceTree = "<group>"; };
 		094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		094BE9E82BB5275B00342DC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		094BE9FE2BB5DFF100342DC3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -232,6 +236,25 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		0932892A2BF1A21100C8F52E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09ABD4772BA997B400826A73 /* CalendarTableViewCell.swift */,
+				09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */,
+				09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */,
+				09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		093289642BF228E900C8F52E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		09833BA72B9983AC0081E37E = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +299,8 @@
 				09911F652B9A0D190093009D /* Helpers.swift */,
 				09C157022B9C584A0008F86E /* DateFormatterManager.swift */,
 				094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */,
+				093289652BF22BB900C8F52E /* AlertManager.swift */,
+				093289672BF22C5300C8F52E /* ImageDocumentManager.swift */,
 			);
 			path = Yakssok;
 			sourceTree = "<group>";
@@ -339,9 +364,9 @@
 		09ABD4462BA5653400826A73 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				093289642BF228E900C8F52E /* Cell */,
 				09ABD44B2BA57D0500826A73 /* MyViewModel.swift */,
 				09ABD4472BA5654C00826A73 /* MyViewController.swift */,
-				09ABD44F2BA587D900826A73 /* MyCollectionViewCell.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -420,12 +445,9 @@
 		09C739E02B9ED4F300B200DE /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				0932892A2BF1A21100C8F52E /* Cell */,
 				09ABD4342BA18E9700826A73 /* CalendarViewModel.swift */,
 				09C739E12B9ED52F00B200DE /* CalendarViewController.swift */,
-				09ABD4772BA997B400826A73 /* CalendarTableViewCell.swift */,
-				09ABD47B2BA9B56900826A73 /* EmptyTableViewCell.swift */,
-				09ABD4792BA998E900826A73 /* ChartTableViewCell.swift */,
-				09ABD4442BA4A3AB00826A73 /* ScheduleTableViewCell.swift */,
 				09ABD47F2BA9C9D200826A73 /* ScheduleHeaderView.swift */,
 			);
 			path = Calendar;
@@ -585,6 +607,7 @@
 				09ABD4352BA18E9700826A73 /* CalendarViewModel.swift in Sources */,
 				0906E9292BAC611C0098DF1A /* CustomLabel.swift in Sources */,
 				09ABD46D2BA8919400826A73 /* UIButton.Configuration+Extension.swift in Sources */,
+				093289662BF22BB900C8F52E /* AlertManager.swift in Sources */,
 				09ABD4842BA9D1B300826A73 /* CustomImageView.swift in Sources */,
 				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,
 				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
@@ -610,6 +633,7 @@
 				0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */,
 				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */,
+				093289682BF22C5300C8F52E /* ImageDocumentManager.swift in Sources */,
 				09ABD4822BA9D09000826A73 /* CustomTextField.swift in Sources */,
 				09833C092B99B28D0081E37E /* APIKey.swift in Sources */,
 				09ABD46B2BA8845600826A73 /* UITextField+Extension.swift in Sources */,

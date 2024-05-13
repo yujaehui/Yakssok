@@ -110,7 +110,7 @@ final class AddViewController: BaseViewController {
         
         viewModel.deleteTrigger.bind { [weak self] value in
             guard let _ = value else { return }
-            let alert = Helpers.shared.showDestructiveAlert(title: "영양제를 삭제하시겠습니까?", message: "과거 복용 기록도 함께 삭제되며,\n이 작업은 되돌릴 수 없습니다.") { _ in
+            let alert = AlertManager.shared.showDestructiveAlert(title: "영양제를 삭제하시겠습니까?", message: "과거 복용 기록도 함께 삭제되며,\n이 작업은 되돌릴 수 없습니다.") { _ in
                 self?.viewModel.deleteButtonClicked.value = ()
                 self?.navigationController?.popViewController(animated: true)
             }

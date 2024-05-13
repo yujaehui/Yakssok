@@ -71,17 +71,19 @@ final class MyViewController: BaseViewController {
     private func updateSnapshot() {
         let items = viewModel.repository.fetchAllItem()
         if items.isEmpty {
-            collectionView.isHidden = true
-            emptyLabel.isHidden = false
+            emptyViewSetting(true)
         } else {
-            collectionView.isHidden = false
-            emptyLabel.isHidden = true
-            
+            emptyViewSetting(false)
             var snapshot = NSDiffableDataSourceSnapshot<MySection, MySupplement>()
             snapshot.appendSections(MySection.allCases)
             snapshot.appendItems(items, toSection: .main)
             dataSource.apply(snapshot)
         }
+    }
+    
+    private func emptyViewSetting(_ isEmpty: Bool) {
+        collectionView.isHidden = isEmpty
+        emptyLabel.isHidden = !isEmpty
     }
 }
 
@@ -130,7 +132,7 @@ extension MyViewController: UICollectionViewDelegate {
         let vc = AddViewController()
         vc.viewModel.inputType.value = .update
         vc.viewModel.inputMySupplement.value = viewModel.repository.fetchAllItem()[row]
-        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchItmes(name: viewModel.repository.fetchAllItem()[row].name)
+        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchByName(name: viewModel.repository.fetchAllItem()[row].name)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

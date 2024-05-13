@@ -91,12 +91,11 @@ final class AddViewModel {
             
             outputNameStatus.value = .possibleName
             
-            
             outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             if outputImage.value != ImageStyle.supplement {
-                Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
+                ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             }
             
             repository.createItem(data)
@@ -104,7 +103,11 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: outputStartDay.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            let supplements = repository.fetchAllItem()
+            for supplement in supplements {
+                NotificationManager.shared.registerLocalNotification(for: supplement)
+            }
         }
         
         updateTrigger.bind { [weak self] value in
@@ -128,27 +131,33 @@ final class AddViewModel {
             outputNameStatus.value = .possibleName
             
             // 1. 이전 이미지가 있다면 제거
-            if Helpers.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
-                Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            if ImageDocumentManager.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
+                ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             }
             // 2. 현재 이미지가 기본 이미지가 아니라면 저장
             if outputImage.value != ImageStyle.supplement {
-                Helpers.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
+                ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
             }
+            
+            // outputEndDay의 값을 따로 넣어주지 않으면, 오늘 날짜로 복용 종료일이 변경되어 버림
+            // 렘에 저장하기 전에 바꿔주는 것이 중요!
+            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!
             
             repository.updateItem(data: mySupplement, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value, name: outputName.value, amount: outputAmount.value)
             
-            // MARK: important
             // 1. 이름 변경
             repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
             // 2. 오늘 날짜 이후의 항목 제거
             repository.deleteFutureItems(data: inputMySupplements.value, date: FSCalendar().today!)
             // 3. 새롭게 변화된 항목 추가
-            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
             generateScheduledSupplements(startDay: FSCalendar().today!)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            let supplements = repository.fetchAllItem()
+            for supplement in supplements {
+                NotificationManager.shared.registerLocalNotification(for: supplement)
+            }
         }
         
         deleteButtonClicked.bind { [weak self] value in
@@ -156,12 +165,16 @@ final class AddViewModel {
             guard let _ = value else { return }
             
             guard let mySupplement = inputMySupplement.value else { return }
-            Helpers.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             repository.deleteItem(mySupplement)
             repository.deleteItems(inputMySupplements.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            let supplements = repository.fetchAllItem()
+            for supplement in supplements {
+                NotificationManager.shared.registerLocalNotification(for: supplement)
+            }
         }
         
         inputType.bind { [weak self] value in
@@ -172,7 +185,7 @@ final class AddViewModel {
         inputMySupplement.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
-            inputImage.value = Helpers.shared.loadImageToDocument(fileName: "\(value.pk)")
+            inputImage.value = ImageDocumentManager.shared.loadImageToDocument(fileName: "\(value.pk)")
             inputName.value = value.name
             inputAmount.value = value.amount
             inputStartDay.value = value.startDay
@@ -242,29 +255,29 @@ final class AddViewModel {
         }
     }
     
-    func createGroupDataDict() -> [(Date, [Date])] {
-        let supplements = self.repository.fetchAllItems()
-        var groupedDataDict: [Date : [Date]] = [:]
-        for supplement in supplements {
-            if var supplementsForTime = groupedDataDict[supplement.date] {
-                supplementsForTime.append(supplement.time)
-                groupedDataDict[supplement.date] = supplementsForTime
-            } else {
-                groupedDataDict[supplement.date] = [supplement.time]
-            }
-            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
-        }
-        return groupedDataDict.sorted{$0.key < $1.key}
-    }
-    
-    func getUniqueTimes(from times: [Date]) -> [Date] {
-        var uniqueTimesSet = Set<Date>()
-        
-        for time in times {
-            uniqueTimesSet.insert(time)
-        }
-        
-        return Array(uniqueTimesSet).sorted()
-    }
+//    func createGroupDataDict() -> [(Date, [Date])] {
+//        let supplements = self.repository.fetchAllItems()
+//        var groupedDataDict: [Date : [Date]] = [:]
+//        for supplement in supplements {
+//            if var supplementsForTime = groupedDataDict[supplement.date] {
+//                supplementsForTime.append(supplement.time)
+//                groupedDataDict[supplement.date] = supplementsForTime
+//            } else {
+//                groupedDataDict[supplement.date] = [supplement.time]
+//            }
+//            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
+//        }
+//        return groupedDataDict.sorted{$0.key < $1.key}
+//    }
+//    
+//    func getUniqueTimes(from times: [Date]) -> [Date] {
+//        var uniqueTimesSet = Set<Date>()
+//        
+//        for time in times {
+//            uniqueTimesSet.insert(time)
+//        }
+//        
+//        return Array(uniqueTimesSet).sorted()
+//    }
 
 }

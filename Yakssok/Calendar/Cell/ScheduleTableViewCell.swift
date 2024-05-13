@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class ScheduleTableViewCell: BaseTableViewCell {
+    var buttonAction: (() -> Void)?
+    
     private let backView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -40,8 +42,10 @@ final class ScheduleTableViewCell: BaseTableViewCell {
         return button
     }()
     
-    var buttonAction: (() -> Void)?
-    
+    @objc func checkButtonClicked() {
+        buttonAction?()
+    }
+        
     override func prepareForReuse() {
         super.prepareForReuse()
         buttonAction = nil
@@ -74,10 +78,6 @@ final class ScheduleTableViewCell: BaseTableViewCell {
             make.trailing.equalTo(backView).inset(16)
             make.size.equalTo(60)
         }
-    }
-    
-    @objc func checkButtonClicked() {
-        buttonAction?()
     }
     
     func configureCell(_ data: MySupplements) {

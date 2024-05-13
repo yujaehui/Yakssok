@@ -88,7 +88,7 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(_ itemIdentifier: MySupplement) {
-        if let image = Helpers.shared.loadImageToDocument(fileName: "\(itemIdentifier.pk)") {
+        if let image = ImageDocumentManager.shared.loadImageToDocument(fileName: "\(itemIdentifier.pk)") {
             imageView.image = image
         } else {
             imageView.image = ImageStyle.supplement
@@ -98,7 +98,6 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
         } else {
             dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + itemIdentifier.cycleArray.joined(separator: ", ")
         }
-        
         nameLabel.text = itemIdentifier.name
         countInfoLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amount)개씩 복용"
     }
