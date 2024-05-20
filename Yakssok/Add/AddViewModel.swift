@@ -103,11 +103,7 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: outputStartDay.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
-            let supplements = repository.fetchAllItem()
-            for supplement in supplements {
-                NotificationManager.shared.registerLocalNotification(for: supplement)
-            }
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         updateTrigger.bind { [weak self] value in
@@ -153,11 +149,7 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: FSCalendar().today!)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
-            let supplements = repository.fetchAllItem()
-            for supplement in supplements {
-                NotificationManager.shared.registerLocalNotification(for: supplement)
-            }
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         deleteButtonClicked.bind { [weak self] value in
@@ -170,11 +162,7 @@ final class AddViewModel {
             repository.deleteItems(inputMySupplements.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            //NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
-            let supplements = repository.fetchAllItem()
-            for supplement in supplements {
-                NotificationManager.shared.registerLocalNotification(for: supplement)
-            }
+            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
         }
         
         inputType.bind { [weak self] value in
@@ -255,29 +243,29 @@ final class AddViewModel {
         }
     }
     
-//    func createGroupDataDict() -> [(Date, [Date])] {
-//        let supplements = self.repository.fetchAllItems()
-//        var groupedDataDict: [Date : [Date]] = [:]
-//        for supplement in supplements {
-//            if var supplementsForTime = groupedDataDict[supplement.date] {
-//                supplementsForTime.append(supplement.time)
-//                groupedDataDict[supplement.date] = supplementsForTime
-//            } else {
-//                groupedDataDict[supplement.date] = [supplement.time]
-//            }
-//            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
-//        }
-//        return groupedDataDict.sorted{$0.key < $1.key}
-//    }
-//    
-//    func getUniqueTimes(from times: [Date]) -> [Date] {
-//        var uniqueTimesSet = Set<Date>()
-//        
-//        for time in times {
-//            uniqueTimesSet.insert(time)
-//        }
-//        
-//        return Array(uniqueTimesSet).sorted()
-//    }
+    func createGroupDataDict() -> [(Date, [Date])] {
+        let supplements = self.repository.fetchAllItems()
+        var groupedDataDict: [Date : [Date]] = [:]
+        for supplement in supplements {
+            if var supplementsForTime = groupedDataDict[supplement.date] {
+                supplementsForTime.append(supplement.time)
+                groupedDataDict[supplement.date] = supplementsForTime
+            } else {
+                groupedDataDict[supplement.date] = [supplement.time]
+            }
+            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
+        }
+        return groupedDataDict.sorted{$0.key < $1.key}
+    }
+    
+    func getUniqueTimes(from times: [Date]) -> [Date] {
+        var uniqueTimesSet = Set<Date>()
+        
+        for time in times {
+            uniqueTimesSet.insert(time)
+        }
+        
+        return Array(uniqueTimesSet).sorted()
+    }
 
 }

@@ -10,8 +10,8 @@ import RealmSwift
 import FSCalendar
 
 final class SupplementRepository {
+    //        print(realm.configuration.fileURL)
     private let realm = try! Realm()
-//    print(realm.configuration.fileURL)
     
     // MARK: - Create
     func createItem(_ data: MySupplement) {
@@ -93,7 +93,7 @@ final class SupplementRepository {
             print(error)
         }
     }
-
+    
     // MARK: - Delete
     func deleteItem(_ data: MySupplement) {
         do {
