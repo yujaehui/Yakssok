@@ -1,5 +1,5 @@
 //
-//  Helpers.swift
+//  SearchManger.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/7/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class Helpers {
-    static let shared = Helpers()
+final class SearchManger {
+    static let shared = SearchManger()
     private init() {}
     
     func replaceSpacesWithUnderscore(_ text: String) -> String {

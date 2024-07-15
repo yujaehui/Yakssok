@@ -39,7 +39,7 @@ final class SearchResultTableViewCell: BaseTableViewCell {
     }
     
     func configureCell(_ data: Row, searchText: String) {
-        resultNameLabel.attributedText = Helpers.shared.changeSearchResultText(data.prdlstNm, changeText: searchText)
+        resultNameLabel.attributedText = SearchManger.shared.changeSearchResultText(data.prdlstNm, changeText: searchText)
         resultBrandLabel.text = data.bsshNm
     }
 }

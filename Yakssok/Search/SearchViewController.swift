@@ -130,7 +130,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.inputName.value = Helpers.shared.changeSearchResultText(viewModel.outputRow.value[indexPath.row].prdlstNm, changeText: "").string
+        viewModel.inputName.value = SearchManger.shared.changeSearchResultText(viewModel.outputRow.value[indexPath.row].prdlstNm, changeText: "").string
         dismiss(animated: true)
     }
     

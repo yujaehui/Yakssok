@@ -30,7 +30,7 @@ final class SearchViewModel {
     init() {
         inputUpdateSearchResults.bind { value in
             guard let value = value else { return }
-            let product = Helpers.shared.replaceSpacesWithUnderscore(value)
+            let product = SearchManger.shared.replaceSpacesWithUnderscore(value)
             self.callRequest(product)
         }
         
