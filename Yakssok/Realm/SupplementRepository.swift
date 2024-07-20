@@ -9,8 +9,9 @@ import Foundation
 import RealmSwift
 import FSCalendar
 
+// print(realm.configuration.fileURL)
+
 final class SupplementRepository {
-    //        print(realm.configuration.fileURL)
     private let realm = try! Realm()
     
     // MARK: - Create

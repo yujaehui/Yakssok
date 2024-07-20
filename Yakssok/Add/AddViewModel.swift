@@ -15,10 +15,11 @@ enum AccessType: String {
     case update = "수정"
 }
 
-enum NameStatus: String {
-    case possibleName
-    case sameName = "같은 이름의 영양제가 이미 존재합니다."
-    case emptyName = "영양제 이름을 입력해주세요."
+enum RegistrationStatus: String {
+    case success
+    case duplicateName = "같은 이름의 영양제가 이미 존재합니다."
+    case noName = "영양제 이름을 입력해주세요."
+    case limitExceeded = "영양제를 이미 많은 시간에 등록하셨습니다.\n다른 영양제와 같이 복용하신다면\n복용 시간을 같은 시간으로 설정해보세요."
 }
 
 final class AddViewModel {
@@ -67,7 +68,7 @@ final class AddViewModel {
     let deleteTrigger: Observable<Void?> = Observable(nil)
     let deleteButtonClicked: Observable<Void?> = Observable(nil)
     
-    let outputNameStatus: Observable<NameStatus?> = Observable(nil)
+    let outputRegistrationStatus: Observable<RegistrationStatus?> = Observable(nil)
     
     var presentSearchVC: Observable<Void?> = Observable(nil)
     
@@ -79,17 +80,29 @@ final class AddViewModel {
             // 1. 이미 같은 이름이 있는지 확인
             for i in repository.fetchAllItem() {
                 if i.name == outputName.value {
-                    outputNameStatus.value = .sameName
+                    outputRegistrationStatus.value = .duplicateName
                     return
                 }
             }
             // 2. 이름이 비었는지 확인
             if outputName.value.isEmpty {
-                outputNameStatus.value = .emptyName
+                outputRegistrationStatus.value = .noName
                 return
             }
             
-            outputNameStatus.value = .possibleName
+            // 3. 임시로 데이터를 추가하고 알림 갯수 확인
+            let temporaryData = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            
+            // 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
+            var allSupplements = repository.fetchAllItem()
+            allSupplements.append(temporaryData)
+            
+            if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
+                outputRegistrationStatus.value = .limitExceeded
+                return
+            }
+            
+            outputRegistrationStatus.value = .success
             
             outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
             let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
@@ -103,7 +116,9 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: outputStartDay.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
+            
+            print(totalTimesCount(from: convertToDictionary(supplements: repository.fetchAllItem())))
         }
         
         updateTrigger.bind { [weak self] value in
@@ -114,17 +129,30 @@ final class AddViewModel {
             // 1. 이미 같은 이름이 있는지 확인
             for i in repository.fetchAllItem() {
                 if i.name !=  mySupplement.name && i.name == outputName.value {
-                    outputNameStatus.value = .sameName
+                    outputRegistrationStatus.value = .duplicateName
                     return
                 }
             }
             // 2. 이름이 비었는지 확인
             if outputName.value.isEmpty {
-                outputNameStatus.value = .emptyName
+                outputRegistrationStatus.value = .noName
                 return
             }
             
-            outputNameStatus.value = .possibleName
+            // 3. 임시로 데이터를 업데이트하고 알림 갯수 확인
+            let currentSupplements = repository.fetchAllItem().filter { $0.pk != mySupplement.pk }
+            let updatedSupplement = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            
+            // 기존 데이터에 업데이트된 데이터를 포함하여 알림 갯수를 시뮬레이션
+            var allSupplements = currentSupplements
+            allSupplements.append(updatedSupplement)
+            
+            if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
+                outputRegistrationStatus.value = .limitExceeded
+                return
+            }
+            
+            outputRegistrationStatus.value = .success
             
             // 1. 이전 이미지가 있다면 제거
             if ImageDocumentManager.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
@@ -149,7 +177,7 @@ final class AddViewModel {
             generateScheduledSupplements(startDay: FSCalendar().today!)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
         }
         
         deleteButtonClicked.bind { [weak self] value in
@@ -162,7 +190,7 @@ final class AddViewModel {
             repository.deleteItems(inputMySupplements.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
         }
         
         inputType.bind { [weak self] value in
@@ -223,6 +251,31 @@ final class AddViewModel {
         }
     }
     
+    func convertToDictionary(supplements: [MySupplement]) -> [(Int, [Date])] {
+        var resultDict: [Int: [Date]] = [:]
+        
+        for supplement in supplements {
+            for day in supplement.cycle {
+                let dayNumber = DateFormatterManager.shared.dayOfWeekToNumber(day)
+                for time in supplement.time {
+                    resultDict.append(value: time, forKey: dayNumber)
+                }
+            }
+        }
+        
+        let sortedDict = resultDict.sorted { $0.key < $1.key }
+        return sortedDict
+    }
+    
+    func totalTimesCount(from dictionary: [(Int, [Date])]) -> Int {
+        let count = dictionary.reduce(0) { $0 + $1.1.count }
+        print("총 등록된 알림 갯수 \(count)")
+        return count
+    }
+    
+    
+    // MARK: - function to be removed
+    
     func generateScheduledSupplements(startDay: Date) {
         var startDay = startDay
         let endDate = outputEndDay.value
@@ -242,30 +295,4 @@ final class AddViewModel {
             startDay = Calendar.current.date(byAdding: .day, value: 1, to: startDay)!
         }
     }
-    
-    func createGroupDataDict() -> [(Date, [Date])] {
-        let supplements = self.repository.fetchAllItems()
-        var groupedDataDict: [Date : [Date]] = [:]
-        for supplement in supplements {
-            if var supplementsForTime = groupedDataDict[supplement.date] {
-                supplementsForTime.append(supplement.time)
-                groupedDataDict[supplement.date] = supplementsForTime
-            } else {
-                groupedDataDict[supplement.date] = [supplement.time]
-            }
-            groupedDataDict[supplement.date] = self.getUniqueTimes(from: groupedDataDict[supplement.date]!)
-        }
-        return groupedDataDict.sorted{$0.key < $1.key}
-    }
-    
-    func getUniqueTimes(from times: [Date]) -> [Date] {
-        var uniqueTimesSet = Set<Date>()
-        
-        for time in times {
-            uniqueTimesSet.insert(time)
-        }
-        
-        return Array(uniqueTimesSet).sorted()
-    }
-
 }

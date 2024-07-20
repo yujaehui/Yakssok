@@ -31,7 +31,6 @@
 		094BE9F82BB5281800342DC3 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 094BE9F72BB5281800342DC3 /* FirebaseRemoteConfigSwift */; };
 		094BE9FA2BB5281800342DC3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 094BE9F92BB5281800342DC3 /* FirebaseStorage */; };
 		094BE9FC2BB5281800342DC3 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 094BE9FB2BB5281800342DC3 /* FirebaseStorageCombine-Community */; };
-		094BE9FF2BB5DFF100342DC3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094BE9FE2BB5DFF100342DC3 /* ViewModel.swift */; };
 		09833BB42B9983AC0081E37E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB32B9983AC0081E37E /* AppDelegate.swift */; };
 		09833BB62B9983AC0081E37E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB52B9983AC0081E37E /* SceneDelegate.swift */; };
 		09833BB82B9983AC0081E37E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09833BB72B9983AC0081E37E /* ViewController.swift */; };
@@ -103,6 +102,8 @@
 		09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */; };
 		09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739F72BA049F300B200DE /* SupplementRepository.swift */; };
 		09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739FB2BA04B7800B200DE /* MySupplement.swift */; };
+		09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */; };
+		09EB7A702C4B9057001E0470 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6F2C4B9057001E0470 /* ToastManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,7 +121,6 @@
 		093289672BF22C5300C8F52E /* ImageDocumentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDocumentManager.swift; sourceTree = "<group>"; };
 		094BE9CF2BB40D1400342DC3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		094BE9E82BB5275B00342DC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		094BE9FE2BB5DFF100342DC3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		09833BB02B9983AC0081E37E /* Yakssok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yakssok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09833BB32B9983AC0081E37E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09833BB52B9983AC0081E37E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +186,8 @@
 		09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountCollectionViewCell.swift; sourceTree = "<group>"; };
 		09C739F72BA049F300B200DE /* SupplementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementRepository.swift; sourceTree = "<group>"; };
 		09C739FB2BA04B7800B200DE /* MySupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplement.swift; sourceTree = "<group>"; };
+		09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		09EB7A6F2C4B9057001E0470 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +293,6 @@
 				09833BB32B9983AC0081E37E /* AppDelegate.swift */,
 				09833BB52B9983AC0081E37E /* SceneDelegate.swift */,
 				09833BB72B9983AC0081E37E /* ViewController.swift */,
-				094BE9FE2BB5DFF100342DC3 /* ViewModel.swift */,
 				09833BB92B9983AC0081E37E /* Main.storyboard */,
 				09833BBC2B9983AE0081E37E /* Assets.xcassets */,
 				09833BBE2B9983AE0081E37E /* LaunchScreen.storyboard */,
@@ -331,6 +332,7 @@
 				09ABD46C2BA8919400826A73 /* UIButton.Configuration+Extension.swift */,
 				0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */,
 				0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */,
+				09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -393,8 +395,8 @@
 		09C156C12B9AFBFF0008F86E /* Add */ = {
 			isa = PBXGroup;
 			children = (
-				09C156F62B9C2C5D0008F86E /* AddViewModel.swift */,
 				09C156F42B9B93790008F86E /* AddViewController.swift */,
+				09C156F62B9C2C5D0008F86E /* AddViewModel.swift */,
 				09C739E32B9F0DC900B200DE /* NameCollectionViewCell.swift */,
 				09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */,
 				09ABD46E2BA8937800826A73 /* CommonCollectionViewCell.swift */,
@@ -467,6 +469,7 @@
 				093289652BF22BB900C8F52E /* AlertManager.swift */,
 				093289672BF22C5300C8F52E /* ImageDocumentManager.swift */,
 				09911F652B9A0D190093009D /* SearchManger.swift */,
+				09EB7A6F2C4B9057001E0470 /* ToastManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -632,7 +635,6 @@
 				09C739F82BA049F300B200DE /* SupplementRepository.swift in Sources */,
 				09C739E62B9F13EA00B200DE /* AmountCollectionViewCell.swift in Sources */,
 				09833BFA2B99A3640081E37E /* BaseView.swift in Sources */,
-				094BE9FF2BB5DFF100342DC3 /* ViewModel.swift in Sources */,
 				09ABD43F2BA460D800826A73 /* ImageTypeSelectTableViewCell.swift in Sources */,
 				09ABD4782BA997B400826A73 /* CalendarTableViewCell.swift in Sources */,
 				09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */,
@@ -640,6 +642,7 @@
 				09ABD4452BA4A3AB00826A73 /* ScheduleTableViewCell.swift in Sources */,
 				0906E92B2BAC88970098DF1A /* ImageStyle.swift in Sources */,
 				09ABD4482BA5654C00826A73 /* MyViewController.swift in Sources */,
+				09EB7A702C4B9057001E0470 /* ToastManager.swift in Sources */,
 				09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */,
 				093289682BF22C5300C8F52E /* ImageDocumentManager.swift in Sources */,
 				09ABD4822BA9D09000826A73 /* CustomTextField.swift in Sources */,
@@ -662,6 +665,7 @@
 				0906E9402BADADA80098DF1A /* LogoView.swift in Sources */,
 				09ABD4652BA816BB00826A73 /* PeriodViewController.swift in Sources */,
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
+				09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */,
 				09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* SearchManger.swift in Sources */,

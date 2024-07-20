@@ -28,4 +28,11 @@ final class AlertManager {
         alert.addAction(deleteButton)
         return alert
     }
+    
+    func showWarningAlert(message: String) -> UIAlertController {
+        let alert = UIAlertController(title: "복용 시간 초과", message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okButton)
+        return alert
+    }
 }

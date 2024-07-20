@@ -37,7 +37,7 @@ final class AddViewController: BaseViewController {
     }()
     
     private lazy var registrationButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.configuration = .registration(title: viewModel.outputType.value.rawValue)
         button.addTarget(self, action: #selector(registrationButtonClicked), for: .touchUpInside)
         return button
@@ -95,16 +95,20 @@ final class AddViewController: BaseViewController {
             self?.present(nav, animated: true)
         }
         
-        viewModel.outputNameStatus.bind { [weak self] value in
+        viewModel.outputRegistrationStatus.bind { [weak self] value in
             guard let value = value else { return }
-            if value == .possibleName {
+            switch value {
+            case .success:
                 self?.navigationController?.popViewController(animated: true)
-            } else {
+            case .duplicateName, .noName:
                 var style = ToastStyle()
                 style.backgroundColor = ColorStyle.point
                 style.messageAlignment = .center
                 style.messageFont = FontStyle.titleBold
                 self?.view.makeToast(value.rawValue, duration: 2, position: .bottom, style: style)
+            case .limitExceeded:
+                let alert = AlertManager.shared.showWarningAlert(message: value.rawValue)
+                self?.present(alert, animated: true)
             }
         }
         

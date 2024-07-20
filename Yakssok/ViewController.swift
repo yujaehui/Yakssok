@@ -10,9 +10,7 @@ import Lottie
 import SnapKit
 
 class ViewController: UITabBarController {
-    
-    let viewModel = ViewModel()
-    
+        
     let splashView = SplashView()
     
     override func viewDidLoad() {
@@ -21,7 +19,6 @@ class ViewController: UITabBarController {
         tabBar.tintColor = ColorStyle.point
         setSplash()
         addVC()
-        viewModel.inputViewDidLoadTrigger.value = ()
     }
     
     private func setSplash() {
