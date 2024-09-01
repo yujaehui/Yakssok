@@ -35,14 +35,29 @@ final class MySupplement: Object {
         }
     }
     
-    convenience init(name: String, amout: Int, startDay: Date, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date]) {
+    convenience init(name: String, amount: Int, startDay: Date, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date]) {
         self.init()
         self.name = name
-        self.amount = amout
+        self.amount = amount
         self.startDay = startDay
         self.period = period
         self.endDay = endDay
         self.cycleArray = cycleArray
         self.timeArray = timeArray
+    }
+}
+
+// MARK: 새롭게 추가 된 Realm 객체
+final class CheckSupplement: Object {
+    @Persisted(primaryKey: true) var pk: ObjectId
+    @Persisted var date: Date
+    @Persisted var time: Date
+    @Persisted var fk: ObjectId
+    
+    convenience init(date: Date, time: Date, fk: ObjectId) {
+        self.init()
+        self.date = date
+        self.time = time
+        self.fk = fk
     }
 }

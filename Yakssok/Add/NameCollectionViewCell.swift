@@ -23,7 +23,7 @@ final class NameCollectionViewCell: BaseCollectionViewCell {
     
     private lazy var searchButton: UIButton = {
         let button = UIButton()
-        button.configuration = .basic(image: "magnifyingglass")
+        button.configuration = .basicImage(image: "magnifyingglass")
         button.addTarget(self, action: #selector(searchButtonClicked), for: .touchUpInside)
         return button
     }()

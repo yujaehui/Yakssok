@@ -29,7 +29,6 @@ final class AddViewModel {
     let inputType: Observable<AccessType> = Observable(.create)
     
     let inputMySupplement: Observable<MySupplement?> = Observable(nil)
-    let inputMySupplements: Observable<[MySupplements]> = Observable([])
     
     let inputImage: Observable<UIImage?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
@@ -78,7 +77,7 @@ final class AddViewModel {
             guard let _ = value else { return }
             
             // 1. 이미 같은 이름이 있는지 확인
-            for i in repository.fetchAllItem() {
+            for i in repository.fetchItem() {
                 if i.name == outputName.value {
                     outputRegistrationStatus.value = .duplicateName
                     return
@@ -90,11 +89,11 @@ final class AddViewModel {
                 return
             }
             
-            // 3. 임시로 데이터를 추가하고 알림 갯수 확인
-            let temporaryData = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 3-1. 임시로 데이터를 추가하고 알림 갯수 확인
+            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
-            // 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
-            var allSupplements = repository.fetchAllItem()
+            // 3-2. 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
+            var allSupplements = repository.fetchItem()
             allSupplements.append(temporaryData)
             
             if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
@@ -104,21 +103,20 @@ final class AddViewModel {
             
             outputRegistrationStatus.value = .success
             
-            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)! //⭐️
-            let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // outputEndDay의 값을 따로 넣어주지 않으면, 오늘 날짜로 복용 종료일이 변경되어 버림
+            // 렘에 저장하기 전에 바꿔주는 것이 중요!
+            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!
+            
+            let data = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             if outputImage.value != ImageStyle.supplement {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             }
             
             repository.createItem(data)
-            
-            generateScheduledSupplements(startDay: outputStartDay.value)
-            
+                        
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
-            
-            print(totalTimesCount(from: convertToDictionary(supplements: repository.fetchAllItem())))
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
         
         updateTrigger.bind { [weak self] value in
@@ -127,7 +125,7 @@ final class AddViewModel {
             guard let mySupplement = inputMySupplement.value else { return }
             
             // 1. 이미 같은 이름이 있는지 확인
-            for i in repository.fetchAllItem() {
+            for i in repository.fetchItem() {
                 if i.name !=  mySupplement.name && i.name == outputName.value {
                     outputRegistrationStatus.value = .duplicateName
                     return
@@ -139,11 +137,11 @@ final class AddViewModel {
                 return
             }
             
-            // 3. 임시로 데이터를 업데이트하고 알림 갯수 확인
-            let currentSupplements = repository.fetchAllItem().filter { $0.pk != mySupplement.pk }
-            let updatedSupplement = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 3-1. 임시로 데이터를 업데이트하고 알림 갯수 확인
+            let currentSupplements = repository.fetchItem().filter { $0.pk != mySupplement.pk }
+            let updatedSupplement = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
-            // 기존 데이터에 업데이트된 데이터를 포함하여 알림 갯수를 시뮬레이션
+            // 3-2. 기존 데이터에 업데이트된 데이터를 포함하여 알림 갯수를 시뮬레이션
             var allSupplements = currentSupplements
             allSupplements.append(updatedSupplement)
             
@@ -169,15 +167,8 @@ final class AddViewModel {
             
             repository.updateItem(data: mySupplement, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value, name: outputName.value, amount: outputAmount.value)
             
-            // 1. 이름 변경
-            repository.updateItems(data: inputMySupplements.value, name: outputName.value, amount: outputAmount.value)
-            // 2. 오늘 날짜 이후의 항목 제거
-            repository.deleteFutureItems(data: inputMySupplements.value, date: FSCalendar().today!)
-            // 3. 새롭게 변화된 항목 추가
-            generateScheduledSupplements(startDay: FSCalendar().today!)
-            
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
         
         deleteButtonClicked.bind { [weak self] value in
@@ -187,10 +178,10 @@ final class AddViewModel {
             guard let mySupplement = inputMySupplement.value else { return }
             ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             repository.deleteItem(mySupplement)
-            repository.deleteItems(inputMySupplements.value)
+//            repository.deleteItems(inputMySupplements.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchAllItem()))
+            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
         
         inputType.bind { [weak self] value in
@@ -251,7 +242,7 @@ final class AddViewModel {
         }
     }
     
-    func convertToDictionary(supplements: [MySupplement]) -> [(Int, [Date])] {
+    private func convertToDictionary(supplements: [MySupplement]) -> [(Int, [Date])] {
         var resultDict: [Int: [Date]] = [:]
         
         for supplement in supplements {
@@ -267,32 +258,7 @@ final class AddViewModel {
         return sortedDict
     }
     
-    func totalTimesCount(from dictionary: [(Int, [Date])]) -> Int {
-        let count = dictionary.reduce(0) { $0 + $1.1.count }
-        print("총 등록된 알림 갯수 \(count)")
-        return count
-    }
-    
-    
-    // MARK: - function to be removed
-    
-    func generateScheduledSupplements(startDay: Date) {
-        var startDay = startDay
-        let endDate = outputEndDay.value
-        let cycle = outputCycle.value
-        let timeList = outputTimeList.value
-                
-        while startDay <= endDate {
-            for dayOfWeek in cycle {
-                let dayComponents = DateComponents(weekday: DateFormatterManager.shared.dayOfWeekToNumber(dayOfWeek))
-                if Calendar.current.component(.weekday, from: startDay) == dayComponents.weekday {
-                    for time in timeList {
-                        let scheduledSupplement = MySupplements(date: startDay, time: time, name: outputName.value, amount: outputAmount.value, isChecked: false)
-                        self.repository.createItems(scheduledSupplement)
-                    }
-                }
-            }
-            startDay = Calendar.current.date(byAdding: .day, value: 1, to: startDay)!
-        }
+    private func totalTimesCount(from dictionary: [(Int, [Date])]) -> Int {
+        return dictionary.reduce(0) { $0 + $1.1.count }
     }
 }

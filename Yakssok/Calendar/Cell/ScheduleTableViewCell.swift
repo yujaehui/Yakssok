@@ -80,10 +80,30 @@ final class ScheduleTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configureCell(_ data: MySupplements) {
+    func configureCell(data: MySupplement, checkData: [CheckSupplement], checkTime: Date) {
         nameLabel.text = data.name
         amountLabel.text = "\(data.amount)개"
-        backView.backgroundColor = data.isChecked ? ColorStyle.point.withAlphaComponent(0.4) : ColorStyle.grayBackground
-        checkButton.configuration = data.isChecked ? .check(color: ColorStyle.point) : .check(color: ColorStyle.grayImage)
+        
+        let isChecked = checkData.contains {
+            DateFormatterManager.shared.makeHeaderDateFormatter2(date: $0.time)  == DateFormatterManager.shared.makeHeaderDateFormatter2(date: checkTime)
+            && $0.fk == data.pk
+        }
+
+        if isChecked {
+            backView.backgroundColor = ColorStyle.point.withAlphaComponent(0.4)
+            checkButton.configuration = .check(color: ColorStyle.point)
+        } else {
+            backView.backgroundColor = ColorStyle.grayBackground
+            checkButton.configuration = .check(color: ColorStyle.grayImage)
+        }
     }
+    
+    // 수정 전 코드
+//    func configureCell(_ data: MySupplements) {
+//        nameLabel.text = data.name
+//        amountLabel.text = "\(data.amount)개"
+//        backView.backgroundColor = data.isChecked ? ColorStyle.point.withAlphaComponent(0.4) : ColorStyle.grayBackground
+//        checkButton.configuration = data.isChecked ? .check(color: ColorStyle.point) : .check(color: ColorStyle.grayImage)
+//    }
+
 }

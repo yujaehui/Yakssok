@@ -53,8 +53,14 @@ final class ChartTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configureCell(_ data: [MySupplements]) {
-        subLabel.text = "총 \(data.count)개 중에 \(data.filter { $0.isChecked }.count)개 섭취 완료!"
-        chartView.configureView(total: data.count, checked: data.filter { $0.isChecked }.count)
+    func configureCell(allData: [MySupplement], checkData: [CheckSupplement]) {
+        subLabel.text = "총 \(allData.count)개 중에 \(checkData.count)개 섭취 완료!"
+        chartView.configureView(total: allData.count, checked: checkData.count)
     }
+    
+    // 수정 전 코드
+//    func configureCell(_ data: [MySupplements]) {
+//        subLabel.text = "총 \(data.count)개 중에 \(data.filter { $0.isChecked }.count)개 섭취 완료!"
+//        chartView.configureView(total: data.count, checked: data.filter { $0.isChecked }.count)
+//    }
 }

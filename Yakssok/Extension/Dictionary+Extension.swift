@@ -17,3 +17,14 @@ extension Dictionary where Key == Int, Value == [Date] {
         }
     }
 }
+
+extension Dictionary where Key == Date, Value == [MySupplement] {
+    mutating func append(value: MySupplement, forKey key: Date) {
+        if var array = self[key] {
+            array.append(value)
+            self[key] = Array(Set(array)).sorted { $0.name < $1.name }
+        } else {
+            self[key] = [value]
+        }
+    }
+}

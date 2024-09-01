@@ -9,8 +9,6 @@ import Foundation
 import RealmSwift
 import FSCalendar
 
-// print(realm.configuration.fileURL)
-
 final class SupplementRepository {
     private let realm = try! Realm()
     
@@ -25,7 +23,7 @@ final class SupplementRepository {
         }
     }
     
-    func createItems(_ data: MySupplements) {
+    func createCheckItem(_ data: CheckSupplement) {
         do {
             try realm.write {
                 realm.add(data)
@@ -36,37 +34,48 @@ final class SupplementRepository {
     }
     
     // MARK: - Fetch
-    func fetchAllItem() -> [MySupplement] {
-        let result = realm.objects(MySupplement.self)
+    func fetchItem() -> [MySupplement] {
+        let results = realm.objects(MySupplement.self)
+        return Array(results)
+    }
+    
+    func fetchItemBySelectedDate(selectedDate: Date) -> [MySupplement] {
+        let results = realm.objects(MySupplement.self).filter { supplement in
+            supplement.startDay <= selectedDate && supplement.cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: selectedDate))
+        }
+        return Array(results)
+    }
+
+    
+    func fetchCheckItemBySelectedDate(selectedDate: Date) -> [CheckSupplement] {
+        let result = realm.objects(CheckSupplement.self).filter { checkSupplement in
+            checkSupplement.date == selectedDate
+        }
         return Array(result)
     }
     
-    func fetchAllItems() -> [MySupplements] {
-        let result = realm.objects(MySupplements.self).where { $0.date >= FSCalendar().today! }
-        return Array(result)
-    }
-    
-    func fetchByName(name: String) -> [MySupplements] {
-        let result = realm.objects(MySupplements.self).where { $0.name == name }
-        return Array(result)
-    }
-    
-    func fetchByDate(date: Date) -> [MySupplements] {
-        let result = realm.objects(MySupplements.self).where { $0.date == date }
-        return Array(result)
-    }
+    // 수정 전 코드
+//    func fetchAllItem() -> [MySupplement] {
+//        let result = realm.objects(MySupplement.self)
+//        return Array(result)
+//    }
+//    
+//    func fetchAllItems() -> [MySupplements] {
+//        let result = realm.objects(MySupplements.self).where { $0.date >= FSCalendar().today! }
+//        return Array(result)
+//    }
+//    
+//    func fetchByName(name: String) -> [MySupplements] {
+//        let result = realm.objects(MySupplements.self).where { $0.name == name }
+//        return Array(result)
+//    }
+//    
+//    func fetchByDate(date: Date) -> [MySupplements] {
+//        let result = realm.objects(MySupplements.self).where { $0.date == date }
+//        return Array(result)
+//    }
     
     // MARK: - Update
-    func updateIsCompleted(pk: ObjectId) {
-        do {
-            try realm.write {
-                realm.objects(MySupplements.self).where{ $0.pk == pk }.first?.isChecked.toggle()
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
     func updateItem(data: MySupplement, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date], name: String, amount: Int) {
         do {
             try realm.write {
@@ -76,37 +85,78 @@ final class SupplementRepository {
                 data.timeArray = timeArray
                 data.name = name
                 data.amount = amount
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    func updateItems(data: [MySupplements], name: String, amount: Int) {
-        do {
-            try realm.write {
-                for item in data {
-                    item.name = name
-                    item.amount = amount
+                
+                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
+                
+                for checkSupplement in checkSupplements {
+                    if !cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: checkSupplement.date)) ||
+                        !timeArray.contains(where: { Calendar.current.isDate($0, equalTo: checkSupplement.date, toGranularity: .minute) }) {
+                        realm.delete(checkSupplement)
+                    }
                 }
             }
         } catch {
             print(error)
         }
     }
+
+
     
+    // 수정 전 코드
+//    func updateIsCompleted(pk: ObjectId) {
+//        do {
+//            try realm.write {
+//                realm.objects(MySupplements.self).where{ $0.pk == pk }.first?.isChecked.toggle()
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+//    
+//    func updateItem(data: MySupplement, period: Int, endDay: Date, cycleArray: [String], timeArray: [Date], name: String, amount: Int) {
+//        do {
+//            try realm.write {
+//                data.period = period
+//                data.endDay = endDay
+//                data.cycleArray = cycleArray
+//                data.timeArray = timeArray
+//                data.name = name
+//                data.amount = amount
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+//    
+//    func updateItems(data: [MySupplements], name: String, amount: Int) {
+//        do {
+//            try realm.write {
+//                for item in data {
+//                    item.name = name
+//                    item.amount = amount
+//                }
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+
     // MARK: - Delete
     func deleteItem(_ data: MySupplement) {
         do {
-            try realm.write{
-                realm.delete(data)
+            try realm.write {
+                let supplementsToDelete = realm.objects(MySupplement.self)
+                let pksToDelete = Array(supplementsToDelete.map { $0.pk })
+                let checkSupplementsToDelete = realm.objects(CheckSupplement.self).filter("fk IN %@", pksToDelete)
+                realm.delete(checkSupplementsToDelete)
+                realm.delete(supplementsToDelete)
             }
         } catch {
             print(error)
         }
     }
-    
-    func deleteItems(_ data: [MySupplements]) {
+
+    func deleteCheckItem(_ data: CheckSupplement) {
         do {
             try realm.write {
                 realm.delete(data)
@@ -116,13 +166,34 @@ final class SupplementRepository {
         }
     }
     
-    func deleteFutureItems(data: [MySupplements], date: Date) {
-        do {
-            try realm.write {
-                realm.delete(data.filter {$0.date >= date})
-            }
-        } catch {
-            print(error)
-        }
-    }
+    // 수정 전 코드
+//    func deleteItem(_ data: MySupplement) {
+//        do {
+//            try realm.write{
+//                realm.delete(data)
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+//    
+//    func deleteItems(_ data: [MySupplements]) {
+//        do {
+//            try realm.write {
+//                realm.delete(data)
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+//    
+//    func deleteFutureItems(data: [MySupplements], date: Date) {
+//        do {
+//            try realm.write {
+//                realm.delete(data.filter {$0.date >= date})
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
 }

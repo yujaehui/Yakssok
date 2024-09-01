@@ -104,6 +104,11 @@
 		09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739FB2BA04B7800B200DE /* MySupplement.swift */; };
 		09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */; };
 		09EB7A702C4B9057001E0470 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6F2C4B9057001E0470 /* ToastManager.swift */; };
+		09EB7AB22C4E20D7001E0470 /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7AB12C4E20D7001E0470 /* Notification.Name+Extension.swift */; };
+		09EB7AD62C4E30EC001E0470 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7AD52C4E30EC001E0470 /* Differentiator */; };
+		09EB7AD82C4E30EC001E0470 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7AD72C4E30EC001E0470 /* RxDataSources */; };
+		09EB7ADB2C4E3118001E0470 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7ADA2C4E3118001E0470 /* RxCocoa */; };
+		09EB7ADD2C4E3118001E0470 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7ADC2C4E3118001E0470 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,6 +193,7 @@
 		09C739FB2BA04B7800B200DE /* MySupplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySupplement.swift; sourceTree = "<group>"; };
 		09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		09EB7A6F2C4B9057001E0470 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		09EB7AB12C4E20D7001E0470 /* Notification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,10 +204,14 @@
 				094BE9F42BB5281800342DC3 /* FirebasePerformance in Frameworks */,
 				09833BE52B99A09D0081E37E /* Realm in Frameworks */,
 				094BE9EC2BB5281800342DC3 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				09EB7ADB2C4E3118001E0470 /* RxCocoa in Frameworks */,
 				09833BE22B99A05D0081E37E /* Alamofire in Frameworks */,
+				09EB7AD82C4E30EC001E0470 /* RxDataSources in Frameworks */,
 				094BE9F02BB5281800342DC3 /* FirebaseMLModelDownloader in Frameworks */,
 				0906E9312BAD6D020098DF1A /* Lottie in Frameworks */,
+				09EB7AD62C4E30EC001E0470 /* Differentiator in Frameworks */,
 				09833BE72B99A09D0081E37E /* RealmSwift in Frameworks */,
+				09EB7ADD2C4E3118001E0470 /* RxSwift in Frameworks */,
 				094BE9EE2BB5281800342DC3 /* FirebaseCrashlytics in Frameworks */,
 				09833BDF2B99A0520081E37E /* Toast in Frameworks */,
 				094BE9F82BB5281800342DC3 /* FirebaseRemoteConfigSwift in Frameworks */,
@@ -333,6 +343,7 @@
 				0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */,
 				0906E9432BADB6D60098DF1A /* UISheetPresentationController.Detent+Extension.swift */,
 				09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */,
+				09EB7AB12C4E20D7001E0470 /* Notification.Name+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -510,6 +521,10 @@
 				094BE9F72BB5281800342DC3 /* FirebaseRemoteConfigSwift */,
 				094BE9F92BB5281800342DC3 /* FirebaseStorage */,
 				094BE9FB2BB5281800342DC3 /* FirebaseStorageCombine-Community */,
+				09EB7AD52C4E30EC001E0470 /* Differentiator */,
+				09EB7AD72C4E30EC001E0470 /* RxDataSources */,
+				09EB7ADA2C4E3118001E0470 /* RxCocoa */,
+				09EB7ADC2C4E3118001E0470 /* RxSwift */,
 			);
 			productName = Yakssok;
 			productReference = 09833BB02B9983AC0081E37E /* Yakssok.app */;
@@ -549,6 +564,8 @@
 				09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				0906E92F2BAD6D020098DF1A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				094BE9EA2BB5281800342DC3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 09833BB12B9983AC0081E37E /* Products */;
 			projectDirPath = "";
@@ -667,6 +684,7 @@
 				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
 				09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */,
 				09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */,
+				09EB7AB22C4E20D7001E0470 /* Notification.Name+Extension.swift in Sources */,
 				09911F642B9A0BC50093009D /* SearchResultTableViewCell.swift in Sources */,
 				09911F662B9A0D1A0093009D /* SearchManger.swift in Sources */,
 				09C739D92B9DFAC900B200DE /* StartDayViewModel.swift in Sources */,
@@ -986,6 +1004,22 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+		09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1078,6 +1112,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		09EB7AD52C4E30EC001E0470 /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		09EB7AD72C4E30EC001E0470 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		09EB7ADA2C4E3118001E0470 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		09EB7ADC2C4E3118001E0470 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

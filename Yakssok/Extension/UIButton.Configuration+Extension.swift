@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIButton.Configuration {
-    static func basic(image: String) -> Self {
+    static func basicImage(image: String) -> Self {
         var config = UIButton.Configuration.filled()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
         config.image = UIImage(systemName: image, withConfiguration: imageConfig)

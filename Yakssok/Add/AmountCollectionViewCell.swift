@@ -18,14 +18,14 @@ final class AmountCollectionViewCell: BaseCollectionViewCell {
     
     lazy var minusButton: UIButton = {
         let button = UIButton()
-        button.configuration = .basic(image: "minus.circle.fill")
+        button.configuration = .basicImage(image: "minus.circle.fill")
         button.addTarget(self, action: #selector(minusButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var plusButton: UIButton = {
         let button = UIButton()
-        button.configuration = .basic(image: "plus.circle.fill")
+        button.configuration = .basicImage(image: "plus.circle.fill")
         button.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         return button
     }()

@@ -69,7 +69,7 @@ final class MyViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
-        let items = viewModel.repository.fetchAllItem()
+        let items = viewModel.repository.fetchItem()
         if items.isEmpty {
             emptyViewSetting(true)
         } else {
@@ -129,10 +129,19 @@ extension MyViewController {
 extension MyViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let row = indexPath.row
+        let fetchedItems = viewModel.repository.fetchItem()
+        
+        guard row < fetchedItems.count else {
+            print("Index out of bounds. Row: \(row), Items count: \(fetchedItems.count)")
+            return
+        }
+        
+        let selectedSupplement = fetchedItems[row]
+        
         let vc = AddViewController()
         vc.viewModel.inputType.value = .update
-        vc.viewModel.inputMySupplement.value = viewModel.repository.fetchAllItem()[row]
-        vc.viewModel.inputMySupplements.value = viewModel.repository.fetchByName(name: viewModel.repository.fetchAllItem()[row].name)
+        vc.viewModel.inputMySupplement.value = selectedSupplement
         navigationController?.pushViewController(vc, animated: true)
     }
+
 }
