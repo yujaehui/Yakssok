@@ -113,9 +113,9 @@ final class SupplementRepository {
                     
                     switch checkStatus {
                     case .checked:
-                        newStock = stock + 1
+                        newStock = stock + data.amount
                     case .uncheckedAndNotDue, .unchecked:
-                        newStock = stock - 1
+                        newStock = stock - data.amount
                         if newStock <= 5 {
                             NotificationManager.shared.sendLowStockNotification(for: data)
                         }
