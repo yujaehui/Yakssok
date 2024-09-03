@@ -33,7 +33,7 @@ final class CycleViewController: BaseViewController {
     
     private lazy var everyDayButton: UIButton = {
        let button = UIButton()
-        button.configuration = .everyDay()
+        button.configuration = .basic(image: "checkmark.circle.fill", title: "매일 복용")
         button.addTarget(self, action: #selector(everyDayButtonClicked), for: .touchUpInside)
         return button
     }()

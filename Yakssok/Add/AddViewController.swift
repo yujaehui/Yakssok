@@ -14,8 +14,7 @@ enum Section: String, CaseIterable {
     case image = "영양제 이미지"
     case name = "영양제 이름"
     case amount = "1회 복용량"
-    case startDay = "복용 시작일"
-    case period = "복용 기간"
+    case stock = "총 보유량"
     case cycle = "복용 요일"
     case time = "복용 시간"
 }
@@ -68,11 +67,7 @@ final class AddViewController: BaseViewController {
             self?.updateSnapshot()
         }
         
-        viewModel.outputStartDayString.bind { [weak self] value in
-            self?.updateSnapshot()
-        }
-        
-        viewModel.outputPeriodString.bind { [weak self] value in
+        viewModel.outputStock.bind { [weak self] value in
             self?.updateSnapshot()
         }
         
@@ -110,6 +105,15 @@ final class AddViewController: BaseViewController {
                 let alert = AlertManager.shared.showWarningAlert(message: value.rawValue)
                 self?.present(alert, animated: true)
             }
+        }
+        
+        viewModel.updateTrigger.bind { [weak self] value in
+            guard let _ = value else { return }
+            let alert = AlertManager.shared.showAlert(title: "영양제를 수정하시겠습니까?", message: "과거 복용 기록도 함께 수정되며,\n이 작업은 되돌릴 수 없습니다.", btnTitle: "수정") { _ in
+                self?.viewModel.updateButtonClicked.value = ()
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.present(alert, animated: true)
         }
         
         viewModel.deleteTrigger.bind { [weak self] value in
@@ -184,8 +188,7 @@ final class AddViewController: BaseViewController {
         snapshot.appendItems([SectionItem(section: .image, image: viewModel.outputImage.value, item: "")], toSection: .image)
         snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
         snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
-        snapshot.appendItems([SectionItem(section: .startDay, image: nil, item: viewModel.outputStartDayString.value)], toSection: .startDay)
-        snapshot.appendItems([SectionItem(section: .period, image: nil, item: viewModel.outputPeriodString.value)], toSection: .period)
+        snapshot.appendItems([SectionItem(section: .stock, image: nil, item: viewModel.outputStock.value)], toSection: .stock)
         snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
@@ -294,32 +297,11 @@ extension AddViewController: UICollectionViewDelegate {
             present(nav, animated: true)
         case .name: return
         case .amount: return
-        case .startDay:
-            switch viewModel.outputType.value {
-            case .create:
-                let vc = StartDaySettingViewController()
-                vc.viewModel.outputDate.value = viewModel.inputStartDay.value
-                vc.selectDate = { [weak self] value in
-                    self?.viewModel.inputStartDay.value = value
-                }
-                
-                let nav = UINavigationController(rootViewController: vc)
-                if let sheet = nav.sheetPresentationController {
-                    sheet.detents = [.medium()]
-                }
-                present(nav, animated: true)
-            case .update:
-                var style = ToastStyle()
-                style.backgroundColor = ColorStyle.point
-                style.messageAlignment = .center
-                style.messageFont = FontStyle.titleBold
-                self.view.makeToast("시작일은 수정하실 수 없습니다.", duration: 2, position: .bottom, style: style)
-            }
-        case .period:
-            let vc = PeriodViewController()
-            vc.viewModel.outputPeriod.value = viewModel.inputPeriod.value
-            vc.selectPeriod = { [weak self] value in
-                self?.viewModel.inputPeriod.value = value
+        case .stock:
+            let vc = StockViewController()
+            vc.viewModel.outputStock.value = viewModel.inputStock.value
+            vc.selectStock = { [weak self] value in
+                self?.viewModel.inputStock.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {

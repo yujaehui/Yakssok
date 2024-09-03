@@ -25,6 +25,3 @@
 //        self.isChecked = isChecked
 //    }
 //}
-
-// TODO: 삭제 된 Realm 객체
-// ???: 마이그레이션 여부

@@ -65,21 +65,25 @@ final class CalendarViewController: BaseViewController {
             self.tableView.reloadData()
         }
         
-        viewModel.outputCheckStatus.bind { [weak self] (status, data) in
+        viewModel.outputCheckStatus.bind { [weak self] (status, checkData, data) in
             guard let self = self else { return }
+            guard let checkData = checkData else { return }
             guard let data = data else { return }
             switch status {
             case .checked:
-                self.viewModel.repository.deleteCheckItem(data)
+                self.viewModel.repository.deleteCheckItem(checkData)
+                self.viewModel.repository.updateStock(data: data, checkStatus: status)
                 self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
             case .uncheckedAndNotDue:
                 let alert = AlertManager.shared.showAlert(title: "체크하기 전 확인!", message: "아직 오지 않은 날짜의 일정입니다.\n그럼에도 체크하시겠습니까?", btnTitle: "체크") { _ in
-                    self.viewModel.repository.createCheckItem(data)
+                    self.viewModel.repository.createCheckItem(checkData)
+                    self.viewModel.repository.updateStock(data: data, checkStatus: status)
                     self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
                 }
                 self.present(alert, animated: true)
             case .unchecked:
-                self.viewModel.repository.createCheckItem(data)
+                self.viewModel.repository.createCheckItem(checkData)
+                self.viewModel.repository.updateStock(data: data, checkStatus: status)
                 self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
                 
             }

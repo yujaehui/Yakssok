@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09042BC92C84465B00A7A53D /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09042BC82C84465B00A7A53D /* StockViewModel.swift */; };
+		09042BCB2C84466200A7A53D /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09042BCA2C84466100A7A53D /* StockViewController.swift */; };
+		09042BCF2C84775900A7A53D /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09042BCE2C84775900A7A53D /* NumberFormatterManager.swift */; };
 		0906E9232BAC60630098DF1A /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9222BAC60630098DF1A /* ColorStyle.swift */; };
 		0906E9252BAC606A0098DF1A /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9242BAC606A0098DF1A /* FontStyle.swift */; };
 		0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */; };
@@ -112,6 +115,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09042BC82C84465B00A7A53D /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
+		09042BCA2C84466100A7A53D /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
+		09042BCE2C84775900A7A53D /* NumberFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterManager.swift; sourceTree = "<group>"; };
 		0906E9222BAC60630098DF1A /* ColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
 		0906E9242BAC606A0098DF1A /* FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyle.swift; sourceTree = "<group>"; };
 		0906E9262BAC608D0098DF1A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -229,6 +235,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09042BC52C84464600A7A53D /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				09042BC82C84465B00A7A53D /* StockViewModel.swift */,
+				09042BCA2C84466100A7A53D /* StockViewController.swift */,
+			);
+			path = Stock;
+			sourceTree = "<group>";
+		};
 		0906E9212BAC604B0098DF1A /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +427,7 @@
 				09C739E52B9F13EA00B200DE /* AmountCollectionViewCell.swift */,
 				09ABD46E2BA8937800826A73 /* CommonCollectionViewCell.swift */,
 				09ABD43B2BA45E3900826A73 /* Image */,
+				09042BC52C84464600A7A53D /* Stock */,
 				09C739C02B9DBB1600B200DE /* StartDay */,
 				09ABD4632BA816B000826A73 /* Period */,
 				09C739C12B9DBB1E00B200DE /* Cycle */,
@@ -481,6 +497,7 @@
 				093289672BF22C5300C8F52E /* ImageDocumentManager.swift */,
 				09911F652B9A0D190093009D /* SearchManger.swift */,
 				09EB7A6F2C4B9057001E0470 /* ToastManager.swift */,
+				09042BCE2C84775900A7A53D /* NumberFormatterManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -627,6 +644,7 @@
 				09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */,
 				09ABD4692BA819A000826A73 /* PeriodViewModel.swift in Sources */,
 				0906E9232BAC60630098DF1A /* ColorStyle.swift in Sources */,
+				09042BCB2C84466200A7A53D /* StockViewController.swift in Sources */,
 				09ABD47A2BA998E900826A73 /* ChartTableViewCell.swift in Sources */,
 				09833BF62B99A2E70081E37E /* BaseCollectionViewCell.swift in Sources */,
 				09833BB82B9983AC0081E37E /* ViewController.swift in Sources */,
@@ -642,6 +660,7 @@
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				0906E9582BADCF280098DF1A /* SplashView.swift in Sources */,
 				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
+				09042BC92C84465B00A7A53D /* StockViewModel.swift in Sources */,
 				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */,
@@ -672,6 +691,7 @@
 				0906E9272BAC608D0098DF1A /* UIColor+Extension.swift in Sources */,
 				094BE9D02BB40D1400342DC3 /* NotificationManager.swift in Sources */,
 				09ABD43A2BA45CAB00826A73 /* ImageCollectionViewCell.swift in Sources */,
+				09042BCF2C84775900A7A53D /* NumberFormatterManager.swift in Sources */,
 				09833C0F2B99BD020081E37E /* SupplementAPI.swift in Sources */,
 				09C739FC2BA04B7800B200DE /* MySupplement.swift in Sources */,
 				09C739DD2B9E058900B200DE /* TimePickerViewModel.swift in Sources */,

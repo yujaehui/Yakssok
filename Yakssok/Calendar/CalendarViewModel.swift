@@ -27,7 +27,7 @@ final class CalendarViewModel {
     //output
     let outputData: Observable<[(key: Date, value: [MySupplement])]> = Observable([])
     let outputCheckData: Observable<[CheckSupplement]> = Observable([])
-    let outputCheckStatus: Observable<(CheckStatus, CheckSupplement?)> = Observable((.unchecked, nil))
+    let outputCheckStatus: Observable<(CheckStatus, CheckSupplement?, MySupplement?)> = Observable((.unchecked, nil, nil))
     
     init() {
         inputSelectedDate.bind { [weak self] date in
@@ -50,21 +50,22 @@ final class CalendarViewModel {
             print("inputCombinedCheck\ndate: \(date)\ntime: \(time)\npk: \(pk)")
             
             // 기존 데이터를 Realm에서 가져오기
+            let existingData = repository.fetchItemByPk(pk: pk)
             let existingCheckItems = repository.fetchCheckItemBySelectedDate(selectedDate: date)
-            if let existingData = existingCheckItems.first(where: {
+            if let existingCheckData = existingCheckItems.first(where: {
                 DateFormatterManager.shared.makeHeaderDateFormatter2(date: $0.time) == DateFormatterManager.shared.makeHeaderDateFormatter2(date: time)
                 && $0.fk == pk
             }) {
                 print("checked")
-                outputCheckStatus.value = (.checked, existingData) // fetch된 데이터를 사용
+                outputCheckStatus.value = (.checked, existingCheckData, existingData) // fetch된 데이터를 사용
             } else {
                 let newData = CheckSupplement(date: date, time: time, fk: pk)
                 if date > FSCalendar().today! && !existingCheckItems.contains(where: { $0 == newData })  {
                     print("uncheckedAndNotDue")
-                    outputCheckStatus.value = (.uncheckedAndNotDue, newData)
+                    outputCheckStatus.value = (.uncheckedAndNotDue, newData, existingData)
                 } else {
                     print("unchecked")
-                    outputCheckStatus.value = (.unchecked, newData)
+                    outputCheckStatus.value = (.unchecked, newData, existingData)
                 }
             }
         }

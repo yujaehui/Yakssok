@@ -33,8 +33,8 @@ final class AddViewModel {
     let inputImage: Observable<UIImage?> = Observable(nil)
     let inputName: Observable<String?> = Observable(nil)
     let inputAmount: Observable<Int> = Observable(1)
+    let inputStock: Observable<String> = Observable("설정 안함")
     let inputStartDay: Observable<Date> = Observable(FSCalendar().today!)
-    let inputPeriod: Observable<Int> = Observable(1)
     let inputCycle: Observable<[String]> = Observable(DayOfTheWeek.allCases.map { $0.rawValue })
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
     
@@ -49,12 +49,9 @@ final class AddViewModel {
     let outputAmount: Observable<Int> = Observable(0)
     let outputAmountString: Observable<String> = Observable("")
     
-    let outputStartDay: Observable<Date> = Observable(Date())
-    let outputStartDayString: Observable<String> = Observable("")
+    let outputStock: Observable<String> = Observable("")
     
-    let outputPeriod: Observable<Int> = Observable(1)
-    let outputPeriodString: Observable<String> = Observable("")
-    let outputEndDay: Observable<Date> = Observable(Date())
+    let outputStartDay: Observable<Date> = Observable(FSCalendar().today!)
     
     let outputCycle: Observable<[String]> = Observable([])
     let outputCycleString: Observable<String> = Observable("")
@@ -64,6 +61,7 @@ final class AddViewModel {
 
     let createTrigger: Observable<Void?> = Observable(nil)
     let updateTrigger: Observable<Void?> = Observable(nil)
+    let updateButtonClicked: Observable<Void?> = Observable(nil)
     let deleteTrigger: Observable<Void?> = Observable(nil)
     let deleteButtonClicked: Observable<Void?> = Observable(nil)
     
@@ -90,7 +88,7 @@ final class AddViewModel {
             }
             
             // 3-1. 임시로 데이터를 추가하고 알림 갯수 확인
-            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             // 3-2. 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
             var allSupplements = repository.fetchItem()
@@ -103,11 +101,7 @@ final class AddViewModel {
             
             outputRegistrationStatus.value = .success
             
-            // outputEndDay의 값을 따로 넣어주지 않으면, 오늘 날짜로 복용 종료일이 변경되어 버림
-            // 렘에 저장하기 전에 바꿔주는 것이 중요!
-            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!
-            
-            let data = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             if outputImage.value != ImageStyle.supplement {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
@@ -119,7 +113,7 @@ final class AddViewModel {
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
         
-        updateTrigger.bind { [weak self] value in
+        updateButtonClicked.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
             guard let mySupplement = inputMySupplement.value else { return }
@@ -139,7 +133,7 @@ final class AddViewModel {
             
             // 3-1. 임시로 데이터를 업데이트하고 알림 갯수 확인
             let currentSupplements = repository.fetchItem().filter { $0.pk != mySupplement.pk }
-            let updatedSupplement = MySupplement(name: outputName.value, amount: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            let updatedSupplement = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             // 3-2. 기존 데이터에 업데이트된 데이터를 포함하여 알림 갯수를 시뮬레이션
             var allSupplements = currentSupplements
@@ -161,11 +155,7 @@ final class AddViewModel {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
             }
             
-            // outputEndDay의 값을 따로 넣어주지 않으면, 오늘 날짜로 복용 종료일이 변경되어 버림
-            // 렘에 저장하기 전에 바꿔주는 것이 중요!
-            outputEndDay.value = Calendar.current.date(byAdding: .month, value: outputPeriod.value, to: outputStartDay.value)!
-            
-            repository.updateItem(data: mySupplement, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value, name: outputName.value, amount: outputAmount.value)
+            repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value, stock: outputStock.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
@@ -178,7 +168,6 @@ final class AddViewModel {
             guard let mySupplement = inputMySupplement.value else { return }
             ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             repository.deleteItem(mySupplement)
-//            repository.deleteItems(inputMySupplements.value)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
@@ -195,8 +184,8 @@ final class AddViewModel {
             inputImage.value = ImageDocumentManager.shared.loadImageToDocument(fileName: "\(value.pk)")
             inputName.value = value.name
             inputAmount.value = value.amount
+            inputStock.value = value.stock
             inputStartDay.value = value.startDay
-            inputPeriod.value = value.period
             inputCycle.value = value.cycleArray
             inputTimeList.value = value.timeArray
         }
@@ -217,18 +206,12 @@ final class AddViewModel {
             self?.outputAmountString.value = String(value)
         }
         
-        inputStartDay.bind { [weak self] value in
-            self?.outputStartDay.value = value
-            self?.outputStartDayString.value =  DateFormatterManager.shared.convertformatDateToString(date: value)
+        inputStock.bind { [weak self] value in
+            self?.outputStock.value = value
         }
         
-        inputPeriod.bind { [weak self] value in
-            self?.outputPeriod.value = value
-            if value == 12 {
-                self?.outputPeriodString.value = "1년"
-            } else {
-                self?.outputPeriodString.value = String(value) + "개월"
-            }
+        inputStartDay.bind { [weak self] value in
+            self?.outputStartDay.value = value
         }
         
         inputCycle.bind { [weak self] value in

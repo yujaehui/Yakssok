@@ -37,4 +37,22 @@ class NotificationManager {
             }
         }
     }
+    
+    func sendLowStockNotification(for supplement: MySupplement) {
+        let content = UNMutableNotificationContent()
+        content.title = "\(supplement.stock)개 밖에 남지 않은 \(supplement.name)😭"
+        content.body = "잊기 전에 미리 챙겨 두고\n약쏙에도 기록해두는 것이 어떨까요?"
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { error in
+            if let error = error {
+                print("Failed to schedule notification: \(error)")
+            }
+        }
+    }
+    
 }

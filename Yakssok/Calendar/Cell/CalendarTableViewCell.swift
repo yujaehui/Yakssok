@@ -34,7 +34,7 @@ final class CalendarTableViewCell: BaseTableViewCell {
     
     private lazy var toggleButton: UIButton = {
         let button = UIButton()
-        button.configuration = .toggle(image: "chevron.up")
+        button.configuration = .calenderToggle(image: "chevron.up")
         button.addTarget(self, action: #selector(tapToggleButton), for: .touchUpInside)
         return button
     }()
@@ -42,11 +42,11 @@ final class CalendarTableViewCell: BaseTableViewCell {
     @objc private func tapToggleButton() {
         if self.calendar.scope == .month { // 월 -> 주
             self.calendar.setScope(.week, animated: true)
-            self.toggleButton.configuration = .toggle(image: "chevron.down")
+            self.toggleButton.configuration = .calenderToggle(image: "chevron.down")
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.selectedDate ?? calendar.currentPage)
         } else { // 주 -> 월
             self.calendar.setScope(.month, animated: true)
-            self.toggleButton.configuration = .toggle(image: "chevron.up")
+            self.toggleButton.configuration = .calenderToggle(image: "chevron.up")
             self.headerLabel.text = DateFormatterManager.shared.makeHeaderDateFormatter(date: calendar.currentPage)
         }
         passMoment?()

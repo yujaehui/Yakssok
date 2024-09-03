@@ -23,7 +23,7 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
         return stackView
     }()
     
-    private let dateInfoLabel: UILabel = {
+    private let cycleLabel: CustomLabel = {
         let label = CustomLabel(type: .descriptionGray)
         return label
     }()
@@ -37,7 +37,7 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
     private let countStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .center
+        stackView.alignment = .top
         stackView.distribution = .fill
         stackView.spacing = 8
         return stackView
@@ -50,19 +50,20 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
         return imageView
     }()
     
-    private let countInfoLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = CustomLabel(type: .content)
+        label.numberOfLines = 2
         return label
     }()
     
     override func configureHierarchy() {
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
-        stackView.addArrangedSubview(dateInfoLabel)
+        stackView.addArrangedSubview(cycleLabel)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(countStackView)
         countStackView.addArrangedSubview(countImageView)
-        countStackView.addArrangedSubview(countInfoLabel)
+        countStackView.addArrangedSubview(countLabel)
     }
     
     override func configureView() {
@@ -93,13 +94,20 @@ final class MyCollectionViewCell: BaseCollectionViewCell {
         } else {
             imageView.image = ImageStyle.supplement
         }
+        
         if itemIdentifier.cycleArray.count == DayOfTheWeek.allCases.count {
-            dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + "매일"
+            cycleLabel.text = "매일"
         } else {
-            dateInfoLabel.text = DateFormatterManager.shared.convertformatDateToString2(date: itemIdentifier.startDay) + " | " + "\(itemIdentifier.period)개월" + " | " + itemIdentifier.cycleArray.joined(separator: ", ")
+            cycleLabel.text = itemIdentifier.cycleArray.joined(separator: ", ")
         }
+        
         nameLabel.text = itemIdentifier.name
-        countInfoLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amount)개씩 복용"
+        
+        if itemIdentifier.stock != "설정 안함" {
+            countLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amount)개씩 복용\n남은 영양제 수: \(itemIdentifier.stock)개"
+        } else {
+            countLabel.text = "하루 \(itemIdentifier.timeArray.count)번, \(itemIdentifier.amount)개씩 복용"
+        }
     }
 }
 

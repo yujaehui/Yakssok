@@ -19,7 +19,7 @@ extension UIButton.Configuration {
         return config
     }
     
-    static func toggle(image: String) -> Self {
+    static func calenderToggle(image: String) -> Self {
         var config = UIButton.Configuration.filled()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold)
         config.image = UIImage(systemName: image, withConfiguration: imageConfig)
@@ -60,6 +60,26 @@ extension UIButton.Configuration {
         return config
     }
     
+    static func basic(image: String, title: String) -> Self {
+        var config = UIButton.Configuration.filled()
+        
+        var titleAttr = AttributedString.init(title)
+        titleAttr.font = FontStyle.content
+        titleAttr.foregroundColor = ColorStyle.text
+        config.attributedTitle = titleAttr
+        config.titleAlignment = .center
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+        config.image = UIImage(systemName: image, withConfiguration: imageConfig)
+        config.imagePadding = 8
+        config.imagePlacement = .leading
+        
+        config.baseForegroundColor = ColorStyle.point
+        config.baseBackgroundColor = .clear
+        config.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+        return config
+    }
+    
     static func registration(title: String) -> Self {
         var config = UIButton.Configuration.filled()
         
@@ -71,26 +91,6 @@ extension UIButton.Configuration {
         config.baseForegroundColor = ColorStyle.background
         config.baseBackgroundColor = ColorStyle.point
         config.cornerStyle = .large
-        return config
-    }
-    
-    static func everyDay() -> Self {
-        var config = UIButton.Configuration.filled()
-        
-        var titleAttr = AttributedString.init("매일 복용")
-        titleAttr.font = FontStyle.content
-        titleAttr.foregroundColor = ColorStyle.text
-        config.attributedTitle = titleAttr
-        config.titleAlignment = .center
-        
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
-        config.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
-        config.imagePadding = 8
-        config.imagePlacement = .leading
-        
-        config.baseForegroundColor = ColorStyle.point
-        config.baseBackgroundColor = .clear
-        config.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
         return config
     }
 }
