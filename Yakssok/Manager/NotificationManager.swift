@@ -38,9 +38,9 @@ class NotificationManager {
         }
     }
     
-    func sendLowStockNotification(for supplement: MySupplement) {
+    func sendLowStockNotification(for supplement: MySupplement, stockCount: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "\(supplement.stock)개 밖에 남지 않은 \(supplement.name)😭"
+        content.title = "\(stockCount)개 밖에 남지 않은 \(supplement.name)😭"
         content.body = "잊기 전에 미리 챙겨 두고\n약쏙에도 기록해두는 것이 어떨까요?"
         content.sound = .default
         

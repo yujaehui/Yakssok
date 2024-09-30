@@ -54,8 +54,16 @@ final class ChartTableViewCell: BaseTableViewCell {
     }
     
     func configureCell(allData: [MySupplement], checkData: [CheckSupplement]) {
-        subLabel.text = "총 \(allData.count)개 중에 \(checkData.count)개 섭취 완료!"
-        chartView.configureView(total: allData.count, checked: checkData.count)
+        let matchedCheckData = checkData.filter { checkItem in
+            allData.contains { supplement in
+                supplement.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: checkItem.date) }) &&
+                supplement.timeArray.contains(where: { $0 == checkItem.time }) &&
+                supplement.pk == checkItem.fk
+            }
+        }
+        
+        subLabel.text = "총 \(allData.count)개 중에 \(matchedCheckData.count)개 섭취 완료!"
+        chartView.configureView(total: allData.count, checked: matchedCheckData.count)
     }
     
     // 수정 전 코드

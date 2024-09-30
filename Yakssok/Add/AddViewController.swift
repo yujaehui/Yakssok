@@ -109,7 +109,7 @@ final class AddViewController: BaseViewController {
         
         viewModel.updateTrigger.bind { [weak self] value in
             guard let _ = value else { return }
-            let alert = AlertManager.shared.showAlert(title: "영양제를 수정하시겠습니까?", message: "과거 복용 기록도 함께 수정되며,\n이 작업은 되돌릴 수 없습니다.", btnTitle: "수정") { _ in
+            let alert = AlertManager.shared.showAlert(title: "영양제를 수정하시겠습니까?", message: "과거 복용 기록도 함께 수정됩니다.\n복용 날짜 또는 시간 변경 시 주의하세요.", btnTitle: "수정") { _ in
                 self?.viewModel.updateButtonClicked.value = ()
                 self?.navigationController?.popViewController(animated: true)
             }

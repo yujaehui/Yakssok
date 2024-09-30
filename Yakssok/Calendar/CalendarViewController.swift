@@ -217,7 +217,15 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     private func showAnimation(allData: [MySupplement], checkData: [CheckSupplement]) {
-        if allData.count == checkData.count {
+        let matchedCheckData = checkData.filter { checkItem in
+            allData.contains { supplement in
+                supplement.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: checkItem.date) }) &&
+                supplement.timeArray.contains(where: { $0 == checkItem.time }) &&
+                supplement.pk == checkItem.fk
+            }
+        }
+        
+        if allData.count == matchedCheckData.count {
             self.animationView.alpha = 1
             self.animationView.isHidden = false
             self.animationView.play { _ in

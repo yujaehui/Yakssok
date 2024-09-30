@@ -35,6 +35,7 @@ final class SupplementRepository {
     
     // MARK: - Fetch
     func fetchItem() -> [MySupplement] {
+        print(realm.configuration.fileURL)
         let results = realm.objects(MySupplement.self)
         return Array(results)
     }
@@ -91,14 +92,14 @@ final class SupplementRepository {
                 data.cycleArray = cycleArray
                 data.timeArray = timeArray
                 
-                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
-                
-                for checkSupplement in checkSupplements {
-                    if !cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: checkSupplement.date)) ||
-                        !timeArray.contains(where: { Calendar.current.isDate($0, equalTo: checkSupplement.date, toGranularity: .minute) }) {
-                        realm.delete(checkSupplement)
-                    }
-                }
+//                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
+//                
+//                for checkSupplement in checkSupplements {
+//                    if !cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: checkSupplement.date)) ||
+//                        !timeArray.contains(where: { Calendar.current.isDate($0, equalTo: checkSupplement.date, toGranularity: .minute) }) {
+//                        realm.delete(checkSupplement)
+//                    }
+//                }
             }
         } catch {
             print(error)
@@ -108,16 +109,16 @@ final class SupplementRepository {
     func updateStock(data: MySupplement?, checkStatus: CheckStatus) {
         do {
             try realm.write {
-                if let data = data, let stock = NumberFormatterManager.shared.stringToNumber(data.stock), stock > 0 {
+                if let data = data, let stock = NumberFormatterManager.shared.stringToNumber(data.stock) {
                     var newStock: Int
                     
                     switch checkStatus {
                     case .checked:
                         newStock = stock + data.amount
                     case .uncheckedAndNotDue, .unchecked:
-                        newStock = stock - data.amount
+                        newStock = max(stock - data.amount, 0) // newStock이 음수가 되지 않도록 처리
                         if newStock <= 5 {
-                            NotificationManager.shared.sendLowStockNotification(for: data)
+                            NotificationManager.shared.sendLowStockNotification(for: data, stockCount: newStock)
                         }
                     }
 
@@ -174,10 +175,8 @@ final class SupplementRepository {
     func deleteItem(_ data: MySupplement) {
         do {
             try realm.write {
-                let supplementsToDelete = realm.objects(MySupplement.self)
-                let pksToDelete = Array(supplementsToDelete.map { $0.pk })
-                let checkSupplementsToDelete = realm.objects(CheckSupplement.self).filter("fk IN %@", pksToDelete)
-                realm.delete(checkSupplementsToDelete)
+                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
+                realm.delete(checkSupplements)
                 realm.delete(data)
             }
         } catch {
