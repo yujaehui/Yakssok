@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import UserNotifications
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -28,7 +29,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // UNUserNotificationCenterDelegate 설정
         UNUserNotificationCenter.current().delegate = self
         
+        // Migration
+        configureRealm()
+        
         return true
+    }
+    
+    private func configureRealm() {
+        let config = Realm.Configuration(
+            schemaVersion: 2, // 스키마 버전을 증가시킵니다.
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 2 {
+                    
+                    // 1. MySupplements의 isChecked가 true인 항목, CheckSupplement로 데이터 변환
+                    migration.enumerateObjects(ofType: "MySupplements") { oldObject, _ in
+                        if let oldObject = oldObject, oldObject["isChecked"] as? Bool == true {
+                            // MySupplement와 매핑할 fk 찾기
+                            let name = oldObject["name"] as? String
+                            let amount = oldObject["amount"] as? Int
+                            
+                            var fk: ObjectId? = nil
+                            
+                            // MySupplement에서 해당 pk를 찾아 설정
+                            migration.enumerateObjects(ofType: "MySupplement") { supplementObject, _ in
+                                if let supplementObject = supplementObject,
+                                   supplementObject["name"] as? String == name,
+                                   supplementObject["amount"] as? Int == amount {
+                                    fk = supplementObject["pk"] as? ObjectId
+                                }
+                            }
+                            
+                            // CheckSupplement 생성
+                            if let fk = fk {
+                                migration.create("CheckSupplement", value: [
+                                    "pk": ObjectId.generate(),
+                                    "date": oldObject["date"] ?? Date(),
+                                    "time": oldObject["time"] ?? Date(),
+                                    "fk": fk
+                                ])
+                            } else {
+                                print("Warning: MySupplement not found for \(String(describing: name)), \(String(describing: amount))")
+                            }
+                        }
+                    }
+                    
+                    // MySupplements 테이블 삭제
+                    migration.deleteData(forType: "MySupplements")
+                    
+                    // MySupplement에 stock 추가
+                    migration.enumerateObjects(ofType: "MySupplement") { _, newObject in
+                        // 새 속성 추가: stock
+                        newObject?["stock"] = "설정 안함" // 기본값 설정
+                    }
+                }
+            }
+        )
+        
+        // 새로운 Realm 설정 적용
+        Realm.Configuration.defaultConfiguration = config
     }
     
     // MARK: UISceneSession Lifecycle
