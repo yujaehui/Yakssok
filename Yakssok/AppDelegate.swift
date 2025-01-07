@@ -37,9 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     private func configureRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 2, // 스키마 버전을 증가시킵니다.
+            schemaVersion: 2, // 버전 2: MySupplements -> CheckSupplement 마이그레이션
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 2 {
+                    // v1 -> v2 변경 사항:
+                    // - MySupplements 제거
+                    // - CheckSupplement로 데이터 이전
+                    // - MySupplement에 stock 추가
                     
                     // 1. MySupplements의 isChecked가 true인 항목, CheckSupplement로 데이터 변환
                     migration.enumerateObjects(ofType: "MySupplements") { oldObject, _ in
