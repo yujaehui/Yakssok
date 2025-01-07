@@ -1,5 +1,5 @@
 //
-//  TimeSettingTableViewCell.swift
+//  TimeTableViewCell.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TimeSettingTableViewCell: BaseTableViewCell {
+final class TimeTableViewCell: BaseTableViewCell {
     var passMoment: (() -> Void)?
     
     private let timeLabel: UILabel = {

@@ -1,5 +1,5 @@
 //
-//  TimeSettingViewController.swift
+//  TimeViewController.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 import Toast
 
-final class TimeSettingViewController: BaseViewController {
+final class TimeViewController: BaseViewController {
     var selectTimeList: (([Date]) -> Void)?
     
-    let viewModel = TimeSettingViewModel()
+    let viewModel = TimeViewModel()
     
     private lazy var addTimeButton: UIButton = {
         let button = UIButton()
@@ -38,7 +38,7 @@ final class TimeSettingViewController: BaseViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TimeSettingTableViewCell.self, forCellReuseIdentifier: TimeSettingTableViewCell.identifier)
+        tableView.register(TimeTableViewCell.self, forCellReuseIdentifier: TimeTableViewCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         return tableView
@@ -52,12 +52,12 @@ final class TimeSettingViewController: BaseViewController {
     }()
     
     deinit {
-        print("TimeSettingViewController deinit")
+        print("TimeViewController deinit")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("TimeSettingViewController viewDidLoad")
+        print("TimeViewController viewDidLoad")
         bindData()
         setNav()
     }
@@ -164,7 +164,7 @@ final class TimeSettingViewController: BaseViewController {
     }
 }
 
-extension TimeSettingViewController {
+extension TimeViewController {
     private func setNav() {
         navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
@@ -175,13 +175,13 @@ extension TimeSettingViewController {
     }
 }
 
-extension TimeSettingViewController: UITableViewDelegate, UITableViewDataSource {
+extension TimeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.outputSelectTimeStringList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TimeSettingTableViewCell.identifier, for: indexPath) as! TimeSettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TimeTableViewCell.identifier, for: indexPath) as! TimeTableViewCell
         let data = viewModel.outputSelectTimeStringList.value[indexPath.row]
         cell.configureCell(data)
         return cell

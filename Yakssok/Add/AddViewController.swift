@@ -59,70 +59,78 @@ final class AddViewController: BaseViewController {
     }
     
     private func bindData() {
-        viewModel.outputType.bind { [weak self] _ in
-            self?.updateSnapshot()
+        viewModel.outputType.bind { [weak self] value in
+            guard let self = self else { return }
+            self.updateSnapshot()
         }
         
         viewModel.outputImage.bind { [weak self] value in
-            self?.updateSnapshot()
+            guard let self = self else { return }
+            self.updateSnapshot()
         }
         
         viewModel.outputStock.bind { [weak self] value in
-            self?.updateSnapshot()
+            guard let self = self else { return }
+            self.updateSnapshot()
         }
         
-        viewModel.outputCycleString.bind { [weak self] value in
-            self?.updateSnapshot()
+        viewModel.outputCycleListString.bind { [weak self] value in
+            guard let self = self else { return }
+            self.updateSnapshot()
         }
         
         viewModel.outputTimeListString.bind { [weak self] value in
-            self?.updateSnapshot()
+            guard let self = self else { return }
+            self.updateSnapshot()
         }
         
         viewModel.presentSearchVC.bind { [weak self] value in
-            guard let _ = value else { return }
+            guard let self = self, let _ = value else { return }
             let vc = SearchViewController()
-            vc.selectName = { value in
-                self?.viewModel.inputName.value = value
-                self?.updateSnapshot()
+            vc.selectName = { name in
+                self.viewModel.inputName.value = name
+                self.updateSnapshot()
             }
             let nav = UINavigationController(rootViewController: vc)
-            self?.present(nav, animated: true)
+            self.present(nav, animated: true)
         }
         
         viewModel.outputRegistrationStatus.bind { [weak self] value in
-            guard let value = value else { return }
+            guard let self = self, let value = value else { return }
             switch value {
             case .success:
-                self?.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             case .duplicateName, .noName:
-                var style = ToastStyle()
-                style.backgroundColor = ColorStyle.point
-                style.messageAlignment = .center
-                style.messageFont = FontStyle.titleBold
-                self?.view.makeToast(value.rawValue, duration: 2, position: .bottom, style: style)
+                ToastManager.shared.showToast(title: value.rawValue, in: self.view ?? UIView())
             case .limitExceeded:
                 let alert = AlertManager.shared.showWarningAlert(message: value.rawValue)
-                self?.present(alert, animated: true)
+                self.present(alert, animated: true)
             }
         }
         
         viewModel.updateTrigger.bind { [weak self] value in
-            guard let _ = value else { return }
-            let alert = AlertManager.shared.showAlert(title: "영양제를 수정하시겠습니까?", message: "과거 복용 기록도 함께 수정됩니다.\n복용 날짜 또는 시간 변경 시 주의하세요.", btnTitle: "수정") { _ in
-                self?.viewModel.updateButtonClicked.value = ()
-                self?.navigationController?.popViewController(animated: true)
+            guard let self = self, let _ = value else { return }
+            let alert = AlertManager.shared.showAlert(
+                title: "영양제를 수정하시겠습니까?",
+                message: "",
+                btnTitle: "수정"
+            ) { _ in
+                self.viewModel.updateButtonClicked.value = ()
+                self.navigationController?.popViewController(animated: true)
             }
-            self?.present(alert, animated: true)
+            self.present(alert, animated: true)
         }
         
         viewModel.deleteTrigger.bind { [weak self] value in
-            guard let _ = value else { return }
-            let alert = AlertManager.shared.showDestructiveAlert(title: "영양제를 삭제하시겠습니까?", message: "과거 복용 기록도 함께 삭제되며,\n이 작업은 되돌릴 수 없습니다.") { _ in
-                self?.viewModel.deleteButtonClicked.value = ()
-                self?.navigationController?.popViewController(animated: true)
+            guard let self = self, let  _ = value else { return }
+            let alert = AlertManager.shared.showDestructiveAlert(
+                title: "영양제를 삭제하시겠습니까?",
+                message: "과거 복용 기록도 함께 삭제되며,\n이 작업은 되돌릴 수 없습니다."
+            ) { _ in
+                self.viewModel.deleteButtonClicked.value = ()
+                self.navigationController?.popViewController(animated: true)
             }
-            self?.present(alert, animated: true)
+            self.present(alert, animated: true)
         }
     }
 
@@ -183,13 +191,14 @@ final class AddViewController: BaseViewController {
     }
     
     private func updateSnapshot() {
+        print(#function)
         var snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems([SectionItem(section: .image, image: viewModel.outputImage.value, item: "")], toSection: .image)
         snapshot.appendItems([SectionItem(section: .name, image: nil, item: viewModel.outputName.value)], toSection: .name)
         snapshot.appendItems([SectionItem(section: .amount, image: nil, item: viewModel.outputAmountString.value)], toSection: .amount)
         snapshot.appendItems([SectionItem(section: .stock, image: nil, item: viewModel.outputStock.value)], toSection: .stock)
-        snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleString.value)], toSection: .cycle)
+        snapshot.appendItems([SectionItem(section: .cycle, image: nil, item: viewModel.outputCycleListString.value)], toSection: .cycle)
         snapshot.appendItems(viewModel.outputTimeListString.value.map { SectionItem(section: .time, image: nil, item: $0) }, toSection: .time)
         dataSource.apply(snapshot)
     }
@@ -288,7 +297,8 @@ extension AddViewController: UICollectionViewDelegate {
             let vc = ImageTypeSelectViewController()
             vc.viewModel.inputCurrentImage.value = viewModel.outputCurrentImage.value
             vc.passImage = { [weak self] value in
-                self?.viewModel.inputImage.value = value
+                guard let self = self else { return }
+                self.viewModel.inputImage.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
@@ -301,7 +311,8 @@ extension AddViewController: UICollectionViewDelegate {
             let vc = StockViewController()
             vc.viewModel.outputStock.value = viewModel.inputStock.value
             vc.selectStock = { [weak self] value in
-                self?.viewModel.inputStock.value = value
+                guard let self = self else { return }
+                self.viewModel.inputStock.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
@@ -310,9 +321,10 @@ extension AddViewController: UICollectionViewDelegate {
             present(nav, animated: true)
         case .cycle:
             let vc = CycleViewController()
-            vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycle.value
+            vc.viewModel.outputSelectDayOfTheWeekList.value = viewModel.inputCycleList.value
             vc.selectDayOfTheWeek = { [weak self] value in
-                self?.viewModel.inputCycle.value = value
+                guard let self = self else { return }
+                self.viewModel.inputCycleList.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {
@@ -320,10 +332,11 @@ extension AddViewController: UICollectionViewDelegate {
             }
             present(nav, animated: true)
         case .time:
-            let vc = TimeSettingViewController()
+            let vc = TimeViewController()
             vc.viewModel.outputSelectTimeList.value = viewModel.inputTimeList.value
             vc.selectTimeList = { [weak self] value in
-                self?.viewModel.inputTimeList.value = value
+                guard let self = self else { return }
+                self.viewModel.inputTimeList.value = value
             }
             let nav = UINavigationController(rootViewController: vc)
             if let sheet = nav.sheetPresentationController {

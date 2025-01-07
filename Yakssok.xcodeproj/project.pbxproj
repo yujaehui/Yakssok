@@ -89,12 +89,12 @@
 		09C156E02B9B4E8E0008F86E /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */; };
 		09C156F52B9B93790008F86E /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F42B9B93790008F86E /* AddViewController.swift */; };
 		09C156F72B9C2C5D0008F86E /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F62B9C2C5D0008F86E /* AddViewModel.swift */; };
-		09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */; };
-		09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */; };
+		09C156F92B9C2F360008F86E /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156F82B9C2F360008F86E /* TimeViewController.swift */; };
+		09C156FB2B9C49000008F86E /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FA2B9C49000008F86E /* TimeTableViewCell.swift */; };
 		09C156FF2B9C50E50008F86E /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */; };
-		09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */; };
+		09C157012B9C577D0008F86E /* TimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157002B9C577D0008F86E /* TimeViewModel.swift */; };
 		09C157032B9C584A0008F86E /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157022B9C584A0008F86E /* DateFormatterManager.swift */; };
-		09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */; };
+		09C157052B9C78C10008F86E /* StartDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C157042B9C78C10008F86E /* StartDayViewController.swift */; };
 		09C739CF2B9DD1F800B200DE /* CycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739CE2B9DD1F800B200DE /* CycleViewController.swift */; };
 		09C739D12B9DD3D600B200DE /* CycleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D02B9DD3D600B200DE /* CycleCollectionViewCell.swift */; };
 		09C739D32B9DD5FA00B200DE /* CycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C739D22B9DD5FA00B200DE /* CycleViewModel.swift */; };
@@ -108,10 +108,6 @@
 		09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6D2C4B8020001E0470 /* Dictionary+Extension.swift */; };
 		09EB7A702C4B9057001E0470 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7A6F2C4B9057001E0470 /* ToastManager.swift */; };
 		09EB7AB22C4E20D7001E0470 /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB7AB12C4E20D7001E0470 /* Notification.Name+Extension.swift */; };
-		09EB7AD62C4E30EC001E0470 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7AD52C4E30EC001E0470 /* Differentiator */; };
-		09EB7AD82C4E30EC001E0470 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7AD72C4E30EC001E0470 /* RxDataSources */; };
-		09EB7ADB2C4E3118001E0470 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7ADA2C4E3118001E0470 /* RxCocoa */; };
-		09EB7ADD2C4E3118001E0470 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 09EB7ADC2C4E3118001E0470 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,12 +177,12 @@
 		09C156DF2B9B4E8E0008F86E /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		09C156F42B9B93790008F86E /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09C156F62B9C2C5D0008F86E /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
-		09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewController.swift; sourceTree = "<group>"; };
-		09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingTableViewCell.swift; sourceTree = "<group>"; };
+		09C156F82B9C2F360008F86E /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
+		09C156FA2B9C49000008F86E /* TimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
 		09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
-		09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewModel.swift; sourceTree = "<group>"; };
+		09C157002B9C577D0008F86E /* TimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewModel.swift; sourceTree = "<group>"; };
 		09C157022B9C584A0008F86E /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
-		09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDaySettingViewController.swift; sourceTree = "<group>"; };
+		09C157042B9C78C10008F86E /* StartDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDayViewController.swift; sourceTree = "<group>"; };
 		09C739CE2B9DD1F800B200DE /* CycleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleViewController.swift; sourceTree = "<group>"; };
 		09C739D02B9DD3D600B200DE /* CycleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCollectionViewCell.swift; sourceTree = "<group>"; };
 		09C739D22B9DD5FA00B200DE /* CycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleViewModel.swift; sourceTree = "<group>"; };
@@ -210,14 +206,10 @@
 				094BE9F42BB5281800342DC3 /* FirebasePerformance in Frameworks */,
 				09833BE52B99A09D0081E37E /* Realm in Frameworks */,
 				094BE9EC2BB5281800342DC3 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				09EB7ADB2C4E3118001E0470 /* RxCocoa in Frameworks */,
 				09833BE22B99A05D0081E37E /* Alamofire in Frameworks */,
-				09EB7AD82C4E30EC001E0470 /* RxDataSources in Frameworks */,
 				094BE9F02BB5281800342DC3 /* FirebaseMLModelDownloader in Frameworks */,
 				0906E9312BAD6D020098DF1A /* Lottie in Frameworks */,
-				09EB7AD62C4E30EC001E0470 /* Differentiator in Frameworks */,
 				09833BE72B99A09D0081E37E /* RealmSwift in Frameworks */,
-				09EB7ADD2C4E3118001E0470 /* RxSwift in Frameworks */,
 				094BE9EE2BB5281800342DC3 /* FirebaseCrashlytics in Frameworks */,
 				09833BDF2B99A0520081E37E /* Toast in Frameworks */,
 				094BE9F82BB5281800342DC3 /* FirebaseRemoteConfigSwift in Frameworks */,
@@ -440,7 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				09C739D82B9DFAC900B200DE /* StartDayViewModel.swift */,
-				09C157042B9C78C10008F86E /* StartDaySettingViewController.swift */,
+				09C157042B9C78C10008F86E /* StartDayViewController.swift */,
 			);
 			path = StartDay;
 			sourceTree = "<group>";
@@ -458,11 +450,11 @@
 		09C739C22B9DBB3500B200DE /* Time */ = {
 			isa = PBXGroup;
 			children = (
-				09C157002B9C577D0008F86E /* TimeSettingViewModel.swift */,
-				09C156F82B9C2F360008F86E /* TimeSettingViewController.swift */,
+				09C157002B9C577D0008F86E /* TimeViewModel.swift */,
+				09C156F82B9C2F360008F86E /* TimeViewController.swift */,
+				09C156FA2B9C49000008F86E /* TimeTableViewCell.swift */,
 				09C739DC2B9E058900B200DE /* TimePickerViewModel.swift */,
 				09C156FE2B9C50E50008F86E /* TimePickerViewController.swift */,
-				09C156FA2B9C49000008F86E /* TimeSettingTableViewCell.swift */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -538,10 +530,6 @@
 				094BE9F72BB5281800342DC3 /* FirebaseRemoteConfigSwift */,
 				094BE9F92BB5281800342DC3 /* FirebaseStorage */,
 				094BE9FB2BB5281800342DC3 /* FirebaseStorageCombine-Community */,
-				09EB7AD52C4E30EC001E0470 /* Differentiator */,
-				09EB7AD72C4E30EC001E0470 /* RxDataSources */,
-				09EB7ADA2C4E3118001E0470 /* RxCocoa */,
-				09EB7ADC2C4E3118001E0470 /* RxSwift */,
 			);
 			productName = Yakssok;
 			productReference = 09833BB02B9983AC0081E37E /* Yakssok.app */;
@@ -581,8 +569,6 @@
 				09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				0906E92F2BAD6D020098DF1A /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				094BE9EA2BB5281800342DC3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */,
-				09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 09833BB12B9983AC0081E37E /* Products */;
 			projectDirPath = "";
@@ -656,12 +642,12 @@
 				093289662BF22BB900C8F52E /* AlertManager.swift in Sources */,
 				09ABD4842BA9D1B300826A73 /* CustomImageView.swift in Sources */,
 				09ABD4592BA5EFE800826A73 /* MySupplements.swift in Sources */,
-				09C156FB2B9C49000008F86E /* TimeSettingTableViewCell.swift in Sources */,
+				09C156FB2B9C49000008F86E /* TimeTableViewCell.swift in Sources */,
 				09833C002B99A4A80081E37E /* SearchViewController.swift in Sources */,
 				0906E9582BADCF280098DF1A /* SplashView.swift in Sources */,
-				09C156F92B9C2F360008F86E /* TimeSettingViewController.swift in Sources */,
+				09C156F92B9C2F360008F86E /* TimeViewController.swift in Sources */,
 				09042BC92C84465B00A7A53D /* StockViewModel.swift in Sources */,
-				09C157012B9C577D0008F86E /* TimeSettingViewModel.swift in Sources */,
+				09C157012B9C577D0008F86E /* TimeViewModel.swift in Sources */,
 				09833BF42B99A29B0081E37E /* BaseViewController.swift in Sources */,
 				09ABD4412BA4715800826A73 /* ImageTypeSelectViewModel.swift in Sources */,
 				09ABD47C2BA9B56900826A73 /* EmptyTableViewCell.swift in Sources */,
@@ -701,7 +687,7 @@
 				09ABD47E2BA9BEAA00826A73 /* CustomCalendar.swift in Sources */,
 				0906E9402BADADA80098DF1A /* LogoView.swift in Sources */,
 				09ABD4652BA816BB00826A73 /* PeriodViewController.swift in Sources */,
-				09C157052B9C78C10008F86E /* StartDaySettingViewController.swift in Sources */,
+				09C157052B9C78C10008F86E /* StartDayViewController.swift in Sources */,
 				09EB7A6E2C4B8020001E0470 /* Dictionary+Extension.swift in Sources */,
 				09ABD45E2BA71A7400826A73 /* CustomChartView.swift in Sources */,
 				09EB7AB22C4E20D7001E0470 /* Notification.Name+Extension.swift in Sources */,
@@ -1024,22 +1010,6 @@
 				minimumVersion = 2.8.4;
 			};
 		};
-		09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
-			};
-		};
-		09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1132,26 +1102,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09833BE82B99A0A90081E37E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		09EB7AD52C4E30EC001E0470 /* Differentiator */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = Differentiator;
-		};
-		09EB7AD72C4E30EC001E0470 /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09EB7AD42C4E30EC001E0470 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
-		};
-		09EB7ADA2C4E3118001E0470 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		09EB7ADC2C4E3118001E0470 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09EB7AD92C4E3118001E0470 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

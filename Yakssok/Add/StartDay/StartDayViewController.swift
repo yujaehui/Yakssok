@@ -1,5 +1,5 @@
 //
-//  StartDaySettingViewController.swift
+//  StartDayViewController.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-final class StartDaySettingViewController: BaseViewController {
+final class StartDayViewController: BaseViewController {
     var selectDate: ((Date) -> Void)?
     
     let viewModel = StartDayViewModel()
@@ -30,12 +30,12 @@ final class StartDaySettingViewController: BaseViewController {
     }()
     
     deinit {
-        print("StartDaySettingViewController deinit")
+        print("StartDayViewController deinit")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("StartDaySettingViewController viewDidLoad")
+        print("StartDayViewController viewDidLoad")
         setNav()
         bindData()
     }
@@ -72,7 +72,7 @@ final class StartDaySettingViewController: BaseViewController {
     }
 }
 
-extension StartDaySettingViewController {
+extension StartDayViewController {
     private func setNav() {
         navigationController?.navigationBar.tintColor = ColorStyle.point
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(rightBarButtonItemClikced))
@@ -83,8 +83,8 @@ extension StartDaySettingViewController {
     }
 }
 
-extension StartDaySettingViewController: FSCalendarDelegate, FSCalendarDataSource {
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        return Date()
-    }
+extension StartDayViewController: FSCalendarDelegate, FSCalendarDataSource {
+//    func minimumDate(for calendar: FSCalendar) -> Date {
+//        return Date()
+//    }
 }

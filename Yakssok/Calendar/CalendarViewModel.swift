@@ -23,7 +23,7 @@ final class CalendarViewModel {
     let inputCheck: Observable<(Date?, ObjectId?)> = Observable((nil, nil))
     let inputCombinedCheck: Observable<(Date, Date?, ObjectId?)> = Observable((FSCalendar().today!, nil, nil))
     
-        
+    
     //output
     let outputData: Observable<[(key: Date, value: [MySupplement])]> = Observable([])
     let outputCheckData: Observable<[CheckSupplement]> = Observable([])
@@ -73,13 +73,44 @@ final class CalendarViewModel {
     
     private func convertToDictionary(supplements: [MySupplement]) -> [(key: Date, value: [MySupplement])] {
         var resultDict: [Date: [MySupplement]] = [:]
-
+        
         for supplement in supplements {
-            for time in supplement.timeArray {
-                resultDict.append(value: supplement, forKey: time)
+            if supplement.history.isEmpty {
+                // history가 없는 경우
+                if supplement.cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: inputSelectedDate.value)) {
+                    for time in supplement.timeArray {
+                        resultDict.append(value: supplement, forKey: time)
+                    }
+                }
+            } else {
+                // history가 있는 경우
+                for (index, history) in supplement.history.enumerated() {
+                    let previousUpdateDay = index == 0 ? supplement.startDay : supplement.history[index - 1].updateDay
+                    let currentUpdateDay = history.updateDay
+                    
+                    if previousUpdateDay <= inputSelectedDate.value && inputSelectedDate.value < currentUpdateDay {
+                        // 현재 구간에 해당하면 history의 cycleArray와 timeArray 사용
+                        if history.cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: inputSelectedDate.value)) {
+                            for time in history.timeArray {
+                                resultDict.append(value: supplement, forKey: time)
+                            }
+                        }
+                        break
+                    }
+                }
+                
+                // 마지막 updateDay 이후의 구간 처리
+                if let lastUpdateDay = supplement.history.last?.updateDay,
+                   lastUpdateDay <= inputSelectedDate.value,
+                   supplement.cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: inputSelectedDate.value)) {
+                    for time in supplement.timeArray {
+                        resultDict.append(value: supplement, forKey: time)
+                    }
+                }
             }
         }
-
+        
+        // 키(Date)를 기준으로 정렬
         let sortedResult = resultDict.sorted { $0.key < $1.key }
         return sortedResult
     }
@@ -89,15 +120,15 @@ final class CalendarViewModel {
 // 수정 전 코드
 //final class CalendarViewModel {
 //    let repository = SupplementRepository()
-//    
+//
 //    //input
 //    let inputDidSelectDate: Observable<Date> = Observable(FSCalendar().today!)
 //    let inputDidCheckTime: Observable<MySupplements?> = Observable(nil)
-//    
+//
 //    //output
 //    let outputGroupedDataDict: Observable<[(Date, [MySupplements])]> = Observable([])
 //    let outputShowAlert: Observable<(Bool, MySupplements)?> = Observable(nil)
-//    
+//
 //    init() {
 //        inputDidSelectDate.bind { [weak self] value in
 //            guard let self = self else { return }
@@ -113,7 +144,7 @@ final class CalendarViewModel {
 //            }
 //            self.outputGroupedDataDict.value = groupedDataDict.sorted{$0.key < $1.key}
 //        }
-//        
+//
 //        inputDidCheckTime.bind { [weak self] value in
 //            guard let self = self else { return }
 //            guard let value = value else { return }

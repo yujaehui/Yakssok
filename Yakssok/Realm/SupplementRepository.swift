@@ -13,20 +13,30 @@ final class SupplementRepository {
     private let realm = try! Realm()
     
     // MARK: - Create
-    func createItem(_ data: MySupplement) {
+    func createItem(_ supplement: MySupplement) {
         do {
             try realm.write {
-                realm.add(data)
+                realm.add(supplement)
             }
         } catch {
             print(error)
         }
     }
     
-    func createCheckItem(_ data: CheckSupplement) {
+    func createHistoryItem(_ supplement: MySupplement, historySupplement: HistorySupplement) {
         do {
             try realm.write {
-                realm.add(data)
+                supplement.history.append(historySupplement)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func createCheckItem(_ checkSupplement: CheckSupplement) {
+        do {
+            try realm.write {
+                realm.add(checkSupplement)
             }
         } catch {
             print(error)
@@ -35,14 +45,14 @@ final class SupplementRepository {
     
     // MARK: - Fetch
     func fetchItem() -> [MySupplement] {
-        print(realm.configuration.fileURL)
+        //print(realm.configuration.fileURL)
         let results = realm.objects(MySupplement.self)
         return Array(results)
     }
     
     func fetchItemBySelectedDate(selectedDate: Date) -> [MySupplement] {
         let results = realm.objects(MySupplement.self).filter { supplement in
-            supplement.startDay <= selectedDate && supplement.cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: selectedDate))
+            supplement.startDay <= selectedDate
         }
         return Array(results)
     }
@@ -83,14 +93,14 @@ final class SupplementRepository {
 //    }
     
     // MARK: - Update
-    func updateItem(data: MySupplement, name: String, amount: Int, stock: String, cycleArray: [String], timeArray: [Date]) {
+    func updateItem(supplement: MySupplement, name: String, amount: Int, stock: String, cycleArray: [String], timeArray: [Date]) {
         do {
             try realm.write {
-                data.name = name
-                data.amount = amount
-                data.stock = stock
-                data.cycleArray = cycleArray
-                data.timeArray = timeArray
+                supplement.name = name
+                supplement.amount = amount
+                supplement.stock = stock
+                supplement.cycleArray = cycleArray
+                supplement.timeArray = timeArray
                 
 //                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
 //                
@@ -106,10 +116,10 @@ final class SupplementRepository {
         }
     }
 
-    func updateStock(data: MySupplement?, checkStatus: CheckStatus) {
+    func updateStock(supplement: MySupplement?, checkStatus: CheckStatus) {
         do {
             try realm.write {
-                if let data = data, let stock = NumberFormatterManager.shared.stringToNumber(data.stock) {
+                if let data = supplement, let stock = NumberFormatterManager.shared.stringToNumber(data.stock) {
                     var newStock: Int
                     
                     switch checkStatus {
@@ -172,22 +182,22 @@ final class SupplementRepository {
 //    }
 
     // MARK: - Delete
-    func deleteItem(_ data: MySupplement) {
+    func deleteItem(_ supplement: MySupplement) {
         do {
             try realm.write {
-                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", data.pk)
+                let checkSupplements = realm.objects(CheckSupplement.self).filter("fk == %@", supplement.pk)
                 realm.delete(checkSupplements)
-                realm.delete(data)
+                realm.delete(supplement)
             }
         } catch {
             print(error)
         }
     }
 
-    func deleteCheckItem(_ data: CheckSupplement) {
+    func deleteCheckItem(_ checkSupplement: CheckSupplement) {
         do {
             try realm.write {
-                realm.delete(data)
+                realm.delete(checkSupplement)
             }
         } catch {
             print(error)

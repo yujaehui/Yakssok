@@ -72,18 +72,18 @@ final class CalendarViewController: BaseViewController {
             switch status {
             case .checked:
                 self.viewModel.repository.deleteCheckItem(checkData)
-                self.viewModel.repository.updateStock(data: data, checkStatus: status)
+                self.viewModel.repository.updateStock(supplement: data, checkStatus: status)
                 self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
             case .uncheckedAndNotDue:
                 let alert = AlertManager.shared.showAlert(title: "체크하기 전 확인!", message: "아직 오지 않은 날짜의 일정입니다.\n그럼에도 체크하시겠습니까?", btnTitle: "체크") { _ in
                     self.viewModel.repository.createCheckItem(checkData)
-                    self.viewModel.repository.updateStock(data: data, checkStatus: status)
+                    self.viewModel.repository.updateStock(supplement: data, checkStatus: status)
                     self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
                 }
                 self.present(alert, animated: true)
             case .unchecked:
                 self.viewModel.repository.createCheckItem(checkData)
-                self.viewModel.repository.updateStock(data: data, checkStatus: status)
+                self.viewModel.repository.updateStock(supplement: data, checkStatus: status)
                 self.viewModel.inputSelectedDate.value = self.viewModel.inputSelectedDate.value
                 
             }
@@ -219,12 +219,48 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     private func showAnimation(allData: [MySupplement], checkData: [CheckSupplement]) {
         let matchedCheckData = checkData.filter { checkItem in
             allData.contains { supplement in
-                supplement.cycleArray.contains(where: { $0 == DateFormatterManager.shared.dayOfWeek(from: checkItem.date) }) &&
-                supplement.timeArray.contains(where: { $0 == checkItem.time }) &&
-                supplement.pk == checkItem.fk
+                // updateDay 구간에 따라 cycleArray와 timeArray 결정
+                let cycleArray: [String]
+                let timeArray: [Date]
+
+                if supplement.history.isEmpty {
+                    // history가 없는 경우 기본 cycleArray와 timeArray 사용
+                    cycleArray = supplement.cycleArray
+                    timeArray = supplement.timeArray
+                } else {
+                    // history가 있는 경우 updateDay 구간 확인
+                    var matchedCycleArray: [String]?
+                    var matchedTimeArray: [Date]?
+                    
+                    for (index, history) in supplement.history.enumerated() {
+                        let previousUpdateDay = index == 0 ? supplement.startDay : supplement.history[index - 1].updateDay
+                        let currentUpdateDay = history.updateDay
+
+                        if previousUpdateDay <= checkItem.date && checkItem.date < currentUpdateDay {
+                            matchedCycleArray = history.cycleArray
+                            matchedTimeArray = history.timeArray
+                            break
+                        }
+                    }
+
+                    // 마지막 updateDay 이후 구간 처리
+                    if matchedCycleArray == nil, let lastUpdateDay = supplement.history.last?.updateDay, lastUpdateDay <= checkItem.date {
+                        matchedCycleArray = supplement.cycleArray
+                        matchedTimeArray = supplement.timeArray
+                    }
+
+                    cycleArray = matchedCycleArray ?? []
+                    timeArray = matchedTimeArray ?? []
+                }
+
+                // 필터링 조건
+                return cycleArray.contains(DateFormatterManager.shared.dayOfWeek(from: checkItem.date)) &&
+                       timeArray.contains(where: { Calendar.current.isDate($0, equalTo: checkItem.time, toGranularity: .minute) }) &&
+                       supplement.pk == checkItem.fk
             }
         }
         
+        // 조건: 모든 데이터를 섭취 완료한 경우 애니메이션 실행
         if allData.count == matchedCheckData.count {
             self.animationView.alpha = 1
             self.animationView.isHidden = false
@@ -239,6 +275,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
     }
+
 }
 
 // 수정 전 코드

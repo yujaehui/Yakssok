@@ -1,5 +1,5 @@
 //
-//  TimeSettingViewModel.swift
+//  TimeViewModel.swift
 //  Yakssok
 //
 //  Created by Jaehui Yu on 3/9/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TimeSettingViewModel {
+final class TimeViewModel {
     
     //input
     let inputSelectTime: Observable<Date?> = Observable(nil)

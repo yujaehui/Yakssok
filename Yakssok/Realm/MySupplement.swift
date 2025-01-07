@@ -16,6 +16,8 @@ final class MySupplement: Object {
     @Persisted var startDay: Date
     @Persisted var cycle: List<String>
     @Persisted var time: List<Date>
+    @Persisted var history: List<HistorySupplement>
+    
     var cycleArray: [String] {
         get {
             return cycle.map{$0}
@@ -34,7 +36,17 @@ final class MySupplement: Object {
         }
     }
     
-    convenience init(name: String, amount: Int, stock: String, startDay: Date, cycleArray: [String], timeArray: [Date]) {
+    var historyArray: [HistorySupplement] {
+        get {
+            return history.map{$0}
+        }
+        set {
+            history.removeAll()
+            history.append(objectsIn: newValue)
+        }
+    }
+    
+    convenience init(name: String, amount: Int, stock: String, startDay: Date, cycleArray: [String], timeArray: [Date], historyArray: [HistorySupplement]) {
         self.init()
         self.name = name
         self.amount = amount
@@ -42,6 +54,31 @@ final class MySupplement: Object {
         self.startDay = startDay
         self.cycleArray = cycleArray
         self.timeArray = timeArray
+        self.historyArray = historyArray
+    }
+}
+
+final class HistorySupplement: EmbeddedObject {
+    @Persisted var updateDay: Date
+    @Persisted var cycle: List<String>
+    @Persisted var time: List<Date>
+    
+    var cycleArray: [String] {
+        get {
+            return cycle.map{$0}
+        } set {
+            cycle.removeAll()
+            cycle.append(objectsIn: newValue)
+        }
+    }
+    var timeArray: [Date] {
+        get {
+            return time.map{$0}
+        }
+        set {
+            time.removeAll()
+            time.append(objectsIn: newValue)
+        }
     }
 }
 

@@ -35,7 +35,7 @@ final class AddViewModel {
     let inputAmount: Observable<Int> = Observable(1)
     let inputStock: Observable<String> = Observable("설정 안함")
     let inputStartDay: Observable<Date> = Observable(FSCalendar().today!)
-    let inputCycle: Observable<[String]> = Observable(DayOfTheWeek.allCases.map { $0.rawValue })
+    let inputCycleList: Observable<[String]> = Observable(DayOfTheWeek.allCases.map { $0.rawValue })
     let inputTimeList: Observable<[Date]> = Observable([DateFormatterManager.shared.extractTime(date: DateFormatterManager.shared.generateNineAM())])
     
     // output
@@ -53,8 +53,8 @@ final class AddViewModel {
     
     let outputStartDay: Observable<Date> = Observable(FSCalendar().today!)
     
-    let outputCycle: Observable<[String]> = Observable([])
-    let outputCycleString: Observable<String> = Observable("")
+    let outputCycleList: Observable<[String]> = Observable([])
+    let outputCycleListString: Observable<String> = Observable("")
     
     let outputTimeList: Observable<[Date]> = Observable([])
     let outputTimeListString: Observable<[String]> = Observable([])
@@ -81,14 +81,15 @@ final class AddViewModel {
                     return
                 }
             }
+            
             // 2. 이름이 비었는지 확인
             if outputName.value.isEmpty {
                 outputRegistrationStatus.value = .noName
                 return
             }
             
-            // 3-1. 임시로 데이터를 추가하고 알림 갯수 확인
-            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 3-1. 임시 데이터를 생성
+            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
             
             // 3-2. 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
             var allSupplements = repository.fetchItem()
@@ -99,16 +100,20 @@ final class AddViewModel {
                 return
             }
             
-            outputRegistrationStatus.value = .success
+            outputRegistrationStatus.value = .success // 성공
             
-            let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 실제 데이터 생성
+            let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
             
+            // 현재 이미지가 기본 이미지가 아니라면 저장
             if outputImage.value != ImageStyle.supplement {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             }
             
+            // 데이터 저장
             repository.createItem(data)
                         
+            // 알림 등록
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
@@ -131,12 +136,11 @@ final class AddViewModel {
                 return
             }
             
-            // 3-1. 임시로 데이터를 업데이트하고 알림 갯수 확인
-            let currentSupplements = repository.fetchItem().filter { $0.pk != mySupplement.pk }
-            let updatedSupplement = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 3-1. 임시 데이터 생성
+            let updatedSupplement = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
             
             // 3-2. 기존 데이터에 업데이트된 데이터를 포함하여 알림 갯수를 시뮬레이션
-            var allSupplements = currentSupplements
+            var allSupplements = repository.fetchItem().filter { $0.pk != mySupplement.pk }
             allSupplements.append(updatedSupplement)
             
             if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
@@ -144,19 +148,33 @@ final class AddViewModel {
                 return
             }
             
-            outputRegistrationStatus.value = .success
+            outputRegistrationStatus.value = .success // 성공
+
+            if let currentSupplement = repository.fetchItemByPk(pk: mySupplement.pk),
+               currentSupplement.cycleArray != outputCycleList.value ||
+               currentSupplement.timeArray != outputTimeList.value {
+                
+                let histroySupplement = HistorySupplement()
+                histroySupplement.updateDay = Calendar.current.startOfDay(for: Date())
+                histroySupplement.cycleArray = currentSupplement.cycleArray
+                histroySupplement.timeArray = currentSupplement.timeArray
+                
+                repository.createHistoryItem(currentSupplement, historySupplement: histroySupplement)
+            }
             
-            // 1. 이전 이미지가 있다면 제거
+            // 이전 이미지가 있다면 제거
             if ImageDocumentManager.shared.loadImageToDocument(fileName: "\(mySupplement.pk)") != nil {
                 ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
             }
-            // 2. 현재 이미지가 기본 이미지가 아니라면 저장
+            // 현재 이미지가 기본 이미지가 아니라면 저장
             if outputImage.value != ImageStyle.supplement {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(mySupplement.pk)")
             }
             
-            repository.updateItem(data: mySupplement, name: outputName.value, amount: outputAmount.value, stock: outputStock.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
+            // 데이터 업데이트
+            repository.updateItem(supplement: mySupplement, name: outputName.value, amount: outputAmount.value, stock: outputStock.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value)
             
+            // 알림 등록
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
@@ -164,9 +182,10 @@ final class AddViewModel {
         deleteButtonClicked.bind { [weak self] value in
             guard let self = self else { return }
             guard let _ = value else { return }
-            
             guard let mySupplement = inputMySupplement.value else { return }
+            
             ImageDocumentManager.shared.removeImageFromDocument(fileName: "\(mySupplement.pk)")
+            
             repository.deleteItem(mySupplement)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
@@ -186,7 +205,7 @@ final class AddViewModel {
             inputAmount.value = value.amount
             inputStock.value = value.stock
             inputStartDay.value = value.startDay
-            inputCycle.value = value.cycleArray
+            inputCycleList.value = value.cycleArray
             inputTimeList.value = value.timeArray
         }
         
@@ -214,9 +233,9 @@ final class AddViewModel {
             self?.outputStartDay.value = value
         }
         
-        inputCycle.bind { [weak self] value in
-            self?.outputCycle.value = value
-            self?.outputCycleString.value = value.count == DayOfTheWeek.allCases.count ? "매일" : value.joined(separator: ", ")
+        inputCycleList.bind { [weak self] value in
+            self?.outputCycleList.value = value
+            self?.outputCycleListString.value = value.count == DayOfTheWeek.allCases.count ? "매일" : value.joined(separator: ", ")
         }
         
         inputTimeList.bind { [weak self] value in
