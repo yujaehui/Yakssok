@@ -310,11 +310,11 @@
 				09833BB32B9983AC0081E37E /* AppDelegate.swift */,
 				09833BB52B9983AC0081E37E /* SceneDelegate.swift */,
 				09833BB72B9983AC0081E37E /* ViewController.swift */,
-				09833BB92B9983AC0081E37E /* Main.storyboard */,
-				09833BBC2B9983AE0081E37E /* Assets.xcassets */,
-				09833BBE2B9983AE0081E37E /* LaunchScreen.storyboard */,
-				09833BC12B9983AE0081E37E /* Info.plist */,
 				09833C122B99C3080081E37E /* Observable.swift */,
+				09833BB92B9983AC0081E37E /* Main.storyboard */,
+				09833BBE2B9983AE0081E37E /* LaunchScreen.storyboard */,
+				09833BBC2B9983AE0081E37E /* Assets.xcassets */,
+				09833BC12B9983AE0081E37E /* Info.plist */,
 			);
 			path = Yakssok;
 			sourceTree = "<group>";

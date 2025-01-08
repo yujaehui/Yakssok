@@ -70,53 +70,119 @@ final class AddViewModel {
     var presentSearchVC: Observable<Void?> = Observable(nil)
     
     init() {
+//        createTrigger.bind { [weak self] value in
+//            guard let self = self else { return }
+//            guard let _ = value else { return }
+//            
+//            // 1. 이미 같은 이름이 있는지 확인
+//            for i in repository.fetchItem() {
+//                if i.name == outputName.value {
+//                    outputRegistrationStatus.value = .duplicateName
+//                    return
+//                }
+//            }
+//            
+//            // 2. 이름이 비었는지 확인
+//            if outputName.value.isEmpty {
+//                outputRegistrationStatus.value = .noName
+//                return
+//            }
+//            
+//            // 3-1. 임시 데이터를 생성
+//            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
+//            
+//            // 3-2. 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
+//            var allSupplements = repository.fetchItem()
+//            allSupplements.append(temporaryData)
+//            
+//            if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
+//                outputRegistrationStatus.value = .limitExceeded
+//                return
+//            }
+//            
+//            outputRegistrationStatus.value = .success // 성공
+//            
+//            // 실제 데이터 생성
+//            let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
+//            
+//            // 현재 이미지가 기본 이미지가 아니라면 저장
+//            if outputImage.value != ImageStyle.supplement {
+//                ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
+//            }
+//            
+//            // 데이터 저장
+//            repository.createItem(data)
+//                        
+//            // 알림 등록
+//            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//            NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
+//        }
+        
         createTrigger.bind { [weak self] value in
-            guard let self = self else { return }
-            guard let _ = value else { return }
-            
-            // 1. 이미 같은 이름이 있는지 확인
-            for i in repository.fetchItem() {
-                if i.name == outputName.value {
-                    outputRegistrationStatus.value = .duplicateName
-                    return
-                }
+            guard let self = self, value != nil else { return }
+
+            // 1. 미리 모든 데이터를 가져와 Set으로 변환 → 중복 체크 O(1) 최적화
+            let existingSupplements = repository.fetchItem()
+            let existingNames = Set(existingSupplements.map { $0.name }) // Set 활용
+
+            // 2. 이미 같은 이름이 있는지 확인 (O(1) 조회)
+            if existingNames.contains(outputName.value) {
+                outputRegistrationStatus.value = .duplicateName
+                return
             }
-            
-            // 2. 이름이 비었는지 확인
+
+            // 3. 이름이 비었는지 확인
             if outputName.value.isEmpty {
                 outputRegistrationStatus.value = .noName
                 return
             }
-            
-            // 3-1. 임시 데이터를 생성
-            let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
-            
-            // 3-2. 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
-            var allSupplements = repository.fetchItem()
+
+            // 4. 임시 데이터 생성
+            let temporaryData = MySupplement(
+                name: outputName.value,
+                amount: outputAmount.value,
+                stock: outputStock.value,
+                startDay: outputStartDay.value,
+                cycleArray: outputCycleList.value,
+                timeArray: outputTimeList.value,
+                historyArray: []
+            )
+
+            // 5. 기존 데이터 + 임시 데이터로 알림 개수 시뮬레이션
+            var allSupplements = existingSupplements
             allSupplements.append(temporaryData)
-            
+
             if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
                 outputRegistrationStatus.value = .limitExceeded
                 return
             }
-            
+
             outputRegistrationStatus.value = .success // 성공
-            
-            // 실제 데이터 생성
-            let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycleList.value, timeArray: outputTimeList.value, historyArray: [])
-            
-            // 현재 이미지가 기본 이미지가 아니라면 저장
+
+            // 6. 실제 데이터 생성 및 저장
+            let data = MySupplement(
+                name: outputName.value,
+                amount: outputAmount.value,
+                stock: outputStock.value,
+                startDay: outputStartDay.value,
+                cycleArray: outputCycleList.value,
+                timeArray: outputTimeList.value,
+                historyArray: []
+            )
+
+            // 7. 이미지 저장 (기본 이미지가 아니면)
             if outputImage.value != ImageStyle.supplement {
                 ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\(data.pk)")
             }
-            
-            // 데이터 저장
+
+            // 8. 데이터 저장
             repository.createItem(data)
-                        
-            // 알림 등록
+
+            // 9. 알림 등록
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
         }
+
         
         updateButtonClicked.bind { [weak self] value in
             guard let self = self else { return }
