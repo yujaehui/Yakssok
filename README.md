@@ -11,23 +11,24 @@
 
 ---
 
-# 📌 목차
-- [⭐️ 주요 기능](#-주요-기능)
-- [📸 스크린샷](#-스크린샷)
-- [💻 개발 환경](#-개발-환경)
-- [📋 설계 패턴](#-설계-패턴)
-  - [Input-Output Custom Reactive MVVM](#input-output-custom-reactive-mvvm)
-  - [싱글턴 패턴](#싱글턴-패턴)
-- [🛠️ 기술 스택](#-기술-스택)
-- [🚀 트러블 슈팅](#-트러블-슈팅)
-  - [iOS 알림 제한 문제 해결](#ios-알림-제한-문제-해결:-영양제-등록-로직-최적화)
-  - [Realm 데이터 삭제 안정화](#realm-데이터-삭제-안정화:-영양제-체크-해제-문제-해결)
-- [🗂️ 파일 디렉토리 구조](#-파일-디렉토리-구조)
-- [🛣️ 향후 계획](#-향후-계획)
+# 📚 목차
+
+1. [⭐️ 주요 기능](#features)
+2. [📸 스크린샷](#screenshots)
+3. [💻 개발 환경](#development-environment)
+4. [📋 설계 패턴](#design-patterns)
+   - [Input-Output Custom Reactive MVVM](#input-output-custom-reactive-mvvm)
+   - [싱글턴 패턴](#singleton-pattern)
+5. [🛠️ 기술 스택](#tech-stack)
+6. [🚀 트러블 슈팅](#troubleshooting)
+   - [iOS 알림 제한 문제 해결: 영양제 등록 로직 최적화](#notification-limit-issue)
+   - [Realm 데이터 삭제 안정화: 영양제 체크 해제 문제 해결](#realm-delete-issue)
+7. [🗂️ 파일 디렉토리 구조](#file-structure)
+8. [🛣️ 향후 계획](#future-plans)
 
 ---
 
-# ⭐️ 주요 기능
+<h1 id="features">⭐️ 주요 기능</h1>
 
 **1. 영양제 등록 및 수정**
 
@@ -58,7 +59,8 @@
 
 ---
 
-# 📸 스크린샷
+<h1 id="screenshots">📸 스크린샷</h1>
+
 | 영양제 등록 | 총 보유량 | 복용 요일 | 복용 시간 | 복용 시간 디테일 |
 |-------------|---------------|----------------|----------------|----------------|
 | <img src="https://github.com/user-attachments/assets/c2a59c88-67cf-44ed-b87c-9aa0bcceba39" width="200"> | <img src="https://github.com/user-attachments/assets/73f6a1ac-a451-4a68-9e73-8b6729fa4906" width="200"> | <img src="https://github.com/user-attachments/assets/f3c2a770-5ad0-42ca-95fa-b20530d42bac" width="200"> | <img src="https://github.com/user-attachments/assets/1a0dcfef-3a88-4ffb-a450-5d658a34b857" width="200"> | <img src="https://github.com/user-attachments/assets/59093516-c070-4d5a-b735-1ec56f523be8" width="200"> |
@@ -69,7 +71,7 @@
 
 ---
 
-# 💻 개발 환경
+<h1 id="development-environment">💻 개발 환경</h1>
 
 - **개발 기간**:
 - **앱 지원 iOS SDK**: iOS 16.0 이상
@@ -79,12 +81,12 @@
 
 ---
 
-# 📋 설계 패턴
+<h1 id="design-patterns">📋 설계 패턴</h1>
 
 - **Input-Output Custom Reactive MVVM**: UI와 비즈니스 로직 분리
 - **싱글턴 패턴**: 전역적으로 관리가 필요한 객체를 재사용하기 위해 사용
 
-## **Input-Output Custom Reactive MVVM**
+<h2 id="input-output-custom-reactive-mvvm">Input-Output Custom Reactive MVVM</h2>
 
 UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기반의 Input-Output Reactive MVVM**을 적용하였습니다. 외부 라이브러리를 따로 사용하지 않고, 직접 프로젝트 요구사항에 맞춘 경량화된 데이터 바인딩 구조를 구현했습니다.
 
@@ -192,7 +194,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 - **DI(Dependency Injection) 적용**: ViewModel과 Repository 간의 의존성을 명확히 관리
 - **Combine 도입 검토**: Swift에서 기본으로 제공하는 Combine 프레임워크를 활용하여 더 효율적인 Reactive 프로그래밍 구현 가능성 탐색
 
-## **싱글턴 패턴**
+<h2 id="singleton-pattern">싱글턴 패턴</h2>
 
 전역적으로 관리가 필요한 객체들에 대해 **싱글턴 패턴**을 적용하여 일관성과 성능 최적화를 도모했습니다.
 
@@ -204,7 +206,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 
 ---
 
-# 🛠️ 기술 스택
+<h1 id="tech-stack">🛠️ 기술 스택</h1>
 
 ### **기본 구성**
 
@@ -235,9 +237,9 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 
 ---
 
-# 🚀 트러블 슈팅
+<h1 id="troubleshooting">🚀 트러블 슈팅</h1>
 
-## iOS 알림 제한 문제 해결: 영양제 등록 로직 최적화
+<h2 id="notification-limit-issue">iOS 알림 제한 문제 해결: 영양제 등록 로직 최적화</h2>
 
 ### **1. 문제 요약**
 
@@ -389,7 +391,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 - **최종 결과:**
     - 알림 등록 및 관리가 정상적으로 이루어지며, 64개 제한 문제도 해결됨.
 
-## Realm 데이터 삭제 안정화: 영양제 체크 해제 문제 해결
+<h2 id="realm-delete-issue">Realm 데이터 삭제 안정화: 영양제 체크 해제 문제 해결</h2>
 
 ### **1. 문제 요약**
 
@@ -477,7 +479,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 
 ---
 
-# 🗂️ 파일 디렉토리 구조
+<h1 id="file-structure">🗂️ 파일 디렉토리 구조</h1>
 
 ```
 Yakssok
@@ -608,4 +610,4 @@ Yakssok
 
 ---
 
-# 🛣️ 향후 계획
+<h1 id="future-plans">🛣️ 향후 계획</h1>
