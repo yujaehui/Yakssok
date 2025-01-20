@@ -220,7 +220,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 
 - **Codable**: 네트워크 응답 데이터의 디코딩 및 인코딩을 통해 JSON 데이터 처리
 - **Alamofire**: 네트워크 요청 및 응답 관리
-- **Firebase**: 백엔드 통합 (인증, 데이터베이스, 분석 등)
+- **Firebase**: 백엔드 통합 (Crashlytics, Analytics 등)
 
 ### **데이터 관리**
 
