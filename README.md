@@ -214,11 +214,12 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 - **SnapKit**: 간결한 Auto Layout 코드 작성
 - **Codebase UI**: 코드 기반으로 UI를 설계하여 Storyboard 의존성 제거
 - **DiffableDataSource**: 리스트 및 컬렉션 뷰의 데이터 소스 관리
+- **Pagination**: 효율적인 데이터 로드 및 무한 스크롤 구현
 
 ### **비동기 처리 및 데이터 관리**
 
+- **Codable**: 네트워크 응답 데이터의 디코딩 및 인코딩을 통해 JSON 데이터 처리
 - **Alamofire**: 네트워크 요청 및 응답 관리
-- **Codable**: 네트워크 응답 데이터 디코딩 및 인코딩
 - **Firebase**: 백엔드 통합 (인증, 데이터베이스, 분석 등)
 
 ### **데이터 관리**
@@ -228,10 +229,10 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 ### **UI 및 사용자 경험**
 
 - **LocalNotification**: 로컬 알림을 통한 사용자 리마인더 및 알림
-- **FSCalendar**: 커스터마이징 가능한 캘린더 UI
-- **DGCharts**: 데이터 시각화를 위한 다양한 차트 지원
 - **Kingfisher**: 네트워크 이미지를 간편하게 로드 및 캐싱
 - **Toast-Swift**: 사용자 알림 메시지 표시
+- **FSCalendar**: 커스터마이징 가능한 캘린더 UI
+- **DGCharts**: 데이터 시각화를 위한 다양한 차트 지원
 - **Lottie**: JSON 기반 애니메이션을 통해 사용자 경험 강화
 
 ---
