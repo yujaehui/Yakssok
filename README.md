@@ -213,7 +213,6 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 - **UIKit**: iOS 사용자 인터페이스 구현
 - **SnapKit**: 간결한 Auto Layout 코드 작성
 - **Codebase UI**: 코드 기반으로 UI를 설계하여 Storyboard 의존성 제거
-- **ComposableLayout**: UICollectionView의 유연한 레이아웃 구성
 - **DiffableDataSource**: 리스트 및 컬렉션 뷰의 데이터 소스 관리
 
 ### **비동기 처리 및 데이터 관리**
