@@ -73,9 +73,7 @@
 
 <h1 id="development-environment">💻 개발 환경</h1>
 
-- **개발 기간**:
 - **앱 지원 iOS SDK**: iOS 16.0 이상
-- **위젯 지원 iOS SDK**: iOS 17.0 이상
 - **Xcode**: 15.0 이상
 - **Swift 버전**: 5.8 이상
 
