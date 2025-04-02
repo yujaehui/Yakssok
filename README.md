@@ -21,8 +21,9 @@
    - [싱글턴 패턴](#singleton-pattern)
 5. [🛠️ 기술 스택](#tech-stack)
 6. [🚀 트러블 슈팅](#troubleshooting)
-   - [iOS 알림 제한 문제 해결: 영양제 등록 로직 최적화](#notification-limit-issue)
-   - [Realm 데이터 삭제 안정화: 영양제 체크 해제 문제 해결](#realm-delete-issue)
+   - [iOS 로컬 알림 제한을 고려한 사전 시뮬레이션](#troubleshooting1)
+   - [EmbeddedObject 기반 영양제 수정 이력 트래킹 구조 설계](#troubleshooting2)
+   - [DiffableDataSource를 활용한 입력 항목 설계](#troubleshooting3)
 7. [🗂️ 파일 디렉토리 구조](#file-structure)
 8. [🛣️ 향후 계획](#future-plans)
 
@@ -237,243 +238,68 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 
 <h1 id="troubleshooting">🚀 트러블 슈팅</h1>
 
-<h2 id="notification-limit-issue">iOS 알림 제한 문제 해결: 영양제 등록 로직 최적화</h2>
+<h2 id="troubleshooting1">iOS 로컬 알림 제한을 고려한 사전 시뮬레이션</h2>
 
-### **1. 문제 요약**
+### **1. 문제 정의**
 
-- **이슈 제목:** Realm에 영양제 등록 시 알림 수 초과로 인한 문제 발생
-- **발생 위치:** 영양제 등록 및 알림 설정 로직
-- **관련 컴포넌트:**`UNUserNotificationCenter`, `MySupplement` 객체, Realm 데이터베이스
+- iOS의 로컬 알림은 최대 64개로 제한되어 있음
+- 영양제 등록 및 수정 시, 알림을 요일별로 지정된 시간에 맞춰 등록하기 때문에 알림 개수가 64개를 초과할 가능성이 존재
+- 이 경우 정상적으로 알림이 등록되지 않을 수 있으며, 사용자는 알림이 등록되지 않는 원인을 파악하기 어려움
 
-### **2. 문제 상세**
+### **2. 문제 해결**
 
-- **현상 설명:**
-    - 사용자가 설정한 영양제 복용 시간 및 요일에 따라 Realm에 객체를 저장하고 알림을 등록하는 과정에서 문제가 발생.
-    - iOS 알림 시스템에는 횟수 제한이 있어, 64개를 초과하는 경우 알림이 울리지 않는 문제가 발생.
-    - 예시: A 영양제가 매일 오전 9시와 오후 2시에 섭취되도록 설정하고 복용 기간이 1개월이라면, Realm에 약 60개의 객체가 저장됨. 동일한 형태의 영양제를 10개만 추가해도 Realm에 600개의 객체가 추가되며, 이로 인해 600개의 알림이 등록됨.
-- **기존 해결 방법의 문제점:**
-    - `ViewDidLoad` 시점마다 가장 가까운 시일의 64개 알림을 새로 등록하는 방법을 사용했으나, 사용자가 앱에 접속하지 않으면 알림이 울리지 않는 문제가 발생함.
+- 영양제 등록 및 수정 시 알림 개수를 미리 시뮬레이션하여 초과 가능성을 사전에 감지
+- 등록 예정인 알림이 64개를 초과할 경우, 사용자에게 경고 메시지 및 해결 방법을 안내하는 알럿 제공
+- iOS의 플랫폼 제약을 고려해 사전에 위험 요소를 감지하고 대응할 수 있는 구조로 설계
 
-### **3. 기존 코드 및 원인 분석**
+### **3. 결과**
 
-- **기존 코드:**
-    
-    ```swift
-    createTrigger.bind { [weak self] value in
-        guard let self = self else { return }
-        guard let _ = value else { return }
-        
-        // 이전 코드 생략
-            
-        let data = MySupplement(name: outputName.value, amout: outputAmount.value, startDay: outputStartDay.value, period: outputPeriod.value, endDay: outputEndDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
-        
-        if outputImage.value != ImageStyle.supplement {
-            ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\\(data.pk)")
-        }
-        
-        repository.createItem(data)
-        
-        generateScheduledSupplements(startDay: outputStartDay.value)
-        
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        NotificationManager.shared.scheduleNotificationsFromSchedule(createGroupDataDict())
-    }
-    ```
-    
-- **원인 분석:**
-    - 영양제 등록 시 각 요일과 시간에 대해 객체를 개별적으로 저장하다 보니, 객체 수와 이에 따른 알림 수가 급격히 증가하여 64개의 알림 제한을 초과하게 됨. 이는 알림이 울리지 않는 원인이 됨.
+- 64개 초과로 인한 알림 누락 문제를 사전 예방하여 앱의 신뢰성과 사용성 향상
+- 사용자에게 문제 발생 가능성과 해결 방법을 명확히 안내, 사용자의 혼란 최소화
+- 플랫폼 제약을 고려한 설계를 통해 안정적인 알림 관리 구조 구현 및 유지보수 용이성 확보
 
-### **4. 해결 방법 및 수정된 코드**
+<h2 id="troubleshooting2">EmbeddedObject 기반 영양제 수정 이력 트래킹 구조 설계</h2>
 
-- **해결 방법:**
-    - **데이터 구조 변경:**
-        - 요일과 시간 별로 각각 저장하는 대신, 하나의 객체로 저장하고 알림 갯수를 시뮬레이션하여 64개를 초과할 경우 사용자에게 경고 메시지를 전달.
-    - **알림 최적화:**
-        - 앱에서 사용자 알림을 효율적으로 관리하기 위해 기존 데이터에 임시 데이터를 추가하여 알림 수를 시뮬레이션하고, 64개를 초과하지 않도록 조정.
-- **수정된 코드:**
-    - **영양제 등록 로직:**
-    
-    ```swift
-    createTrigger.bind { [weak self] value in
-        guard let self = self else { return }
-        guard let _ = value else { return }
-    
-        // 이전 코드 생략
-    
-        // 임시 데이터
-        let temporaryData = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
-    
-        // 기존 데이터에 임시 데이터를 추가하여 알림 갯수를 시뮬레이션
-        var allSupplements = repository.fetchItem()
-        allSupplements.append(temporaryData)
-    
-        if totalTimesCount(from: convertToDictionary(supplements: allSupplements)) >= 64 {
-            outputRegistrationStatus.value = .limitExceeded
-            return
-        }
-    
-        let data = MySupplement(name: outputName.value, amount: outputAmount.value, stock: outputStock.value, startDay: outputStartDay.value, cycleArray: outputCycle.value, timeArray: outputTimeList.value)
-    
-        if outputImage.value != ImageStyle.supplement {
-            ImageDocumentManager.shared.saveImageToDocument(image: outputImage.value, fileName: "\\(data.pk)")
-        }
-    
-        repository.createItem(data)
-    
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        NotificationManager.shared.scheduleLocalNotifications(for: convertToDictionary(supplements: repository.fetchItem()))
-    }
-    ```
-    
-    - **데이터 변환 로직:**
-    
-    ```swift
-    private func convertToDictionary(supplements: [MySupplement]) -> [(Int, [Date])] {
-        var resultDict: [Int: [Date]] = [:]
-    
-        for supplement in supplements {
-            for day in supplement.cycle {
-                let dayNumber = DateFormatterManager.shared.dayOfWeekToNumber(day)
-                for time in supplement.time {
-                    resultDict.append(value: time, forKey: dayNumber)
-                }
-            }
-        }
-    
-        let sortedDict = resultDict.sorted { $0.key < $1.key }
-        return sortedDict
-    }
-    
-    private func totalTimesCount(from dictionary: [(Int, [Date])]) -> Int {
-        return dictionary.reduce(0) { $0 + $1.1.count }
-    }
-    ```
-    
-    - **알림 등록 로직:**
-    
-    ```swift
-    func scheduleLocalNotifications(for schedule: [(Int, [Date])]) {
-        let center = UNUserNotificationCenter.current()
-    
-        for (weekday, times) in schedule {
-            for time in times {
-                var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: time)
-                dateComponents.weekday = weekday
-    
-                let content = UNMutableNotificationContent()
-                content.title = "영양제 드시기로 약속한 시간입니다💜"
-                content.body = "영양제 챙겨 드시고, 약속에서 기록하세요!"
-                content.sound = UNNotificationSound.default
-    
-                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    
-                center.add(request) { error in
-                    if let error = error {
-                        print("알림 등록 실패: \\(error)")
-                    } else {
-                        print("알림 등록 성공")
-                    }
-                }
-            }
-        }
-    }
-    ```
+### **1. 문제 정의**
 
-### **5. 결론**
+- 사용자가 영양제의 복용 요일이나 시간을 수정하면, 수정된 정보가 과거 기록에도 일괄적으로 반영되는 문제가 발생
+- 예를 들어, 원래 월/수/금에 복용하던 영양제를 화/목/토로 수정하면, 과거의 월/수/금 기록까지 모두 화/목/토로 변경
+- 이는 Realm 모델에서 복용 주기(cycle)와 시간(time)을 단일 리스트로 관리하면서, 수정 시 해당 값이 덮어쓰게 되기 때문
+- 이에 따라 과거 날짜를 조회할 때도 최신 복용 정보 기준으로 표시되면서, 복용 체크 이력이 실제와 다르게 왜곡
+- 복용 정보를 수정하는 순간 과거의 체크 기록과의 정합성이 깨져 사용자 신뢰도에 영향
 
-- **알림 관리 최적화:**
-    - 데이터를 효율적으로 관리하고, 알림 수를 제한하여 Realm과 알림 시스템의 과부하를 방지.
-- **사용자 경험 개선:**
-    - 알림 수 초과로 인한 오류를 방지함으로써 앱의 안정성을 높임.
-- **최종 결과:**
-    - 알림 등록 및 관리가 정상적으로 이루어지며, 64개 제한 문제도 해결됨.
+### **2. 문제 해결**
 
-<h2 id="realm-delete-issue">Realm 데이터 삭제 안정화: 영양제 체크 해제 문제 해결</h2>
+- 복용 정보 변경 이력을 저장하기 위해 HistorySupplement라는 EmbeddedObject 모델을 도입
+- 해당 객체는 변경된 복용 요일과 시간, 그리고 변경된 날짜(updateDay)를 함께 저장
+- 캘린더 뷰에서는 날짜별로 유효한 복용 정보를 계산하기 위해, updateDay 기준으로 복용 시점을 구분하여 cycle과 time을 다르게 적용하도록 구현
+- 과거 이력은 해당 시점의 정보를 그대로 유지하고, 이후 변경분은 분리된 이력으로 관리
 
-### **1. 문제 요약**
+### **3. 결과**
 
-- **이슈 제목:** Realm에서 객체 삭제 시 런타임 오류 발생
-- **발생 위치:** 사용자가 영양제 체크를 해제할 때
-- **관련 컴포넌트:** `CheckSupplement` 객체, Realm 데이터베이스
+- 과거의 복용 기록이 실제 복용 당시 기준으로 정확히 표시되어 데이터 왜곡 문제 해결
+- 사용자는 "이 시기엔 월/수/금, 지금은 화/목/토"처럼 이력 흐름을 직관적으로 이해 가능
+- 데이터 정합성과 사용자 신뢰도 모두 확보, 장기적인 이력 기반 기능 확장의 기반 마련
 
-### **2. 문제 상세**
+<h2 id="troubleshooting3">DiffableDataSource를 활용한 입력 항목 설계</h2>
 
-- **현상 설명:**
-    - 사용자가 영양제 체크를 해제할 때, `CheckSupplement` 객체를 Realm에서 삭제하려고 시도하면 런타임 오류가 발생.
-- **에러 메시지:**
-    
-    ```swift
-    *** Terminating app due to uncaught exception 'RLMException', reason: 'Can only delete an object from the Realm it belongs to.'
-    ```
-    
-- **에러 분석:**
-    - Realm 인스턴스에서 관리되지 않는 객체를 삭제하려고 할 때 발생. 삭제 대상 객체가 현재 Realm 인스턴스에 속해 있지 않으면 문제가 발생.
+### **1. 문제 정의**
 
-### **3. 기존 코드 및 원인 분석**
+- 영양제 등록 및 수정 화면에서 이미지, 이름, 복용 요일 등 다양한 입력 항목의 효율적인 관리가 필요
+- 기존 방식은 데이터를 변경한 후 reloadData() 또는 performBatchUpdates()를 호출해야 했으며, 이에 따라 전체 View 리로드가 불필요하게 발생
+- 결과적으로 UI와 데이터 간의 불일치 가능성이 생기고, 화면 전환도 매끄럽지 못한 UX로 이어졌음
 
-- **기존 코드:**
-    
-    ```swift
-    inputCombinedCheck.bind { [weak self] (date, time, pk) in
-        guard let self = self else { return }
-        guard let time = time, let pk = pk else { return }
-    
-        let data = CheckSupplement(date: date, time: time, fk: pk)
-    
-        if repository.fetchCheckItemBySelectedDate(selectedDate: date).contains(where: {
-            DateFormatterManager.shared.makeHeaderDateFormatter2(date: $0.time) == DateFormatterManager.shared.makeHeaderDateFormatter2(date: time)
-            && $0.fk == pk
-        }) {
-            outputCheckStatus.value = (.checked, data)
-        } else if date > FSCalendar().today! && !repository.fetchCheckItemBySelectedDate(selectedDate: date).contains(where: { $0 == data })  {
-            outputCheckStatus.value = (.uncheckedAndNotDue, data)
-        } else {
-            outputCheckStatus.value = (.unchecked, data)
-        }
-    }
-    ```
-    
-- **원인 분석:**
-    - Realm 객체를 삭제할 때 문제가 되는 이유는, 새로 생성한 `CheckSupplement` 객체가 현재 Realm 인스턴스에 속하지 않기 때문임. Realm은 인스턴스에 속하지 않은 객체의 삭제를 허용하지 않음.
+### **2. 문제 해결**
 
-### **4. 해결 방법 및 수정된 코드**
+- DiffableDataSource를 활용하여 데이터를 섹션별로 그룹화
+- 스냅샷 기반의 중앙화된 데이터 관리를 적용하여 변경되는 부분만 애니메이션이 적용되어 자연스럽게 업데이트
+- reloadData() 없이 보다 효율적이고 dynamic하게 View를 업데이트할 수 있도록 개선
 
-- **해결 방법:**
-    - **기존 객체 사용:**
-        - Realm에서 객체를 직접 삭제하려면 해당 객체가 Realm 인스턴스에서 관리되고 있어야 함. 따라서 객체를 새로 생성하지 않고, 기존 객체를 fetch하여 사용함으로써 문제를 해결.
-- **수정된 코드:**
-    
-    ```swift
-    inputCombinedCheck.bind { [weak self] (date, time, pk) in
-        guard let self = self else { return }
-        guard let time = time, let pk = pk else { return }
-    
-        let existingCheckItems = repository.fetchCheckItemBySelectedDate(selectedDate: date)
-        if let existingData = existingCheckItems.first(where: {
-            DateFormatterManager.shared.makeHeaderDateFormatter2(date: $0.time) == DateFormatterManager.shared.makeHeaderDateFormatter2(date: time)
-            && $0.fk == pk
-        }) {
-            outputCheckStatus.value = (.checked, existingData)
-        } else {
-            let newData = CheckSupplement(date: date, time: time, fk: pk)
-            if date > FSCalendar().today! && !existingCheckItems.contains(where: { $0 == newData })  {
-                outputCheckStatus.value = (.uncheckedAndNotDue, newData)
-            } else {
-                outputCheckStatus.value = (.unchecked, newData)
-            }
-        }
-    }
-    ```
+### **3. 결과**
 
-### **5. 결론**
-
-- **Realm 객체의 일관성 유지:**
-    - 기존 Realm 인스턴스에서 관리되는 객체를 사용하여 오류를 방지.
-- **데이터 무결성 확보:**
-    - Realm의 관리 범위 내에서 안전하게 객체를 삭제함으로써 데이터 무결성을 유지.
-- **최종 결과:**
-    - 문제가 해결되어, 사용자가 영양제 체크를 해제할 때 런타임 오류가 발생하지 않음.
+- 전체 View 리로드 없이 필요한 부분만 업데이트됨으로써 렌더링 성능 및 사용자 반응 속도 향상
+- 변경 사항이 즉시 UI에 반영되어 데이터 불일치 문제 예방
+- 자연스럽고 부드러운 화면 전환으로 사용자 경험(UX) 개선
 
 ---
 
