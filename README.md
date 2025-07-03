@@ -22,7 +22,7 @@
 5. [🛠️ 기술 스택](#tech-stack)
 6. [🚀 트러블 슈팅](#troubleshooting)
    - [iOS 로컬 알림 제한을 고려한 사전 시뮬레이션](#troubleshooting1)
-   - [EmbeddedObject 기반 영양제 수정 이력 트래킹 구조 설계](#troubleshooting2)
+   - [1:N 종속 관계 기반 영양제 수정 이력 트래킹 구조 설계](#troubleshooting2)
    - [DiffableDataSource를 활용한 입력 항목 설계](#troubleshooting3)
 7. [🗂️ 파일 디렉토리 구조](#file-structure)
 8. [🛣️ 향후 계획](#future-plans)
@@ -258,7 +258,7 @@ UI와 비즈니스 로직의 명확한 분리를 위해 **Custom Observable 기�
 - 사용자에게 문제 발생 가능성과 해결 방법을 명확히 안내, 사용자의 혼란 최소화
 - 플랫폼 제약을 고려한 설계를 통해 안정적인 알림 관리 구조 구현 및 유지보수 용이성 확보
 
-<h2 id="troubleshooting2">EmbeddedObject 기반 영양제 수정 이력 트래킹 구조 설계</h2>
+<h2 id="troubleshooting2">1:N 종속 관계 기반 영양제 수정 이력 트래킹 구조 설계</h2>
 
 ### **1. 문제 정의**
 
